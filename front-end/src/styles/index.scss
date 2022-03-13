@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #00d6c7;
+  --color-black-1: #070707;
+  --color-black-2: #181818;
+  --color-black-3: #353535;
+  --color-gray-1: #9b9b9b;
+  --color-white-1: rgba(255, 255, 255, 0.8);
+  --color-yellow-1: #a07936;
+  --color-yellow-2: #e2ba48;
+  --color-dark: rgba(0,0,0,.8);
+  --height: 100vh;
+}
