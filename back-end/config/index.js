@@ -1,5 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri = "mongodb+srv://khanh:khanh@cluster0.gsmj5.mongodb.net/db?retryWrites=true&w=majority"
+const uri = "mongodb+srv://khanh:khanh@cluster0.nhyli.mongodb.net/monastore?retryWrites=true&w=majority"
 
 const connect = async () => {
     try {

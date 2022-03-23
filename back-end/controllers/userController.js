@@ -17,8 +17,6 @@ class UserController {
         const user = await new userModel({
             username: req.body.username,
             password: req.body.password,
-            isTeacher: false,
-            isSelect: false
         })
 
         try {
