@@ -39,6 +39,30 @@ class UserController {
         }
     }
 
+    async changeRoleAdmin(req,res) {
+        try{
+            const _id = req.params.id;
+            const update = await userModel.findByIdAndUpdate(_id,{"isAdmin": true})
+            res.send(update)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+
+    async changeRoleCustomer(req,res) {
+        try{
+            const _id = req.params.id;
+            const update = await userModel.findByIdAndUpdate(_id,{"isAdmin": false})
+            res.send(update)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+
    
   
 }

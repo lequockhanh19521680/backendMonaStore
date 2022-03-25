@@ -6,7 +6,8 @@ const userController = require('../controllers/userController');
 router.get('/',userController.getAllUser)
 router.post('/',userController.addUser)
 
-
+router.patch('/changeAdmin/:id',userController.changeRoleAdmin)
+router.patch('/changeCustomer/:id',userController.changeRoleCustomer)
 
 
 module.exports = router
