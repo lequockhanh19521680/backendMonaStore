@@ -42,7 +42,7 @@ class UserController {
     async changeRoleAdmin(req,res) {
         try{
             const _id = req.params.id;
-            const update = await userModel.findByIdAndUpdate(_id,{"isAdmin": true})
+            const update = await userModel.findByIdAndUpdate(_id,{"role": 'ADMIN'})
             res.send(update)
         }
         catch(err)
@@ -54,7 +54,7 @@ class UserController {
     async changeRoleCustomer(req,res) {
         try{
             const _id = req.params.id;
-            const update = await userModel.findByIdAndUpdate(_id,{"isAdmin": false})
+            const update = await userModel.findByIdAndUpdate(_id,{"role": 'USER'})
             res.send(update)
         }
         catch(err)

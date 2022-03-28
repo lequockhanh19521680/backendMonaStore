@@ -12,10 +12,10 @@ const userSchema = new mongoose.Schema({
         required: true,
 
     },
-    isAdmin:{
-        type: Boolean,
-        require: true,
-        default: false,
+    role:{
+        type: String,
+        enum: ['USER','ADMIN'],
+        default: 'ADMIN',
     },
     createAt:{
         type:Date,

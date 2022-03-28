@@ -12,7 +12,7 @@ const newSchema = new mongoose.Schema({
 
     },
     image:{
-        type:Array,
+        type:[String],
     },
     createAt:{
         type: Date,
