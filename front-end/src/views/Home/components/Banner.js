@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function Banner() {
     return (
         <div className="w-full sm:h-[500px] h-[300px] bg-[url('/public/images/home/model1.png')] bg-cover bg-center  overflow-hidden px-5">
-            <Container className="h-full">
+            <Container className="h-full items-center">
                 <div className="lg:w-1/2 md:w-2/3 w-4/5">
                     <div className="mb-8">
                         <h1 className="text-yellow-1 opacity-80 sm:text-lg text-lg font-medium">

@@ -15,7 +15,7 @@ export default function Login() {
            <button className="w-full h-[50px] bg-black-1 hover:bg-black-2 text-white mt-8">Đăng nhập</button>
           </form>
           <div className="text-center text-white mt-5">
-            <Link to="/register" className="underline">Tạo tài khoản</Link>
+            <Link to="/dang-ki" className="underline">Tạo tài khoản</Link>
          </div>
         </div>
       </div>

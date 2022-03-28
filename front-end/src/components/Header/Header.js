@@ -1,38 +1,38 @@
 import React from 'react'
 import { FiMail, FiClock, FiPhone, FiSearch, FiUser} from "react-icons/fi";
 import Container from '../Container/Container';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import '../../styles/header.scss';
 export default function Header() {
 
   const menu = [
     {
       displayName: 'Trang chủ',
-      link: '/'
+      link: ''
     },
     {
-      displayName: 'Dây chuyền',
-      link: '/'
+      displayName: 'Danh mục',
+      link: 'danh-muc'
     },
     {
-      displayName: 'Bông tai',
-      link: '/'
+      displayName: 'Bộ sưu tập',
+      link: '/bo-suu-tap'
     },
     {
-      displayName: 'Lắc tay',
-      link: '/'
+      displayName: 'Best Seller',
+      link: '/ban-chay'
     },
     {
-      displayName: 'Nhẫn bạc',
-      link: '/'
+      displayName: 'Tin tức',
+      link: '/tin-tuc'
     },
     {
       displayName: 'Liên hệ',
-      link: '/'
+      link: '/lien-he'
     },
     {
       displayName: 'Giới thiệu',
-      link: '/'
+      link: '/gioi-thieu'
     },
   ]
   return (
@@ -60,13 +60,13 @@ export default function Header() {
             </div>
          </div>
 
-         <Link to="/login" className="text-white text-2xl cursor-pointer">
+         <Link to="/dang-nhap" className="text-white text-2xl cursor-pointer">
             <FiUser />
          </Link>
         </div>
       </div>
       <div className="w-full bg-black-2">
-        <Container className="justify-between py-5">
+        <Container className="justify-between items-center py-5">
           <Link to="/">
             <img src="/logo.png" alt="logo" className="w-56"/>
           </Link>
@@ -75,9 +75,15 @@ export default function Header() {
               menu.map((item,index) => {
                 return (
                   <li className="mr-4 text-md text-white-1 font-medium uppercase" key={index}>
-                    <Link to={item.link} className="transition-all duration-100 ease-linear rounded hover:px-3 hover:py-2 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
+                    <NavLink
+                   
+                     to={item.link}
+                      className={({ isActive }) =>
+                        isActive ? "rounded px-3 py-2 text-yellow-2 border border-dashed border-yellow-2" : "transition-all duration-100 ease-linear rounded hover:px-3 hover:py-2 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2"
+                      }
+                    >
                       {item.displayName}
-                    </Link>
+                    </NavLink>
                   </li>
                 )
               })

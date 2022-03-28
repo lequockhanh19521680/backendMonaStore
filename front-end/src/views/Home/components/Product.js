@@ -9,7 +9,7 @@ export default function Product() {
             <div className="mb-10">
                 <h1 className="uppercase text-4xl text-white text-center font-medium">Bộ sưu tập mới</h1>
             </div>
-            <Container className="flex-col">
+            <Container className="flex-col items-center">
                 <div className="flex sm:flex-row flex-col items-center w-full mb-10">
                     <div className="sm:w-1/4 w-full h-full text-center sm:mr-5 relative product-container group">
                         <Link to="/">   

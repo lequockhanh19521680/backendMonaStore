@@ -18,7 +18,7 @@ export default function Collect() {
     ]
     return (
         <div className="w-full bg-black-2 lg:py-20">
-            <Container className="sm:flex-row flex-col">
+            <Container className="sm:flex-row flex-col items-center">
                 {
                     collectList.map((collect, index) => {
                         return (
