@@ -5,7 +5,8 @@ import Product from './components/Product'
 import TopProduct from './components/TopProduct'
 import Banner from './components/Banner'
 import '../../styles/home.scss';
-export default function Home() {
+import withLayout from '../../hoc/withLayout'
+function Home() {
   return (
     <div className="w-screen overflow-hidden relative">
       <Banner />
@@ -16,3 +17,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default withLayout(Home)

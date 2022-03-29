@@ -1,7 +1,9 @@
 import React from 'react'
-
-export default function ProductDetail() {
+import withLayout from '../../hoc/withLayout'
+function ProductDetail() {
   return (
     <div>ProductDetail</div>
   )
 }
+
+export default withLayout(ProductDetail)

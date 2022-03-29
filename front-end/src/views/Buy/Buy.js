@@ -1,7 +1,8 @@
 import React from 'react'
 import Container from '../../components/Container/Container'
 import Price from '../../components/Price/Price'
-export default function Buy() {
+import withLayout from '../../hoc/withLayout'
+function Buy() {
   return (
     <Container className="py-20">
         <div className="border-2 border-yellow-1 p-5 w-2/5">
@@ -65,3 +66,5 @@ export default function Buy() {
     </Container>
   )
 }
+
+export default withLayout(Buy)

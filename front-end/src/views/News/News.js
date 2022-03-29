@@ -1,7 +1,9 @@
 import React from 'react'
-
-export default function News() {
+import withLayout from '../../hoc/withLayout'
+function News() {
   return (
     <div>News</div>
   )
 }
+
+export default withLayout(News)

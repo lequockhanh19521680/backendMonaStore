@@ -11,7 +11,6 @@ import ProductDetail from './views/ProductDetail/ProductDetail';
 function App() {
   return (
     <Router>
-      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/danh-muc" element={<Product />} />
@@ -20,8 +19,6 @@ function App() {
           <Route path="thanh-toan" element={<Buy />} />
           <Route path="san-pham/:id" element={<ProductDetail />} />
         </Routes>
-      </Layout>
-
       <Routes>
         <Route path="/dang-ki" element={<Register />} />
         <Route path="/dang-nhap" element={<Login />} />

@@ -3,8 +3,8 @@ import Container from '../../components/Container/Container'
 import { X, Tag, ArrowLeft } from 'react-feather'
 import Price from '../../components/Price/Price'
 import { Link } from 'react-router-dom'
-
-export default function Cart() {
+import withLayout from '../../hoc/withLayout'
+function Cart() {
 
     const [inputValue, setInputValue] = useState(1)
 
@@ -153,3 +153,5 @@ export default function Cart() {
         </Container>
     )
 }
+
+export default withLayout(Cart)

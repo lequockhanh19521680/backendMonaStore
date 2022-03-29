@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Pagination from '../../components/Pagination'
 import ProductCard from '../../components/Card/ProductCard'
 import Comment from '../../components/Comment'
-export default function Product() {
+import withLayout from '../../hoc/withLayout'
+function Product() {
 
   const category = [
     {
@@ -179,7 +180,9 @@ export default function Product() {
         </div>
       </div>
 
-      <Comment />
+      {/* <Comment /> */}
     </div>
   )
 }
+
+export default withLayout(Product)
