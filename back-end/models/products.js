@@ -11,20 +11,20 @@ const productSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    typeProduct:{
-        type:typeProductSchema,
+    typeProductId:{
+        type: mongoose.Schema.Types.ObjectId,
         require: true,
         ref: 'type'
     },
     price:
     {
-        type: Int32Array,
+        type: Number,
         require: true,
         default: '0'
     },
     priceSale:
     {
-        type: Int32Array,
+        type: Number,
         require: true,
         default: '0'
     },
