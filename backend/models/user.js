@@ -2,20 +2,28 @@
 const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const userSchema = new mongoose.Schema({
-    username:{
+    email:{
+        type: String,
+        require: true,
+        unique: true,
+    },
+    nameAccount:{
         type: String,
         required: true,
-        unique: true,
     },
     password:{
         type: String,
         required: true,
-
     },
-    isAdmin:{
-        type: Boolean,
+    phone:{
+        type: String,
         require: true,
-        default: false,
+    },
+    role:{
+        type: String,
+        require: true,
+        enum:['ADMIN','CUSTOMER'],
+        default: 'CUSTOMER',
     },
     createAt:{
         type:Date,

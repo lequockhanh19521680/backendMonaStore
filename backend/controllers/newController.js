@@ -16,8 +16,8 @@ class NewController {
     // Ham them user vao database, trong do chi can them username vs password la dc, isTeacher va isSelect tu dong la false
     async addNew(req, res) {
         const news = await new newSchema({
-            username: req.body.title,
-            password: req.body.content,
+            title: req.body.title,
+            content: req.body.content,
             image: req.body.image,
         })
         try {
