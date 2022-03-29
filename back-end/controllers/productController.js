@@ -1,12 +1,34 @@
 const productSchema = require('../models/products')
+const typeProductSchema = require('../models/typeProducts')
 
 class ProductController {
+
+
+    async getTypeByIdTypeProduct(req,res,next){
+        const _id = req.params.id;
+        const findProduct = await typeProductSchema.find({"typeId": _id })
+        res.send(findProduct)
+    }
+
 
 
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
         try {
-            const products = await productSchema.find()
+            const product = await productSchema.find()
+            res.send(product)
+        }
+        catch (err) {
+            res.send({ message: err.message })
+        }
+    }
+
+
+    //sort get
+
+    async getAllProductSortCreateAtIncrease(req, res, next) {
+        try {
+            const products = await productSchema.find().sort({createAt:1})
             res.send(products)
         }
         catch (err) {
@@ -14,6 +36,37 @@ class ProductController {
         }
     }
 
+
+
+    async getAllProductSortCreateAtDecrease(req, res, next) {
+        try {
+            const products = await productSchema.find().sort({createAt:-1})
+            res.send(products)
+        }
+        catch (err) {
+            res.send({ message: err.message })
+        }
+    }
+
+    async getAllProductSortPriceDecrease(req, res, next) {
+        try {
+            const products = await productSchema.find().sort({price:-1})
+            res.send(products)
+        }
+        catch (err) {
+            res.send({ message: err.message })
+        }
+    }
+
+    async getAllProductSortPriceIncrease(req, res, next) {
+        try {
+            const products = await productSchema.find().sort({price:1})
+            res.send(products)
+        }
+        catch (err) {
+            res.send({ message: err.message })
+        }
+    }
 
     async addProduct(req, res) {
         const products = await new productSchema({
@@ -31,9 +84,6 @@ class ProductController {
             res.send('Error' + err)
         }
     }
-
-   
-  
 }
 
 module.exports = new ProductController

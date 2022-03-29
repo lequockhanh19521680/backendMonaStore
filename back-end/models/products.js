@@ -1,20 +1,16 @@
 const mongoose = require('mongoose')
-const {typeProductSchema} = require('./typeProducts')
+const typeProductSchema = require('./typeProducts')
 
 const productSchema = new mongoose.Schema({
-    productId:
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'product'
-    },
     nameProduct:{
         type: String,
         require: true,
     },
     typeProductId:{
         type: mongoose.Schema.Types.ObjectId,
+        enum:['6242a20768f1c571729c5e9c','6242a21d68f1c571729c5ea1','6242a23f68f1c571729c5ea3','6242a24e68f1c571729c5ea5'],
         require: true,
-        ref: 'type'
+        ref:'type'
     },
     price:
     {
@@ -26,6 +22,8 @@ const productSchema = new mongoose.Schema({
     {
         type: Number,
         require: true,
+        min: '0',
+        max: '100',
         default: '0'
     },
     image:

@@ -1,7 +1,7 @@
 const newSchema = require('../models/new')
 
 class NewController {
-
+    
 
     //Ham lay du lieu tu database
     async getAllNew(req, res, next) {
