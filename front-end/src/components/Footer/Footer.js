@@ -79,10 +79,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      
-      </div>
-      <div className="w-full bg-black-1 text-center py-4">
-        <p className="text-white-1 text-md opacity-50">Bản quyền thuộc về MonaStore</p>
       </div>
     </div>
   )

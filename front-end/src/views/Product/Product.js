@@ -5,7 +5,7 @@ import Pagination from '../../components/Pagination'
 import ProductCard from '../../components/Card/ProductCard'
 import Comment from '../../components/Comment'
 import withLayout from '../../hoc/withLayout'
-function Product() {
+export default function Product() {
 
   const category = [
     {
@@ -35,7 +35,7 @@ function Product() {
     <div className="max-w-screen-xl w-full mx-auto py-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center text-xl">
-          <Link to="/" className="opacity-50">TRANG CHỦ</Link>
+          <Link to="/" className="opacity-50 hover:opacity-100">TRANG CHỦ</Link>
           <span className="mx-3">/</span>
           <p className="text-black font-medium">CỬA HÀNG</p>
         </div>
@@ -184,5 +184,3 @@ function Product() {
     </div>
   )
 }
-
-export default withLayout(Product)

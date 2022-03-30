@@ -76,7 +76,6 @@ export default function Header() {
                 return (
                   <li className="mr-4 text-md text-white-1 font-medium uppercase" key={index}>
                     <NavLink
-                   
                      to={item.link}
                       className={({ isActive }) =>
                         isActive ? "rounded px-3 py-2 text-yellow-2 border border-dashed border-yellow-2" : "transition-all duration-100 ease-linear rounded hover:px-3 hover:py-2 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2"

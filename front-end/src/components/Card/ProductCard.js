@@ -1,11 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import '../../styles/cardProduct.scss'
-
-export default function ProductCard() {
+import { ADD_ITEM_TO_JUST_VIEW } from '../../utils/storage'
+export default function ProductCard({ product }) {
     return (
-        <div className="w-full h-[350px] flex flex-col text-center bg-white cardContainer">
-            <Link to="" className="h-[270px] relative group">
+        <div
+         className="w-full h-[350px] flex flex-col text-center bg-white product-card-container"
+         onClick={() => {
+             ADD_ITEM_TO_JUST_VIEW.set("abc")
+         }}
+         >
+            <Link to="/" className="h-[270px] relative group">
                 <img src="/images/home/product10.jpg" alt="product" className="w-full h-full absolute top-0 group-hover:opacity-0 opacity-100 transition-opacity duration-1000 ease-linear" />
                 <img src="/images/home/product11.jpg" alt="product" className="w-full h-full absolute top-0 opacity-0 transition-opacity duration-1000 ease-linear group-hover:opacity-100" />
             </Link>
