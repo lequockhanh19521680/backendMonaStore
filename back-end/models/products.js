@@ -15,16 +15,21 @@ const productSchema = new mongoose.Schema({
     price:
     {
         type: Number,
-        require: true,
+        default: '0'
+    },
+    sale:
+    {
+        type: Number,
+        min: '0',
+        max: '100',
         default: '0'
     },
     priceSale:
     {
-        type: Number,
-        require: true,
-        min: '0',
-        max: '100',
-        default: '0'
+        type:Number,
+        default: function(){
+            return this.price * (1- this.sale/100)
+        }
     },
     image:
     {

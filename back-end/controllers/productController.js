@@ -73,7 +73,7 @@ class ProductController {
             nameProduct: req.body.nameProduct,
             typeProductId: req.body.typeProductId,
             price: req.body.price,
-            priceSale: req.body.priceSale,
+            sale: req.body.sale,
             image: req.body.image,
             description: req.body.description,
         })
