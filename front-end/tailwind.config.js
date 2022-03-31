@@ -20,6 +20,7 @@ module.exports = {
       'white-1': 'var(--color-white-1)',
       gray: colors.trueGray,
       'gray-1': 'var(--color-gray-1)',
+      'gray-2': 'var(--color-gray-2)',
       indigo: colors.indigo,
       red: colors.red,
       rose: colors.rose,

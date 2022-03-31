@@ -3,7 +3,6 @@ import Container from '../../components/Container/Container'
 import { X, Tag, ArrowLeft } from 'react-feather'
 import Price from '../../components/Price/Price'
 import { Link } from 'react-router-dom'
-import withLayout from '../../hoc/withLayout'
 export default function Cart() {
 
     const [inputValue, setInputValue] = useState(1)

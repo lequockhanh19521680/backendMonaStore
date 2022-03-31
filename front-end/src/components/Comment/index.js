@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import UserComment from './components/UserComment'
 import UserQuestion from './components/UserQuestion'
 import classnames from 'classnames'
-
+import Star from '../../components/Star/Star'
 export default function Comment() {
 
   const [tab, setTab] = useState(1)
@@ -14,18 +14,17 @@ export default function Comment() {
     <div>
 
       <div className="py-4 border-b borer-gray-300 mt-10">
-        <h1 className="text-2xl font-medium text-center">Why people love us</h1>
+        <h1 className="text-2xl font-medium text-center">Customer Reviews</h1>
       </div>
 
       <div className="flex justify-between py-5 mb-5 items-start">
         <div className="flex">
           <div className="flex items-center border-r border-gray-300 pr-5">
             <div className="flex mr-2">
-              <i className='bx bxs-star text-red-500 text-2xl' ></i>
-              <i className='bx bxs-star text-red-500 text-2xl' ></i>
-              <i className='bx bxs-star text-red-500 text-2xl' ></i>
-              <i className='bx bxs-star text-red-500 text-2xl' ></i>
-              <i className='bx bxs-star text-red-500 text-2xl' ></i>
+              <Star
+                numberStar = {5}
+                size="2xl"
+              />
             </div>
             <span className="opacity-70 text-md">15 Reviews</span>
           </div>
@@ -33,11 +32,20 @@ export default function Comment() {
           <div className="pl-5">
             <div className="flex items-center">
               <div className="flex items-center">
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
+                <Star
+                  numberStar={5}
+                />
+              </div>
+              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <div>
+
+              </div>
+            </div>
+            <div className="flex items-center">
+              <div className="flex items-center">
+                <Star
+                  numberStar={4}
+                />
               </div>
 
               <span className="text-sm-md text-yellow-2 px-2">(15)</span>
@@ -48,11 +56,9 @@ export default function Comment() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center">
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
+                <Star
+                  numberStar={3}
+                />
               </div>
 
               <span className="text-sm-md text-yellow-2 px-2">(15)</span>
@@ -63,11 +69,9 @@ export default function Comment() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center">
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
+                <Star
+                  numberStar={2}
+                />
               </div>
 
               <span className="text-sm-md text-yellow-2 px-2">(15)</span>
@@ -78,26 +82,9 @@ export default function Comment() {
             </div>
             <div className="flex items-center">
               <div className="flex items-center">
-                <i className='bx bxs-star text-red-500' ></i>
-                <i className='bx bxs-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-              </div>
-
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
-
-              <div>
-
-              </div>
-            </div>
-            <div className="flex items-center">
-              <div className="flex items-center">
-                <i className='bx bxs-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
-                <i class='bx bx-star text-red-500' ></i>
+                <Star
+                  numberStar={1}
+                />
               </div>
 
               <span className="text-sm-md text-yellow-2 px-2">(15)</span>

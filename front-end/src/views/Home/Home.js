@@ -5,7 +5,6 @@ import Product from './components/Product'
 import TopProduct from './components/TopProduct'
 import Banner from './components/Banner'
 import '../../styles/home.scss';
-import withLayout from '../../hoc/withLayout'
 import { useFetchProducts, useProducts } from '../../store/product/hook'
 export default function Home() {
   //useFetchProducts()

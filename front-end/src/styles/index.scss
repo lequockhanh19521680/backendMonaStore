@@ -8,6 +8,7 @@
   --color-black-2: #181818;
   --color-black-3: #353535;
   --color-gray-1: #9b9b9b;
+  --color-gray-2: #fafafa;
   --color-white-1: rgba(255, 255, 255, 0.8);
   --color-yellow-1: #a07936;
   --color-yellow-2: #e2ba48;
@@ -18,4 +19,8 @@
 
 .border-circle {
   border-radius: 50%
+}
+
+* {
+  font-family: baskerville;
 }
