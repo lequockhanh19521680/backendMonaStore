@@ -46,8 +46,17 @@ const productSchema = new mongoose.Schema({
         type: Date,
         require: true,
         default: Date.now,
+    },
+    detail:{
+        metal:{
+            type:String,
+            default:'',
+        },
+        size:{
+            type:String,
+            default:'',
+        }
     }
-
 
 })
 

@@ -76,6 +76,8 @@ class ProductController {
             sale: req.body.sale,
             image: req.body.image,
             description: req.body.description,
+            metal: req.body.metal,
+            size: req.body.size,
         })
         try {
             const temp = await products.save()
@@ -83,6 +85,27 @@ class ProductController {
         } catch (err) {
             res.send('Error' + err)
         }
+    }
+
+    async setProduct(req,res){
+        const field = req.query;
+        const value = req.query;
+        const set = `${field} : ${value}`
+        try{
+            const _id = req.params.id;
+            const updateField = await productSchema.findByIdAndUpdate(_id,set )
+            res.send(updateField)
+            console.log(set)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+    async findProductFromId(req,res){
+        const _id = req.params.id
+        const product = await productSchema.findById(_id)
+        res.send(product)
     }
 }
 
