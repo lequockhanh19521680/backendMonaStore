@@ -21,6 +21,7 @@ module.exports = {
       gray: colors.trueGray,
       'gray-1': 'var(--color-gray-1)',
       'gray-2': 'var(--color-gray-2)',
+      'gray-3': 'var(--color-gray-3)',
       indigo: colors.indigo,
       red: colors.red,
       rose: colors.rose,
@@ -30,7 +31,13 @@ module.exports = {
       green: colors.green,
       blue: colors.blue,
       teal: colors.teal,
-      'dark': 'var(--color-dark)'
+      'dark': 'var(--color-dark)',
+      'dark-1': 'var(--color-dark-1)',
+      'dark-2': 'var(--color-dark-2)',
+      'green-1': 'var(--color-green-1)',
+      'green-2': 'var(--color-green-2)',
+      'blue-1': 'var(--color-blue-1)',
+      'orange-1': 'var(--color-orange-1)',
     },
     fontSize: {
       '2xs': '8px',
@@ -109,7 +116,7 @@ module.exports = {
         '3xs': '14rem',
         '2xs': '16rem',
         'screen-xl': '1170px',
-        'screen-2xl': '1440px',
+        'screen-2xl': '1280px',
       },
       minWidth: {
         12: '3rem',
