@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
+import Table from './../../../components/Table/Table';
 
 export default function Coupons() {
     const [inputValue, setInputValue] = useState()
@@ -9,9 +10,47 @@ export default function Coupons() {
         setInputValue(e.target.value)
     }
 
+    const columnsTable = [
+        {
+            Header: 'ID',
+            accessor: 'id',
+        },
+        {
+            Header: 'START DATE',
+            accessor: 'start',
+        },
+        {
+            Header: 'END DATE',
+            accessor: 'end',
+        },
+        {
+            Header: 'NAME',
+            accessor: 'name',
+        },
+        {
+            Header: 'CODE',
+            accessor: 'code',
+        },
+        {
+            Header: 'PERCENTAGE',
+            accessor: 'percentage'
+        },
+        {
+            Header: 'PRODUCT TYPE',
+            accessor: 'product-type',
+        },
+        {
+            Header: 'STATUS',
+            accessor: 'status',
+        },
+        {
+            Header: 'ACTIONS',
+            accessor: 'action',
+        },
+    ]
 
   return (
-      <AdminContainer>
+      <AdminContainer className="overflow-hidden h-screen">
           <p className="text-lg font-medium mb-6">
               Coupons
           </p>
@@ -32,6 +71,10 @@ export default function Coupons() {
                   </div>
               </button>
           </form>
+
+          <div className="">
+
+          </div>
       </AdminContainer>
   )
 }

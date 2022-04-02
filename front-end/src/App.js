@@ -39,9 +39,9 @@ const LoginLayout = () => {
 
 const AdminLayout = () => {
   return (
-    <div className="h-screen">
+    <div>
       <AdminHeader /> 
-      <div className="flex h-full">
+      <div className="flex">
         <AdminLeftMenu />
         <Outlet />
       </div>

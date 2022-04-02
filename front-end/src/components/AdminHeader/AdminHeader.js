@@ -1,5 +1,6 @@
 import React from 'react'
 import { FiBell } from "react-icons/fi";
+
 export default function AdminHeader() {
   return (
     <div className="w-full flex justify-between bg-dark-1 pl-5 pr-56 py-3 sticky top-0">
