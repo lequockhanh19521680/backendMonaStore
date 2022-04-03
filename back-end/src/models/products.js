@@ -59,7 +59,11 @@ const productSchema = new mongoose.Schema({
     size:{
         type:String,
         default:'',
-    }
+    },
+    isPublished:{
+        type: Boolean,
+        default: false,
+    },
     })
 
 module.exports = mongoose.model('Product',productSchema);

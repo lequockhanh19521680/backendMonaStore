@@ -1,3 +1,4 @@
+const { query } = require('express');
 const productSchema = require('../models/products')
 const typeProductSchema = require('../models/typeProducts')
 
@@ -25,7 +26,7 @@ class ProductController {
 
 
     //sort get
-
+    /*
     async getAllProductSortCreateAtIncrease(req, res, next) {
         try {
             const products = await productSchema.find().sort({createAt:1})
@@ -67,6 +68,25 @@ class ProductController {
             res.send({ message: err.message })
         }
     }
+    */
+    async sortProduct(req,res){
+        const name = req.query.name
+        const desc = req.query.desc
+        try{
+            const products = await productSchema.find().sort({name:desc})
+            res.send(products)
+            console.log(name)
+            console.log(desc)
+     
+        }
+        catch(err){
+       
+            console.log($name)
+            console.log(err)
+        }
+    }
+
+
 
     async addProduct(req, res) {
         const products = await new productSchema({
