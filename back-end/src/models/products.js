@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 const typeProductSchema = require('./typeProducts')
 
 const productSchema = new mongoose.Schema({
+    productId:{
+        type: mongoose.Schema.Types.ObjectId,
+        require: true,
+        ref:'product'
+    },
     nameProduct:{
         type: String,
         require: true,
@@ -15,14 +20,14 @@ const productSchema = new mongoose.Schema({
     price:
     {
         type: Number,
-        default: '0'
+        default: 0
     },
     sale:
     {
         type: Number,
-        min: '0',
-        max: '100',
-        default: '0'
+        min: 1,
+        max: 100,
+        default: 0
     },
     priceSale:
     {
@@ -47,17 +52,14 @@ const productSchema = new mongoose.Schema({
         require: true,
         default: Date.now,
     },
-    detail:{
-        metal:{
-            type:String,
-            default:'',
-        },
-        size:{
-            type:String,
-            default:'',
-        }
+    metal:{
+        type:String,
+        default:''
+    },
+    size:{
+        type:String,
+        default:'',
     }
-
-})
+    })
 
 module.exports = mongoose.model('Product',productSchema);

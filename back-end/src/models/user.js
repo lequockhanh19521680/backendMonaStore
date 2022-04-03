@@ -2,6 +2,9 @@
 const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const userSchema = new mongoose.Schema({
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+    },
     email:{
         type: String,
         require: true,
@@ -22,8 +25,11 @@ const userSchema = new mongoose.Schema({
     role:{
         type: String,
         require: true,
-        enum:['ADMIN','CUSTOMER'],
+        enum:['ADMIN','SELLER','CEO','MANAGER','ACCOUNT','DELIVERY','CUSTOMER'],
         default: 'CUSTOMER',
+    },
+    cart:{
+        Type: [mongoose.Schema.Types.ObjectId],
     },
     createAt:{
         type:Date,
