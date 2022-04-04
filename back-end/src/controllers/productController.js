@@ -73,15 +73,15 @@ class ProductController {
         const name = req.query.name
         const desc = req.query.desc
         try{
-            const products = await productSchema.find().sort({name:desc})
+            const sortObject = {}
+            sortObject[name] = desc
+
+            const products = await productSchema.find().sort(sortObject)
+          
+            console.log(sortObject)
             res.send(products)
-            console.log(name)
-            console.log(desc)
-     
         }
         catch(err){
-       
-            console.log($name)
             console.log(err)
         }
     }
