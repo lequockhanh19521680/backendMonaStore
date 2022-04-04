@@ -1,10 +1,10 @@
 import axiosClient from './axiosClient'
 
-const userApi = {
-    getUser: () => {
+const couponsApi = {
+    getListCoupons: () => {
         const url = ""
         return axiosClient.get(url)
-    },
+    }
 }
 
-export default userApi
+export default couponsApi

@@ -5,7 +5,7 @@ export default function Dropdown({ title, listDropdown, className }) {
     const [titleState, setTitleState] = useState(title)
     const [isShow, setIsShow] = useState(false)
     return (
-        <div className={classnames("w-full text-md relative", className)}>
+        <div className={classnames("w-full text-md relative z-10", className)}>
             <button
                 className="px-2 py-3 rounded-lg bg-gray-3 border border-white w-full flex items-center justify-between opacity-80 h-10"
                 onClick={() => setIsShow(!isShow)}
@@ -23,10 +23,10 @@ export default function Dropdown({ title, listDropdown, className }) {
                                 listDropdown.map((item, index) => {
                                     return (
                                         <li key={index} className="py-1 hover:bg-blue-1 px-2" onClick={() => {
-                                            setTitleState(item.label)
+                                            setTitleState(item)
                                             setIsShow(false)
                                         }}>
-                                            {item.label}
+                                            {item}
                                         </li>
                                     )
                                 })

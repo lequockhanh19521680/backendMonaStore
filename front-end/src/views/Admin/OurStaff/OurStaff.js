@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
-
+import Table from '../../../components/Table/Table'
+import ActionGroup from '../../../components/ActionGroup/ActionGroup'
 export default function OurStaff() {
     const [inputValue, setInputValue] = useState()
 
@@ -11,30 +12,58 @@ export default function OurStaff() {
     }
 
     const listRole = [
+        'Admin',
+        'CEO',
+        'Manager',
+        'Accountant',
+        'Delivery Person',
+    ]
+
+    const columnsTable = [
         {
-            label: 'Admin',
-            value: '',
+            Header: 'ID',
+            accessor: 'id',
         },
         {
-            label: 'CEO',
-            value: '',
+            Header: 'NAME',
+            accessor: 'name',
         },
         {
-            label: 'Manager',
-            value: '',
+            Header: 'EMAIL',
+            accessor: 'email',
         },
         {
-            label: 'Accountant',
-            value: '',
+            Header: 'CONTACT',
+            accessor: 'contact',
         },
         {
-            label: 'Delivery Person',
-            value: '',
+            Header: 'JOINING DATE',
+            accessor: 'join-date',
+        },
+        {
+            Header: 'ROLE',
+            accessor: 'role'
+        },
+        {
+            Header: 'ACTIONS',
+            accessor: 'actions',
         },
     ]
 
+    const data = [
+        {
+            id: '1',
+            name: '1',
+            email: '@',
+            contact: '19191',
+            'join-date': '18/11/2000',
+            role: 'admin',
+            actions: <ActionGroup showEye={false} />
+        }
+    ]
+
     return (
-        <AdminContainer>
+        <AdminContainer className="h-screen">
             <p className="text-lg font-medium mb-6">
                 All Staff
             </p>
@@ -62,6 +91,11 @@ export default function OurStaff() {
                     </div>
                 </button>
             </div>
+
+            <Table
+                columnsTable={columnsTable}
+                data={data}
+            />
         </AdminContainer>
     )
 }

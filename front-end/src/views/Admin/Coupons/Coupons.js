@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Table from './../../../components/Table/Table';
-
+import ActionGroup from './../../../components/ActionGroup/ActionGroup';
+import Badge from '../../../components/Badge/Badge'
 export default function Coupons() {
     const [inputValue, setInputValue] = useState()
 
@@ -49,6 +50,20 @@ export default function Coupons() {
         },
     ]
 
+    const data = [
+        {
+            id: '1',
+            start: '2',
+            end: '3',
+            name: 'abc',
+            code: '17',
+            percentage: '20',
+            'product-type': 'day chuyen',
+            status: <Badge className="bg-red-500 text-sm-md px-2 font-medium">Expired</Badge>,
+            action: <ActionGroup />
+        }
+    ]
+
   return (
       <AdminContainer className="overflow-hidden h-screen">
           <p className="text-lg font-medium mb-6">
@@ -72,9 +87,10 @@ export default function Coupons() {
               </button>
           </form>
 
-          <div className="">
-
-          </div>
+          <Table 
+              columnsTable={columnsTable}
+              data={data}
+          />
       </AdminContainer>
   )
 }

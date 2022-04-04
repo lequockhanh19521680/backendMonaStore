@@ -3,6 +3,7 @@ import productApi from '../../api/productApi'
 
 const initialState = {
     products: undefined,
+    product: undefined,
 }
 
 const productSlice = createSlice({
@@ -11,6 +12,9 @@ const productSlice = createSlice({
     reducers: {
         setProducts: (state, action) => {
             state.products = action.payload
+        },
+        setProduct: (state,action) => {
+            state.product = action.payload
         }
     }
 })
@@ -25,7 +29,8 @@ export const fetchProducts = () => async (dispatch) => {
 }
 
 export const {
-    setProducts
+    setProducts,
+    setProduct
 } = productSlice.actions
 
 export default productSlice.reducer
