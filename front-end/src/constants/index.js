@@ -1,21 +1,16 @@
 
 export const PRODUCT_STATUS = {
-    delivered: {
-        label: 'Delivered',
-        color: '#03543f',
-    },
-    pending: {
-        label: 'Pending',
-        color: '#9f580a',
-    },
-    processing: {
-        label: 'Processing',
-        color: '#1e429f'
-    },
-    canceL: {
-        label: 'Cancel',
-        color: '#9b1c1c'
-    }
+    delivered: 'Delivered',
+    pending: 'Pending',
+    processing: 'Processing',
+    cancel:'Cancel',
+}
+
+export const PRODUCT_STATUS_COLOR = {
+    delivered: '#03543f',
+    pending: '#9f580a',
+    processing:'#1e429f',
+    cancel: '#9b1c1c',
 }
 
 export const COUPON_STATUS = {

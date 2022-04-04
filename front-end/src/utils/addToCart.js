@@ -1,9 +1,10 @@
 import React from 'react'
+import productApi from '../api/productApi'
 
-export default function addToCart() {
-  return (
-    <div>
-        
-    </div>
-  )
+const addToCart = async (productId) => {
+  try {
+    await productApi.addToCart(productId)
+  } catch (error) { console.log(error)}
 }
+
+export default addToCart

@@ -41,7 +41,7 @@ export default function Table({ data, columnsTable}) {
     });
 
     return (
-        <table className="w-full bg-dark-1 border border-gray-700 text-sm-md opacity-50" {...getTableProps()}>
+        <table className="w-full bg-dark-1 border border-gray-700 text-sm-md" {...getTableProps()}>
             <thead className="border-b border-gray-700 text-left">
                 {headerGroups.map((headerGroup, i) => (
                     <tr {...headerGroup.getHeaderGroupProps()} key={i} className="">

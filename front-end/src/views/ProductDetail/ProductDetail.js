@@ -6,7 +6,7 @@ import Comment from '../../components/Comment'
 import ProductCardV2 from '../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import productApi from './../../api/productApi';
 export default function ProductDetail() {
 
   const [tab, setTab] = useState(1)
@@ -66,6 +66,18 @@ export default function ProductDetail() {
       partialVisibilityGutter: 16,
     }
   };
+  const dataPost = {
+    id: '1',
+    name: 'bao',
+    age: '19'
+  }
+
+
+  const handlePost = (dataPost) => async () => {
+    try {
+     await productApi.postProduct(dataPost)
+    } catch(error) {console.log(error)}
+  }
 
   return (
 
@@ -219,6 +231,11 @@ export default function ProductDetail() {
 
         </Carousel>
       </div>
+        
+
+      <button onClick={() => handlePost(dataPost)}>
+            ajdasdd
+      </button>
 
       <Comment />
     </div>

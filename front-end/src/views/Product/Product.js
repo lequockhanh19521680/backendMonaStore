@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 
 import Pagination from '../../components/Pagination'
 import ProductCard from '../../components/Card/ProductCard'
-
+import { useFetchProducts, useProducts } from '../../store/product/hook'
 export default function Product() {
-
+  useFetchProducts()
+  const products = useProducts()
+  console.log(products)
   const category = [
     {
       name: 'Bông tai',

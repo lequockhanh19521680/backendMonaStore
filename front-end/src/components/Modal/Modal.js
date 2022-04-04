@@ -27,7 +27,7 @@ export default function Modal({ open, onClose, children, size, className }) {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+                        <Dialog.Overlay className="fixed inset-0 bg-[#09090b] bg-opacity-75 transition-opacity" />
                     </Transition.Child>
 
                     {/* This element is to trick the browser into centering the modal contents. */}
@@ -50,7 +50,7 @@ export default function Modal({ open, onClose, children, size, className }) {
                                 className,
                             )}
                         >
-                            <div className="p-4">{children}</div>
+                            <div className="p-4 bg-dark-1">{children}</div>
                         </div>
                     </Transition.Child>
                 </div>

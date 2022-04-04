@@ -5,11 +5,8 @@ import Product from './components/Product'
 import TopProduct from './components/TopProduct'
 import Banner from './components/Banner'
 import '../../styles/home.scss';
-import { useFetchProducts, useProducts } from '../../store/product/hook'
+
 export default function Home() {
-  //useFetchProducts()
-  //const products = useProducts() 
-  //console.log(products)
   return (
     <div className="w-screen overflow-hidden relative">
       <Banner />

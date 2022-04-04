@@ -1,10 +1,8 @@
 import axiosClient from './axiosClient'
 
-const userApi = {
-    getUser: () => {
+const newsApi = {
+    getListNews: () => {
         const url = ""
         return axiosClient.get(url)
-    },
+    }
 }
-
-export default userApi

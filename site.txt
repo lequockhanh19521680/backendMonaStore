@@ -1,2 +1,0 @@
-http://mauweb.monamedia.net/karojewelry/?fbclid=IwAR3CcBdFwkjFXsl8WNJZ3L1KxDd3iAEKefd5ixfHZI_Y7lsHKLI4mdnvm_Q
-mongodb+srv://khanh:khanh@cluster0.nhyli.mongodb.net/monastore?retryWrites=true&w=majority

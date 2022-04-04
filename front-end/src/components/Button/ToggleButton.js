@@ -17,7 +17,7 @@ export default function ToggleButton({ handleRight, handleLeft, isChecked }) {
           onClick={handleClickButton}
           className="text-3xl"
     >
-          {isRight ? <i className='bx bxs-toggle-right text-green-1' ></i> : <i className='bx bxs-toggle-left text-orange-1' ></i>}
+      {isRight ? <i className='bx bx-toggle-right text-green-1' ></i> : <i className='bx bx-toggle-left text-orange-1' ></i>}
     </button>   
   )
 }
