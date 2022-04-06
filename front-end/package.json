@@ -24,6 +24,7 @@
     "react-scripts": "5.0.0",
     "react-table": "^7.7.0",
     "sass": "^1.49.8",
+    "shortid": "^2.2.16",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

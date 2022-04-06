@@ -7,6 +7,7 @@ import ProductCardV2 from '../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import productApi from './../../api/productApi';
+
 export default function ProductDetail() {
 
   const [tab, setTab] = useState(1)
@@ -107,11 +108,11 @@ export default function ProductDetail() {
             className="text-lg mb-5"
           />
 
-          <a href="des-detail" className="text-primary underline">
+          <a href="#des-detail" className="text-primary underline">
             Description & Details
           </a>
 
-          <div className="flex items-center">
+          <div className="flex items-center mt-10">
             <button className="bg-primary text-white font-medium text-lg py-2 px-5 opacity-80 hover:opacity-100">
                 Thêm vào giỏ hàng
             </button>
@@ -119,7 +120,7 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      <div className="w-full bg-gray-2 p-10 mt-20">
+      <div className="w-full bg-gray-2 p-10 mt-20" id="des-detail">
         <div className="flex items-center mb-4">
           <div
             className={classnames("uppercase text-black mr-4 px-2 pb-1 cursor-pointer", { "border-b-4 border-primary": tab === 1 })}

@@ -57,7 +57,7 @@ export default function Dashboard() {
         Dashboard Overview
       </p>
 
-      <div className="grid grid-cols-3 gap-x-5">
+      <div className="grid sm:grid-cols-3 grid-cols-1 sm:gap-y-0 gap-y-5 gap-x-5">
         <div className="bg-green-2 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-layer text-4xl'></i>
           <p className="text-lg mt-1">Total Order</p>
@@ -75,7 +75,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-x-5 my-8">
+      <div className="grid xl:grid-cols-4 grid-cols-2 xl:gap-y-0 gap-y-5 gap-x-5 my-8">
         <div className="px-5 rounded-lg bg-dark-1 py-5 flex items-center">
           <div className="w-12 h-12 rounded-full bg-orange-1 flex items-center justify-center text-2xl mr-4">
             <i className='bx bx-cart'></i>
@@ -133,7 +133,7 @@ export default function Dashboard() {
 
       </div>
 
-      <div className="grid grid-cols-2 my-8 gap-x-5">
+      <div className="grid xl:grid-cols-2 xl:gap-y-0 gap-y-5 my-8 gap-x-5">
         <div className="p-4 rounded-lg shadow-xs bg-dark-1">
           <p className="opacity-80 font-medium text-lg mb-5">Conversions This Year</p>
           <div className="h-[400px] flex flex-cols items-end">

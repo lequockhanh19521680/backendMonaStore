@@ -68,7 +68,7 @@ export default function OurStaff() {
                 All Staff
             </p>
 
-            <div className="p-5 w-full rounded-lg bg-dark-1 flex items-center">
+            <div className="p-5 w-full rounded-lg bg-dark-1 flex items-center mb-5">
                 <div className="grid grid-cols-2 w-4/5 mr-5 gap-x-5">
                     <Input
                         className="border border-gray-400 rounded-lg text-md text-white"

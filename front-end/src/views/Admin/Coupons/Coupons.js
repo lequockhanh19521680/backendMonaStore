@@ -70,7 +70,7 @@ export default function Coupons() {
               Coupons
           </p>
 
-          <form className="p-5 w-full rounded-lg bg-dark-1 flex items-center">
+          <form className="p-5 w-full rounded-lg bg-dark-1 flex items-center mb-5">
               <Input
                   className="border border-gray-400 rounded-lg text-md text-white h-[42px] mr-5"
                   onChange={handleChangeInput}

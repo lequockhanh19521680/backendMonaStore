@@ -4,36 +4,10 @@ import { useTable } from 'react-table';
 export default function Table({ data, columnsTable}) {
 
     const columns = useMemo(
-        // () => [
-        //     {
-        //         Header: 'Pair',
-        //         accessor: 'pair',
-        //     },
-        //     {
-        //         Header: 'Last Price',
-        //         accessor: 'price',
-        //     },
-        //     {
-        //         Header: 'Change',
-        //         accessor: 'change',
-        //     },
-        //     {
-        //         Header: 'Favorite',
-        //         accessor: 'favorite',
-        //     },
-        // ],
+
         () => columnsTable,
         [],
     );
-
-    // const data = [
-    //     {
-    //         pair: '1',
-    //         price: '2',
-    //         change: '2',
-    //         favorite: '1',
-    //     }
-    // ]
 
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
         columns,
