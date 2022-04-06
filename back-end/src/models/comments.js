@@ -2,11 +2,11 @@ const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const commentSchema = new mongoose.Schema({
     productId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref:'product'
     },
     userId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref:'user'
     },
     content:{

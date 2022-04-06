@@ -7,8 +7,23 @@ class ProductController {
 
     async getTypeByIdTypeProduct(req,res,next){
         const _id = req.params.id;
-        const findProduct = await typeProductSchema.find({"typeId": _id })
+        try{
+        const findProduct = await typeProductSchema.find({"typeProductId": _id })
         res.send(findProduct)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+
+    async getProductFromType(req,res){
+        const _id = req.params.id;
+        try {
+            const findProduct = await productSchema.find({"typeId": _id })
+        } catch (error) {
+            console.log(err)
+        }
+
     }
 
 
@@ -108,14 +123,14 @@ class ProductController {
     }
 
     async setProduct(req,res){
-        const field = req.query;
-        const value = req.query;
-        const set = `${field} : ${value}`
+        const field = req.query.field;
+        const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await productSchema.findByIdAndUpdate(_id,set )
+            const updateField = await productSchema.findByIdAndUpdate(_id,{[field]: [value] })
             res.send(updateField)
-            console.log(set)
+            console.log(field)
+            console.log(value)
         }
         catch(err)
         {
@@ -124,8 +139,13 @@ class ProductController {
     }
     async findProductFromId(req,res){
         const _id = req.params.id
+        try{
         const product = await productSchema.findById(_id)
         res.send(product)
+        }catch(err)
+        {
+            console.log(err)
+        }
     }
 }
 

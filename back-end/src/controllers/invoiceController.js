@@ -4,8 +4,13 @@ class InvoiceController {
     
     async getUserId(req,res,next){
         const _id = req.params.id;
-        const findInvoice = await userSchema.find({"userId": _id })
-        res.send(findInvoice)
+        try {
+            const findInvoice = await userSchema.find({"userId": _id })
+            res.send(findInvoice)
+        } catch (error) {
+            console.log(err)
+        }
+        
     }
 
     //Ham lay du lieu tu database
@@ -33,6 +38,23 @@ class InvoiceController {
             res.json(temp)
         } catch (err) {
             res.send('Error' + err)
+        }
+    }
+
+
+    async setInvoice(req,res){
+        const field = req.query.field;
+        const value = req.query.value;
+        try{
+            const _id = req.params.id;
+            const updateField = await invoiceSchema.findByIdAndUpdate(_id,{[field]: [value] })
+            res.send(updateField)
+            console.log(field)
+            console.log(value)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
         }
     }
 
