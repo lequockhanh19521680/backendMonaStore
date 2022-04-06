@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 const typeProductSchema = require('./typeProducts')
-
+const shordId = require('short-id')
 const productSchema = new mongoose.Schema({
     productId:{
-        type: mongoose.Schema.Types.ObjectId,
-        require: true,
-        ref:'product'
+        type: String,
+        ref:'product',
+        default: shordId.generate(),
     },
     nameProduct:{
         type: String,
         require: true,
     },
     typeProductId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         enum:['6242a20768f1c571729c5e9c','6242a21d68f1c571729c5ea1','6242a23f68f1c571729c5ea3','6242a24e68f1c571729c5ea5'],
         require: true,
         ref:'type'

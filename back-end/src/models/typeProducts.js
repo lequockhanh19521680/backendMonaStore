@@ -7,7 +7,7 @@ const typeProductSchema = new mongoose.Schema({
         
     },
     typeId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         enum:['6242a20768f1c571729c5e9c','6242a21d68f1c571729c5ea1','6242a23f68f1c571729c5ea3','6242a24e68f1c571729c5ea5'],
         ref:'type',
         require: true,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const questionSchema = new mongoose.Schema({
     productId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:String,
     },
     question:{
         type:String,

@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const invoiceSchema = new mongoose.Schema({
     userId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref:'user'
     },
     phone:{
@@ -11,6 +11,7 @@ const invoiceSchema = new mongoose.Schema({
     },
     time:{
         type:Date,
+        default:Date.now,
     },
     address:{
         type:String,
