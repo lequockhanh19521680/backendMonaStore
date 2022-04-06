@@ -1,4 +1,4 @@
-const { query } = require('express');
+const { query, response } = require('express');
 const productSchema = require('../models/products')
 const typeProductSchema = require('../models/typeProducts')
 
@@ -8,7 +8,7 @@ class ProductController {
     async getTypeByIdTypeProduct(req,res,next){
         const _id = req.params.id;
         try{
-        const findProduct = await typeProductSchema.find({"typeProductId": _id })
+        const findProduct = await typeProductSchema.find({"typeId": _id })
         res.send(findProduct)
         }catch(err)
         {
@@ -17,15 +17,28 @@ class ProductController {
     }
 
     async getProductFromType(req,res){
-        const _id = req.params.id;
+        const key = req.query.key
         try {
-            const findProduct = await productSchema.find({"typeId": _id })
+            const findProduct = await productSchema.find({"typeProductId": [key] })
+            res.send(findProduct)
+            console.log(key)
         } catch (error) {
-            console.log(err)
+            console.log(error)
+            console.log(key)
         }
 
     }
 
+    async findProductFromId(req,res){
+        const _id = req.params.id
+        try{
+        const product = await productSchema.findById(_id)
+        res.send(product)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
 
 
     //Ham lay du lieu tu database
@@ -113,6 +126,7 @@ class ProductController {
             description: req.body.description,
             metal: req.body.metal,
             size: req.body.size,
+            isPublished: req.body.isPublished
         })
         try {
             const temp = await products.save()
@@ -127,7 +141,7 @@ class ProductController {
         const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await productSchema.findByIdAndUpdate(_id,{[field]: [value] })
+            const updateField = await productSchema.findByIdAndUpdate(_id,{[field]: value})
             res.send(updateField)
             console.log(field)
             console.log(value)
@@ -137,16 +151,19 @@ class ProductController {
             res.send('error' + err)
         }
     }
-    async findProductFromId(req,res){
+    
+    async deleteProductById(req,res){
         const _id = req.params.id
         try{
-        const product = await productSchema.findById(_id)
+        const product = await productSchema.findByIdAndDelete(_id)
         res.send(product)
         }catch(err)
         {
             console.log(err)
         }
     }
+
+
 }
 
 module.exports = new ProductController

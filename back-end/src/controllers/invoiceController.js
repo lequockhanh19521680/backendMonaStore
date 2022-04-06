@@ -1,5 +1,5 @@
 const invoiceSchema = require('../models/invoice');
-const userChema = require('../models/user')
+const userSchema = require('../models/user')
 class InvoiceController {
     
     async getUserId(req,res,next){
@@ -8,7 +8,7 @@ class InvoiceController {
             const findInvoice = await userSchema.find({"userId": _id })
             res.send(findInvoice)
         } catch (error) {
-            console.log(err)
+            console.log(error)
         }
         
     }
@@ -23,9 +23,21 @@ class InvoiceController {
             res.send({ message: err.message })
         }
     }
+
+
+    async findInvoiceFromId(req,res){
+        const _id = req.params.id
+        try{
+        const invoice = await invoiceSchema.findById(_id)
+        res.send(invoice)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
     // Ham them user vao database, trong do chi can them username vs password la dc, isTeacher va isSelect tu dong la false
     async addInvoice(req, res) {
-        const invoices = await new newSchema({
+        const invoices = await new invoiceSchema({
             userId: req.body.userId,
             phone: req.body.phone ,
             address: req.body.address,
@@ -47,7 +59,7 @@ class InvoiceController {
         const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await invoiceSchema.findByIdAndUpdate(_id,{[field]: [value] })
+            const updateField = await invoiceSchema.findByIdAndUpdate(_id,{[field]: value })
             res.send(updateField)
             console.log(field)
             console.log(value)
@@ -55,11 +67,22 @@ class InvoiceController {
         catch(err)
         {
             res.send('error' + err)
+            console.log(field)
+            console.log(value)
         }
     }
 
     
-
+    async deleteInvoiceFromId(req,res){
+        const _id = req.params.id
+        try{
+        const invoice = await invoiceSchema.findByIdAndDelete(_id)
+        res.send(invoice)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
    
   
 }

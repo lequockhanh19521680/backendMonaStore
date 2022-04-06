@@ -7,7 +7,7 @@ router.get('/user/:id',invoiceController.getUserId)
 router.get('/',invoiceController.getAllInvoice)
 router.post('/',invoiceController.addInvoice)
 router.patch('/:id',invoiceController.setInvoice)
-
+router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
 
 
