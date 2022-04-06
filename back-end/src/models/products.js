@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
     sale:
     {
         type: Number,
-        min: 1,
+        min: 0,
         max: 100,
         default: 0
     },
