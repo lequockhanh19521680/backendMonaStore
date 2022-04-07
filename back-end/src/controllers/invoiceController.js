@@ -24,6 +24,21 @@ class InvoiceController {
         }
     }
 
+    async getInvoiceStatus(req,res){
+        const status = req.query.status
+        try {
+            const findStatus = await invoiceSchema.find({"status": [status] })
+            res.send(findStatus)
+            console.log(status)
+        } catch (error) {
+            console.log(error)
+            console.log(role)
+        }
+
+    }
+
+
+
 
     async findInvoiceFromId(req,res){
         const _id = req.params.id

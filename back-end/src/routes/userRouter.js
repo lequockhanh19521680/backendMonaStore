@@ -5,7 +5,7 @@ const userController = require('../controllers/userController');
 
 //o day chuyen den router de get va post data trong mongo
 router.get('/verify',verifyToken,userController.getUser)
-router.get('/getAll',userController.getAllUser)
+router.get('/getAllUser',userController.getAllUser)
 router.get('/',userController.getUserRoleCustomer)
 router.post('/login',userController.Login)
 router.post('/register',userController.Register)
