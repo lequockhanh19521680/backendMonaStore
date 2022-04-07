@@ -149,7 +149,7 @@ class UserController {
 
     async getStaff(req,res){
         try {
-            const findRole = await userModel.find({"role": 'CUSTOMER' }).exec()
+            const findRole = await userModel.find({"role": {$ne: 'CUSTOMER' }})
             res.send(findRole)
         } catch (error) {
             console.log(error)
