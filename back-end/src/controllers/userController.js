@@ -60,7 +60,7 @@ class UserController {
 
 
     async Register(req, res) {
-        const { email, password ,nameAccount,phone} = req.body
+        const { email, password ,nameAccount,phone,role} = req.body
 
         // Simple validation
         if (!email || !password) {
@@ -81,7 +81,7 @@ class UserController {
 
             // All good
             const hashedPassword = await argon2.hash(password)
-            const newUser = new userModel({ email, password: hashedPassword,nameAccount,phone })
+            const newUser = new userModel({ email, password: hashedPassword,nameAccount,phone,role })
             await newUser.save()
 
             console.log( process.env.ACCESS_TOKEN_SECRET);
@@ -148,7 +148,18 @@ class UserController {
     }
 
 
+    async getUserRoleCustomer(req,res){
+        const role = req.query.role
+        try {
+            const findRole = await userModel.find({"role": [role] })
+            res.send(findRole)
+            console.log(key)
+        } catch (error) {
+            console.log(error)
+            console.log(role)
+        }
 
+    }
 
 
 
@@ -179,7 +190,16 @@ class UserController {
         }
     }
 
-   
+    async deleteUserFromId(req,res){
+        const _id = req.params.id
+        try{
+        const user = await userModel.findByIdAndDelete(_id)
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
   
 }
 
