@@ -6,7 +6,7 @@ class ProductController {
 
     async getAllProductType(req,res,next){
         try{
-        const findProduct = await typeProductSchema.find().select("typeId")
+        const findProduct = await typeProductSchema.find().select()
         res.send(findProduct)
         }catch(err){
             console.log(err)
@@ -28,9 +28,9 @@ class ProductController {
     }
 
     async getProductFromType(req,res){
-        const key = req.query.key
+        const typeProductId = req.query.typeProductId
         try {
-            const findProduct = await productSchema.find({"typeProductId": [key] })
+            const findProduct = await productSchema.find({"typeProductId": [typeProductId] })
             res.send(findProduct)
             console.log(key)
         } catch (error) {
@@ -126,7 +126,19 @@ class ProductController {
         }
     }
 
-
+    async addTypeProduct(req,res){
+        const products = await new typeProductSchema({
+            nameType: req.body.nameType,
+            note: req.body.note
+        })
+        try{
+            const temp = await products.save()
+            res.send(products)
+        }catch(err)
+        {
+            console.log()
+        }
+    }
 
     async addProduct(req, res) {
         const products = await new productSchema({
@@ -164,10 +176,39 @@ class ProductController {
         }
     }
     
+    async setTypeProduct(req,res){
+        const field = req.query.field;
+        const value = req.query.value;
+        try{
+            const typeId = req.params.id;
+            const updateField = await typeProductSchema.findByIdAndUpdate({typeId: typeId},{[field]: value})
+            res.send(updateField)
+            console.log(field)
+            console.log(value)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+    
+
+
+    async deleteTypeProductById(req,res){
+        const _id = req.params.id
+        try{
+        const product = await typeProductSchema.findByIdAndDelete(_id)
+        res.send(product)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+
     async deleteProductById(req,res){
         const _id = req.params.id
         try{
-        const product = await productSchema.findByIdAndDelete(_id)
+        const product = await productSchema.findByIdAndDelete({"typeId":_id})
         res.send(product)
         }catch(err)
         {
