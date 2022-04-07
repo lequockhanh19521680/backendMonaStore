@@ -180,8 +180,8 @@ class ProductController {
         const field = req.query.field;
         const value = req.query.value;
         try{
-            const typeId = req.params.id;
-            const updateField = await typeProductSchema.findByIdAndUpdate({typeId: typeId},{[field]: value})
+            const id = req.params.id;
+            const updateField = await typeProductSchema.updateOne({typeId: id},{[field]: value})
             res.send(updateField)
             console.log(field)
             console.log(value)
@@ -195,9 +195,9 @@ class ProductController {
 
 
     async deleteTypeProductById(req,res){
-        const _id = req.params.id
+        const id = req.params.id
         try{
-        const product = await typeProductSchema.findByIdAndDelete(_id)
+        const product = await typeProductSchema.deleteOne({typeId: id})
         res.send(product)
         }catch(err)
         {
@@ -208,7 +208,7 @@ class ProductController {
     async deleteProductById(req,res){
         const _id = req.params.id
         try{
-        const product = await productSchema.findByIdAndDelete({"typeId":_id})
+        const product = await productSchema.findByIdAndDelete(_id)
         res.send(product)
         }catch(err)
         {
