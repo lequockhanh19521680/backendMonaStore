@@ -147,13 +147,21 @@ class UserController {
         }
     }
 
+    async getStaff(req,res){
+        try {
+            const findRole = await userModel.find({"role": 'CUSTOMER' }).exec()
+            res.send(findRole)
+        } catch (error) {
+            console.log(error)
+        }
 
-    async getUserRoleCustomer(req,res){
+    }
+
+    async getUserRole(req,res){
         const role = req.query.role
         try {
             const findRole = await userModel.find({"role": [role] })
             res.send(findRole)
-            console.log(key)
         } catch (error) {
             console.log(error)
             console.log(role)

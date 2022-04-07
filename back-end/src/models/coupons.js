@@ -36,7 +36,7 @@ const couponSchema = new mongoose.Schema({
         type: String,
         enum:['ACTIVE','EXPIRED'],
         default: function(){
-            if((Date.now > endDate)  && (amout<0)) return "ACTIVE"
+            if((Date.now < endDate)  && (amout>0)) return "ACTIVE"
             else return "EXPIRED"
         },
     },
