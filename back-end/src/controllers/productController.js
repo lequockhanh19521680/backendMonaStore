@@ -4,6 +4,17 @@ const typeProductSchema = require('../models/typeProducts')
 
 class ProductController {
 
+    async getAllProductType(req,res,next){
+        try{
+        const findProduct = await typeProductSchema.find().select("typeId")
+        res.send(findProduct)
+        }catch(err){
+            console.log(err)
+        }
+
+    }
+    
+
 
     async getTypeByIdTypeProduct(req,res,next){
         try{
