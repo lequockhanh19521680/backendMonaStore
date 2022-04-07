@@ -5,6 +5,10 @@ const invoiceSchema = new mongoose.Schema({
         type: String,
         ref:'user'
     },
+    productId:{
+        type:String,
+        ref:'product'
+    },
     phone:{
         type:String,
         default: ""
@@ -23,7 +27,8 @@ const invoiceSchema = new mongoose.Schema({
     },
     paymentMethod:{
         type:String,
-        default:'Chuyen khoan',
+        enum:['CODE','CARD'],
+        default:'CARD',
     },
     status:{
         type:String,
