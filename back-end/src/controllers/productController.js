@@ -6,14 +6,14 @@ class ProductController {
 
 
     async getTypeByIdTypeProduct(req,res,next){
-        const _id = req.params.id;
         try{
+        const _id = req.params.id;
         const findProduct = await typeProductSchema.find({"typeId": _id })
         res.send(findProduct)
-        }catch(err)
-        {
+        }catch(err){
             console.log(err)
         }
+
     }
 
     async getProductFromType(req,res){
@@ -103,6 +103,7 @@ class ProductController {
         try{
             const sortObject = {}
             sortObject[name] = desc
+        
 
             const products = await productSchema.find().sort(sortObject)
           
