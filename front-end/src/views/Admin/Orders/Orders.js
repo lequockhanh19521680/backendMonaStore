@@ -5,12 +5,27 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import Table from '../../../components/Table/Table'
 import { Eye } from 'react-feather'
 import { PRODUCT_STATUS, PRODUCT_STATUS_COLOR } from '../../../constants/index'
+import { useDispatch } from 'react-redux';
+import { useFetchListInvoice, useListInvoice } from '../../../store/invoice/hook'
+import { fetchListInvoice } from '../../../store/invoice'
+import LoadingPage from '../../../components/LoadingPage/Loading'
 export default function Orders() {
+    useFetchListInvoice()
+    const listInvoice = useListInvoice()
     const [inputValue, setInputValue] = useState()
-
+    const dispatch = useDispatch()
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
     }
+
+    const updateInvoice = () => {
+        try {
+            dispatch(fetchListInvoice())
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const listDropdownStatus = [
         'Dây chuyền',
         'Nhẫn',
@@ -27,7 +42,7 @@ export default function Orders() {
     const columnsTable = [
         {
             Header: 'No',
-            accessor: 'no',
+            accessor: '_id',
         },
         {
             Header: 'TIME',
@@ -43,11 +58,11 @@ export default function Orders() {
         },
         {
             Header: 'METHOD',
-            accessor: 'method',
+            accessor: 'paymentMethod',
         },
         {
             Header: 'AMOUNT',
-            accessor: 'amount'
+            accessor: 'cost'
         },
         {
             Header: 'STATUS',
@@ -55,30 +70,22 @@ export default function Orders() {
         },
         {
             Header: 'ACTION',
-            accessor: 'action'
+            accessor: 'action',
+            Cell: data => {
+                return <Dropdown title="Status"
+                    className="w-32"
+                    listDropdown={Object.values(PRODUCT_STATUS)} />
+            }
         },
         {
             Header: 'INVOICE',
-            accessor: 'invoice'
+            accessor: 'invoice',
+            Cell: data => {
+                return <button>
+                    <Eye width={20} className="hover:text-green-1"/>
+                </button>
+            }
         },
-    ]
-
-    const data = [
-        {
-            no: '1',
-            time: 'Mar 28, 2022',
-            address: 'Nagrig, Egypt',
-            phone: '01957930034',
-            'method': 'COD',
-            amount: '$497.00',
-            status: '5',
-            action: <Dropdown title="Status"
-                className="w-32"
-                listDropdown={Object.values(PRODUCT_STATUS)} />,
-            invoice: <button>
-                <Eye width={20} />
-            </button>
-        }
     ]
 
     return (
@@ -106,10 +113,13 @@ export default function Orders() {
                 />
             </div>
 
-            <Table
-                columnsTable={columnsTable}
-                data={data}
-            />
+
+            {
+                listInvoice && <Table
+                    columnsTable={columnsTable}
+                    data={listInvoice?.data}
+                />
+            }
         </AdminContainer>
     )
 }

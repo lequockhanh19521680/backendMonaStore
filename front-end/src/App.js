@@ -1,6 +1,7 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Home from './views/Home/Home';
 import Product from './views/Product/Product';
+import ProductType from './views/Product/ProductType';
 import Login from './views/RegisterLogin/Login';
 import Register from './views/RegisterLogin/Register';
 import News from './views/News/News';
@@ -49,6 +50,8 @@ const AdminLayout = () => {
   )
 }
 
+const abc = false
+
 function App() {
   return (
     <BrowserRouter>
@@ -56,6 +59,7 @@ function App() {
           <Route element={<UserLayout />}>
             <Route index element={<Home />} />
             <Route path="/danh-muc" element={<Product />} />
+            <Route path="/danh-muc/:type" element={<ProductType />} />
             <Route path="/tin-tuc" element={<News />} />
             <Route path="/gio-hang" element={<Cart />} />
             <Route path="/thanh-toan" element={<Buy />} />
@@ -68,7 +72,7 @@ function App() {
 
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
-          <Route path="products" element={<Products />} />
+            <Route path="products" element={<Products />} />
             <Route path="category" element={<Category />} />
             <Route path="customers" element={<Customers />} />
             <Route path="coupons" element={<Coupons />} />

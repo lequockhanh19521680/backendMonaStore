@@ -4,11 +4,20 @@ import Input from '../../../components/Input/Input'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup';
 import { Tab } from '@headlessui/react';
+import userApi from '../../../api/userApi';
 export default function Customers() {
     const [inputValue, setInputValue] = useState()
 
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
+    }
+
+    const handleDeleteCustomer = async (id) => {
+        try {
+            await userApi.deleteUser(id)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const columnsTable = [
@@ -34,7 +43,10 @@ export default function Customers() {
         },
         {
             Header: 'ACTIONS',
-            accessor: 'actions'
+            accessor: 'actions',
+            Cell: data => {
+                return <ActionGroup showEdit={false} showEye={false} onDelete={() => handleDeleteCustomer(data.row.original._id)} />
+            }
         },
     ]
 
@@ -45,7 +57,6 @@ export default function Customers() {
             name: '3',
             email: '33@@@',
             phone: '3',
-            actions: <ActionGroup showEdit={false} showEye={false} />
         }
     ]
 

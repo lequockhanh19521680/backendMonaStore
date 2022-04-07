@@ -4,10 +4,14 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import DoughnutChart from '../../../components/DoughnutChart/DoughnutChart'
 import BarChart from '../../../components/BarChart/BarChart'
 import Table from '../../../components/Table/Table'
-
+import { useFetchListCoupon, useListCoupon } from '../../../store/coupon/hook';
+import { PRODUCT_STATUS_COLOR, PRODUCT_STATUS } from '../../../constants/index'
+import Badge from '../../../components/Badge/Badge'
+import classnames from 'classnames'
+import LoadingPage from '../../../components/LoadingPage/Loading'
 export default function Dashboard() {
-
-
+  useFetchListCoupon()
+  const listCoupon = useListCoupon()
   const labels = ['Nhẫn', 'Dây chuyền', 'Bông tai', 'Lắc tay', 'Đồng hồ']
   const dataDoughnutChart = [15, 15, 20, 25, 25]
 
@@ -27,27 +31,19 @@ export default function Dashboard() {
     },
     {
       Header: 'PAYMENT METHOD',
-      accessor: 'payment-method',
+      accessor: 'paymentMethod',
     },
     {
       Header: 'ORDER AMOUNT',
-      accessor: 'amount',
+      accessor: 'cost',
     },
     {
       Header: 'STATUS',
-      accessor: 'status'
+      accessor: 'status',
+      Cell: data => {
+        return <Badge className={classnames("text-sm-md px-2 font-medium", `bg-[${PRODUCT_STATUS_COLOR?.[data?.row.original.status.toLowerCase()]}]`)}>{PRODUCT_STATUS?.[data.row.original.status?.toLowerCase()]}</Badge>
+      }
     },
-  ]
-
-  const data = [
-    {
-      time: '1',
-      address: '2',
-      phone: '3',
-      'payment-method': '4',
-      amount: '3',
-      status: '5',
-    }
   ]
 
 
@@ -150,8 +146,9 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-
-      <Table columnsTable={columnsTable} data={data} />
+      {
+        listCoupon?.data && <Table columnsTable={columnsTable} data={listCoupon?.data} />
+      }
     </AdminContainer>
   )
 }

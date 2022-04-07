@@ -6,6 +6,12 @@ import Table from '../../../components/Table/Table'
 import ToggleButton from './../../../components/Button/ToggleButton';
 import { Eye } from 'react-feather'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup'
+import productApi  from '../../../api/productApi'
+import { fetchProducts } from './../../../store/product/index';
+import { useDispatch } from 'react-redux'
+import { useFetchProducts, useProducts } from './../../../store/product/hook';
+import LoadingPage from './../../../components/LoadingPage/Loading';
+import { PRODUCT_TYPE } from '../../../constants/index'
 export const ShowDetail = () => {
     return (
         <button>
@@ -15,10 +21,30 @@ export const ShowDetail = () => {
 }
 
 export default function Products() {
+    useFetchProducts()
+    const products = useProducts()
+    const dispatch = useDispatch()
     const [inputValue, setInputValue] = useState()
 
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
+    }
+
+    const updateProduct = () => {
+        try {
+            dispatch(fetchProducts())
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDeleteProduct =  async (id) => {
+        try {
+            await productApi.deleteProduct(id)
+            updateProduct()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const listDropdownCategory = [
@@ -37,15 +63,20 @@ export default function Products() {
     const columnsTable = [
         {
             Header: 'ID',
-            accessor: 'id',
+            accessor: '_id',
         },
         {
             Header: 'PRODUCT NAME   ',
-            accessor: 'product-name',
+            accessor: 'nameProduct',
         },
         {
             Header: 'CATEGORY',
-            accessor: 'category',
+            Cell: data => {
+                console.log(data.row.original.typeProductId)
+                return (
+                    <span>{PRODUCT_TYPE?.[data.row.original.typeProductId]}</span>
+                )
+            }
         },
         {
             Header: 'PRICE',
@@ -53,48 +84,35 @@ export default function Products() {
         },
         {
             Header: 'PRICE SALE',
-            accessor: 'price-sale',
-        },
-        {
-            Header: 'STATUS',
-            accessor: 'status'
-        },
-        {
-            Header: 'DISCOUNT',
-            accessor: 'discount'
+            accessor: 'priceSale',
         },
         {
             Header: 'DETAILS',
-            accessor: 'details'
+            accessor: 'details',
+            Cell: data => {
+                return <ShowDetail />
+            }
         },
         {
             Header: 'PUBLISHED',
-            accessor: 'published'
+            accessor: 'published',
+            Cell: data => {
+                return <ToggleButton isChecked={true} />
+            }
         },
         {
             Header: 'ACTIONS',
-            accessor: 'actions'
+            accessor: 'actions',
+            Cell: data => {
+                return (
+                    <ActionGroup showEye={false} onDelete={() => handleDeleteProduct(data.row.original._id)} />
+                );
+            }
         },
     ]
-
-    const data = [
-        {
-            id: '1',
-            'product-name': '2',
-            category: '3',
-            price: '4',
-            'price-sale': '5',
-            status: '6',
-            discount: '7',
-            details: <ShowDetail />,
-            published: <ToggleButton />,
-            actions: <ActionGroup showEye={false} />
-        }
-    ]
-
-
+    
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer className="">
             <p className="text-lg font-medium mb-6">
                 Products
             </p>
@@ -124,11 +142,14 @@ export default function Products() {
                     </div>
                 </button>
             </div>
-
-            <Table
-                data={data}
-                columnsTable={columnsTable}
-            />
+            {
+                products && (
+                    <Table
+                        data={products?.data}
+                        columnsTable={columnsTable}
+                    />
+                )
+            }
         </AdminContainer>
     )
 }

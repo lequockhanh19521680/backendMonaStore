@@ -4,11 +4,20 @@ import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup'
+import userApi from './../../../api/userApi';
 export default function OurStaff() {
     const [inputValue, setInputValue] = useState()
 
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
+    }
+
+    const handleDeleteStaff = async (id) => {
+        try {
+            await userApi.deleteUser(id)
+        } catch (err) { 
+            console.log(err)
+        }
     }
 
     const listRole = [
@@ -47,6 +56,9 @@ export default function OurStaff() {
         {
             Header: 'ACTIONS',
             accessor: 'actions',
+            Cell: data => {
+                return <ActionGroup showEye={false} onDelete={() => handleDeleteStaff(data.row.original._id)}/>
+            }
         },
     ]
 
@@ -58,7 +70,6 @@ export default function OurStaff() {
             contact: '19191',
             'join-date': '18/11/2000',
             role: 'admin',
-            actions: <ActionGroup showEye={false} />
         }
     ]
 
@@ -68,7 +79,7 @@ export default function OurStaff() {
                 All Staff
             </p>
 
-            <div className="p-5 w-full rounded-lg bg-dark-1 flex items-center">
+            <div className="p-5 w-full rounded-lg bg-dark-1 flex items-center mb-5">
                 <div className="grid grid-cols-2 w-4/5 mr-5 gap-x-5">
                     <Input
                         className="border border-gray-400 rounded-lg text-md text-white"

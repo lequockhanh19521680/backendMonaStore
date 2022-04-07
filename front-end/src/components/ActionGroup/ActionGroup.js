@@ -32,6 +32,7 @@ export default function ActionGroup({ onDelete, onEdit, onShow, showEye = true, 
                 <ModalDelete
                     open={openModalDelete}
                     toggle={() => setOpenModalDelete(!openModalDelete)}
+                    onConfirm={onDelete}
                 />
             )
         }

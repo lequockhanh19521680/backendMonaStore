@@ -24,10 +24,17 @@ export const COUPON_STATUS = {
     }
 }
 
-const STAFF_ROLE = {
+export const STAFF_ROLE = {
     admin: 'Admin',
     ceo: 'CEO',
     manager: 'Manager',
     accountant: 'Accountant',
     'delivery_person': 'Delivery person',
+}
+
+export const PRODUCT_TYPE = {
+    "6242a20768f1c571729c5e9c": 'Dây chuyền',
+    "6242a21d68f1c571729c5ea1": 'Bông tai',
+    "6242a23f68f1c571729c5ea3": 'Lắc tai',
+    "6242a24e68f1c571729c5ea5": 'Nhẫn bạc',
 }

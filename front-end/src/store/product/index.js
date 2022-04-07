@@ -4,6 +4,7 @@ import productApi from '../../api/productApi'
 const initialState = {
     products: undefined,
     product: undefined,
+    allProductType: undefined
 }
 
 const productSlice = createSlice({
@@ -15,6 +16,9 @@ const productSlice = createSlice({
         },
         setProduct: (state,action) => {
             state.product = action.payload
+        },
+        setAllProductType: (state,action) => {
+            state.allProductType = action.payload
         }
     }
 })
@@ -28,9 +32,37 @@ export const fetchProducts = () => async (dispatch) => {
     }
 }
 
+export const fetchProduct = (id) => async (dispatch) => {
+    try {
+        const response = await productApi.getProduct(id)
+        dispatch(setProduct(response))
+    } catch (error) {
+        console.log(error)
+    }
+} 
+
+export const fetchProductsByType = (type) => async (dispatch) => {
+    try {
+        const response = await productApi.getProductByType(type)
+        dispatch(setProducts(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const fetchAllProductType = () => async (dispatch) => {
+    try {
+        const response = await productApi.getAllProductType()
+        dispatch(setAllProductType(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const {
     setProducts,
-    setProduct
+    setProduct,
+    setAllProductType
 } = productSlice.actions
 
 export default productSlice.reducer

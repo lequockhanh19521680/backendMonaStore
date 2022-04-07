@@ -4,11 +4,35 @@ import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup'
+import { useFetchAllProductType, useAllProductType } from '../../../store/product/hook'
+import LoadingPage from '../../../components/LoadingPage/Loading'
+import productApi from '../../../api/productApi'
+import { useDispatch } from 'react-redux'
+import { fetchAllProductType } from '../../../store/product'
 export default function Category() {
+    useFetchAllProductType()
+    const productTypes = useAllProductType()
     const [inputValue, setInputValue] = useState()
-
+    const dispatch = useDispatch()
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
+    }
+
+    const updateProductType = async () => {
+        try {
+            dispatch(fetchAllProductType())
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleDeleteProductType = async (id) => {
+        try {
+            await productApi.deleteProductType(id)
+            updateProductType()
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const listDropdownCategory = [
@@ -22,26 +46,20 @@ export default function Category() {
     const columnsTable = [
         {
             Header: 'ID',
-            accessor: 'id',
+            accessor: 'typeId',
         },
         {
             Header: 'NAME',
-            accessor: 'name',
+            accessor: 'nameType',
         },
         {
             Header: 'ACTIONS',
             accessor: 'actions',
+            Cell: data => {
+                return <ActionGroup showEye={false} onDelete={() => handleDeleteProductType(data.row.original.typeId)}/>
+            }
         }
     ]
-
-    const data = [
-        {
-            id: '1',
-            name: 'day chuyen',
-            actions: <ActionGroup showEye={false} />
-        }
-    ]
-
 
   return (
       <AdminContainer className="h-screen">
@@ -73,10 +91,13 @@ export default function Category() {
               </button>
           </div>
 
-        <Table 
-              columnsTable={columnsTable}
-              data={data}
-        />
+
+        {
+              productTypes && <Table
+                  columnsTable={columnsTable}
+                  data={productTypes?.data}
+              />
+        }
       </AdminContainer>
   )
 }

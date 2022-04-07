@@ -87,9 +87,6 @@ export default function Header() {
                 )
               })
             }
-            <div className="cursor-pointer text-white-1 text-xl font-medium mr-6 transition-all duration-100 ease-linear rounded hover:px-3 hover:py-2 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
-              <FiSearch />
-            </div>
 
             <div className="group relative cart-item text-white cursor-pointer flex items-center transition-all duration-100 ease-linear rounded hover:p-3 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
               <span className=" text-md font-medium mr-3">

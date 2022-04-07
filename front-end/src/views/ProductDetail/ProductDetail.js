@@ -7,8 +7,12 @@ import ProductCardV2 from '../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import productApi from './../../api/productApi';
-export default function ProductDetail() {
+import { useFetchProduct, useProduct } from '../../store/product/hook'
 
+export default function ProductDetail() {
+  useFetchProduct()
+  const product = useProduct()
+  console.log(product)
   const [tab, setTab] = useState(1)
   const handleChangeTab = (tab) => {
     setTab(tab)
@@ -75,8 +79,8 @@ export default function ProductDetail() {
 
   const handlePost = (dataPost) => async () => {
     try {
-     await productApi.postProduct(dataPost)
-    } catch(error) {console.log(error)}
+      await productApi.postProduct(dataPost)
+    } catch (error) { console.log(error) }
   }
 
   return (
@@ -87,39 +91,47 @@ export default function ProductDetail() {
           <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/March-Chain-Chase-New/kendra-scott-kassie-set-of-3-chain-bracelet-gold-00.jpeg" alt="product-detail" />
           <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/3-2-Launches/Model-Images/kendra-scott-kassie-bracelet-set-gold-00.jpg" alt="product-detail" />
           <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/Spring-3/Model-Images/Kendra-Scott-Kassie-Bracelet-Set-Gold-06.jpg" alt="product-detail" />
-          <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/March-Chain-Chase-New/kendra-scott-kassie-set-of-3-chain-bracelet-gold-01.jpeg" alt="product-detail" />
+
+
+          {
+            product?.image?.map((image, index) => {
+              return (
+                <img key={index} className="max-w-full" src={image} alt="product-detail" />
+              )
+            })
+          }
         </div>
 
         <div className="w-2/5 pl-5">
           <p className="text-black font-medium text-2xl opacity-80 mb-3">
-            Kassie Set Of 3 Chain Bracelet In Gold
+            {product?.nameProduct}
           </p>
           <div className="mb-5">
-            <Star 
-              numberStar={5}
+            <Star
+              numberStar={product?.star}
               size="2xl"
             />
           </div>
           <Price
-            price="3,500,000"
-            priceDel="3,800,800"
+            price={product?.priceSale}
+            priceDel={product?.price}
             color="black"
             className="text-lg mb-5"
           />
 
-          <a href="des-detail" className="text-primary underline">
+          <a href="#des-detail" className="text-primary underline">
             Description & Details
           </a>
 
           <div className="flex items-center">
             <button className="bg-primary text-white font-medium text-lg py-2 px-5 opacity-80 hover:opacity-100">
-                Thêm vào giỏ hàng
+              Thêm vào giỏ hàng
             </button>
           </div>
         </div>
       </div>
 
-      <div className="w-full bg-gray-2 p-10 mt-20">
+      <div className="w-full bg-gray-2 p-10 mt-20" id="des-detail" >
         <div className="flex items-center mb-4">
           <div
             className={classnames("uppercase text-black mr-4 px-2 pb-1 cursor-pointer", { "border-b-4 border-primary": tab === 1 })}
@@ -140,7 +152,9 @@ export default function ProductDetail() {
           tab === 1 && (
             <div>
               <p className="opacity-70">
-                The Kassie Set of 3 Chain Bracelet in Gold features three classic chain links. Complete with a herringbone, paperclip, and crystal charm chain, wear altogether or curate your own bracelet stack.
+                {
+                  product?.description
+                }
               </p>
             </div>
           )
@@ -148,23 +162,35 @@ export default function ProductDetail() {
         {
           tab === 2 && (
             <div className="px-2 opacity-80">
-              <div className="flex items-center mb-3">
-                <p className="text-black font-medium">
-                  METAL
-                </p>
-                <p className="ml-2">
-                  14k Gold Plated Over Brass
-                </p>
-              </div>
+              {
+                product?.metal && (
+                  <>
+                    <div className="flex items-center mb-3">
+                      <p className="text-black font-medium">
+                        METAL
+                      </p>
+                      <p className="ml-2">
+                        {product?.metal}
+                      </p>
+                    </div>
+                  </>
+                )
+              }
 
-              <div>
-                <p className="text-black font-medium mb-1">
-                  Size
-                </p>
-                <p>
-                  6.5"L, 0.13"W & 1.5"L extender, 6.5"L, 0.16"W & 1.5"L extender, 6.5"L, 0.16"W & 1.5"L extender
-                </p>
-              </div>
+              {
+                product?.size && (
+                  <>
+                    <div>
+                      <p className="text-black font-medium mb-1">
+                        Size
+                      </p>
+                      <p>
+                        {product?.size}
+                      </p>
+                    </div>
+                  </>
+                )
+              }
             </div>
           )
         }
@@ -231,10 +257,10 @@ export default function ProductDetail() {
 
         </Carousel>
       </div>
-        
+
 
       <button onClick={() => handlePost(dataPost)}>
-            ajdasdd
+        ajdasdd
       </button>
 
       <Comment />
