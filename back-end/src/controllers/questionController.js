@@ -1,6 +1,5 @@
 const questionSchema = require('../models/questions')
 
-
 class QuestionCotroller {
 
         //Ham lay du lieu tu database
@@ -27,5 +26,51 @@ class QuestionCotroller {
         }
     }
 
+    async setQuestion(req,res){
+        const field = req.query;
+        const value = req.query;
+        const set = `${field} : ${value}`
+        try{
+            const _id = req.params.id;
+            const updateField = await questionSchema.findByIdAndUpdate(_id,set )
+            res.send(updateField)
+            console.log(set)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+    
+    async deleteQuestionFromId(req,res){
+        const _id = req.params.id
+        try{
+        const user = await questionSchema.findByIdAndDelete(_id)
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+   
+    async getQuestionByIdTypeProduct(req,res,next){
+        try{
+        const _id = req.params.id;
+        const findQuestion = await questionSchema.find({"typeId": _id })
+        res.send(findQuestion)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    async findQuestionFromId(req,res){
+        const _id = req.params.id
+        try{
+        const question = await questionSchema.findById(_id)
+        res.send(question)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
 }
 module.exports = new QuestionCotroller
