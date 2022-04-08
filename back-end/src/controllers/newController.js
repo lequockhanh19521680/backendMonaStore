@@ -27,8 +27,41 @@ class NewController {
             res.send('Error' + err)
         }
     }
-
-   
+    async setNew(req,res){
+        const field = req.query;
+        const value = req.query;
+        const set = `${field} : ${value}`
+        try{
+            const _id = req.params.id;
+            const updateField = await newSchema.findByIdAndUpdate(_id,set )
+            res.send(updateField)
+            console.log(set)
+        }
+        catch(err)
+        {
+            res.send('error' + err)
+        }
+    }
+    async deleteNewFromId(req,res){
+        const _id = req.params.id
+        try{
+        const user = await newSchema.findByIdAndDelete(_id)
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+    async findNewFromId(req,res){
+        const _id = req.params.id
+        try{
+        const news = await newSchema.findById(_id)
+        res.send(news)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
   
 }
 
