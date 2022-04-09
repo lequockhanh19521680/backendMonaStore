@@ -70,14 +70,10 @@ class InvoiceController {
 
 
     async setInvoice(req,res){
-        const field = req.query.field;
-        const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await invoiceSchema.findByIdAndUpdate(_id,{[field]: value })
+            const updateField = await invoiceSchema.findByIdAndUpdate(_id,req.query)
             res.send(updateField)
-            console.log(field)
-            console.log(value)
         }
         catch(err)
         {
