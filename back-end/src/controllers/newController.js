@@ -27,7 +27,7 @@ class NewController {
             res.send('Error' + err)
         }
     }
-    async setQuestion(req,res){
+    async setNew(req,res){
 
         try{
             const _id = req.params.id;
