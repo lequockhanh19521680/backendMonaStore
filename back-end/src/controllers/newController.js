@@ -27,15 +27,15 @@ class NewController {
             res.send('Error' + err)
         }
     }
-    async setNew(req,res){
-        const field = req.query;
-        const value = req.query;
-        const set = `${field} : ${value}`
+    async setQuestion(req,res){
+        const field = req.query.field;
+        const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await newSchema.findByIdAndUpdate(_id,set )
+            const updateField = await newSchema.findByIdAndUpdate(_id,{[field]: value})
             res.send(updateField)
-            console.log(set)
+            console.log(field)
+            console.log(value)
         }
         catch(err)
         {
