@@ -133,10 +133,10 @@ class ProductController {
         })
         try{
             const temp = await products.save()
-            res.send(products)
+            res.send(temp)
         }catch(err)
         {
-            console.log()
+            console.log(err)
         }
     }
 
@@ -161,14 +161,10 @@ class ProductController {
     }
 
     async setProduct(req,res){
-        const field = req.query.field;
-        const value = req.query.value;
         try{
             const _id = req.params.id;
-            const updateField = await productSchema.findByIdAndUpdate(_id,{[field]: value})
+            const updateField = await productSchema.findByIdAndUpdate(_id,req.query)
             res.send(updateField)
-            console.log(field)
-            console.log(value)
         }
         catch(err)
         {
@@ -177,14 +173,11 @@ class ProductController {
     }
     
     async setTypeProduct(req,res){
-        const field = req.query.field;
-        const value = req.query.value;
         try{
             const id = req.params.id;
-            const updateField = await typeProductSchema.updateOne({typeId: id},{[field]: value})
+            const updateField = await typeProductSchema.updateOne({typeId: id},req.query)
             res.send(updateField)
-            console.log(field)
-            console.log(value)
+            console.log(req.query)
         }
         catch(err)
         {
