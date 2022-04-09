@@ -25,14 +25,12 @@ class InvoiceController {
     }
 
     async getInvoiceStatus(req,res){
-        const status = req.query.status
         try {
-            const findStatus = await invoiceSchema.find({"status": [status] })
+            const findStatus = await invoiceSchema.find(req.query)
             res.send(findStatus)
-            console.log(status)
+            console.log(req.query)
         } catch (error) {
             console.log(error)
-            console.log(role)
         }
 
     }
