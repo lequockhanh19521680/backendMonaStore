@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    typeProductId:{
+    typeId:{
         type: String,
         require: true,
         ref:'type'

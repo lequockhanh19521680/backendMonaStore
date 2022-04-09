@@ -28,9 +28,8 @@ class ProductController {
     }
 
     async getProductFromType(req,res){
-        const typeProductId = req.query.typeProductId
         try {
-            const findProduct = await productSchema.find({"typeProductId": [typeProductId] })
+            const findProduct = await productSchema.find(req.query)
             res.send(findProduct)
             console.log(key)
         } catch (error) {
@@ -55,7 +54,7 @@ class ProductController {
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
         try {
-            const product = await productSchema.find()
+            const product = await productSchema.find().populate('type')
             res.send(product)
         }
         catch (err) {
@@ -143,7 +142,7 @@ class ProductController {
     async addProduct(req, res) {
         const products = await new productSchema({
             nameProduct: req.body.nameProduct,
-            typeProductId: req.body.typeProductId,
+            typeId: req.body.typeId,
             price: req.body.price,
             sale: req.body.sale,
             image: req.body.image,
