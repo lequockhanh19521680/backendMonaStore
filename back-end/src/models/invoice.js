@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 //model cua 1 user trong collection users cua mongodb
 const invoiceSchema = new mongoose.Schema({
     userId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'User',
         require: true,
     },
     productId:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
         require: true,
     },

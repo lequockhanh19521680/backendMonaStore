@@ -4,11 +4,11 @@ const userSchema = require('./user')
 //model cua 1 user trong collection users cua mongodb
 const commentSchema = new mongoose.Schema({
     productId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'Product'
     },
     userId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         ref:'User'
     },
     content:{
