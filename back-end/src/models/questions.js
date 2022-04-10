@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const questionSchema = new mongoose.Schema({
     productId:{
         type:String,
+        ref:'Product'
     },
     question:{
         type:String,

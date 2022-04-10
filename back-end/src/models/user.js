@@ -1,13 +1,8 @@
 
 const mongoose = require('mongoose')
-const shordId = require('short-id')
+const bson = require('bson')
 //model cua 1 user trong collection users cua mongodb
 const userSchema = new mongoose.Schema({
-    userId:{
-        type: String,
-        ref:'user',
-        default: shordId.generate()
-    },
     email:{
         type: String,
         require: true,

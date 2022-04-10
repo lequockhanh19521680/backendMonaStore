@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
+const productSchema = require('./products')
+const userSchema = require('./user')
 //model cua 1 user trong collection users cua mongodb
 const commentSchema = new mongoose.Schema({
     productId:{
         type: String,
-        ref:'product'
+        ref:'Product'
     },
     userId:{
         type: String,
-        ref:'user'
+        ref:'User'
     },
     content:{
         type:String,

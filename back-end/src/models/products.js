@@ -1,12 +1,7 @@
 const mongoose = require('mongoose')
 const typeProductSchema = require('./typeProducts')
-const shordId = require('short-id')
+const bson = require('bson')
 const productSchema = new mongoose.Schema({
-    productId:{
-        type: String,
-        ref:'product',
-        default: shordId.generate(),
-    },
     nameProduct:{
         type: String,
         require: true,

@@ -6,7 +6,7 @@ const questionCotroller = require('../controllers/questionController')
 router.get('/',questionCotroller.getAllQuestion)
 router.get('/type/:id',questionCotroller.getQuestionByIdTypeProduct)// dung id type
 router.get('/:id',questionCotroller.findQuestionFromId)
-router.post('/add',questionCotroller.addQuestion)
+router.post('/',questionCotroller.addQuestion)
 
 
 router.patch('/:id',questionCotroller.setQuestion)
