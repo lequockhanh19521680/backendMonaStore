@@ -28,6 +28,10 @@ const userApi = {
     register: (body) => {
         const url = '/user/register'
         return axiosClient.post(url, {...body})
+    },
+    getStaff: () => {
+        const url = '/user/isStaff'
+        return axiosClient.get(url)
     }
 }
 

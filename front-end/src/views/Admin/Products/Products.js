@@ -6,12 +6,13 @@ import Table from '../../../components/Table/Table'
 import ToggleButton from './../../../components/Button/ToggleButton';
 import { Eye } from 'react-feather'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup'
-import productApi  from '../../../api/productApi'
+import productApi from '../../../api/productApi'
 import { fetchProducts } from './../../../store/product/index';
 import { useDispatch } from 'react-redux'
 import { useFetchProducts, useProducts } from './../../../store/product/hook';
 import LoadingPage from './../../../components/LoadingPage/Loading';
 import { PRODUCT_TYPE } from '../../../constants/index'
+import { useNavigate } from 'react-router-dom'
 export const ShowDetail = () => {
     return (
         <button>
@@ -21,6 +22,8 @@ export const ShowDetail = () => {
 }
 
 export default function Products() {
+
+    const navigate = useNavigate()
     useFetchProducts()
     const products = useProducts()
     const dispatch = useDispatch()
@@ -38,7 +41,7 @@ export default function Products() {
         }
     }
 
-    const handleDeleteProduct =  async (id) => {
+    const handleDeleteProduct = async (id) => {
         try {
             await productApi.deleteProduct(id)
             updateProduct()
@@ -72,7 +75,6 @@ export default function Products() {
         {
             Header: 'CATEGORY',
             Cell: data => {
-                console.log(data.row.original.typeProductId)
                 return (
                     <span>{PRODUCT_TYPE?.[data.row.original.typeProductId]}</span>
                 )
@@ -105,12 +107,16 @@ export default function Products() {
             accessor: 'actions',
             Cell: data => {
                 return (
-                    <ActionGroup showEye={false} onDelete={() => handleDeleteProduct(data.row.original._id)} />
+                    <ActionGroup
+                        showEye={false}
+                        onDelete={() => handleDeleteProduct(data.row.original._id)}
+                        onEdit={() => navigate(`/admin/products/edit-product/${data.row.original._id}`)}
+                    />
                 );
             }
         },
     ]
-    
+
     return (
         <AdminContainer className="">
             <p className="text-lg font-medium mb-6">
@@ -135,7 +141,10 @@ export default function Products() {
                     listDropdown={listDropdownFilter}
                 />
 
-                <button className="bg-green-1 rounded-lg px-10 hover:bg-[#057a55]">
+                <button
+                    className="bg-green-1 rounded-lg px-10 hover:bg-[#057a55]"
+                    onClick={() => navigate('/admin/products/add-product')}
+                >
                     <div className="flex items-center justify-center text-md">
                         <i className='bx bx-plus mr-2'></i>
                         <span>Add Product</span>

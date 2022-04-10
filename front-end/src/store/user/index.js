@@ -4,6 +4,7 @@ import userApi from "../../api/userApi";
 const initialState = {
     users: undefined,
     user: undefined,
+    allStaff: undefined,
 }
 
 const userSlice = createSlice({
@@ -15,6 +16,9 @@ const userSlice = createSlice({
         },
         setUser: (state, action) => {
             state.user = action.payload
+        },
+        setAllStaff: (state,action) => {
+            state.allStaff = action.payload
         }
     }
 })
@@ -37,9 +41,19 @@ export const fetchUser = (id) => async (dispatch) => {
     }
 }
 
+export const fetchAllStaff = () => async (dispatch) => {
+    try {
+        const response = await userApi.getStaff()
+        dispatch(setAllStaff(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const {
     setUsers,
-    setUser
+    setUser,
+    setAllStaff
 } = userSlice.actions
 
 export default userSlice.reducer

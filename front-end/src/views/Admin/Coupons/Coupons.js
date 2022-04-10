@@ -89,7 +89,7 @@ export default function Coupons() {
                 <button className="bg-green-1 rounded-lg hover:bg-[#057a55] w-1/4 h-[42px]">
                     <div className="flex items-center justify-center text-md h-full">
                         <i className='bx bx-plus mr-2'></i>
-                        <span>Add Product</span>
+                        <span>Add Coupon</span>
                     </div>
                 </button>
             </form>

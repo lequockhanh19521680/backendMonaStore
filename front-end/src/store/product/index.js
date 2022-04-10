@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import productApi from '../../api/productApi'
+import commentApi from '../../api/commentApi'
 
 const initialState = {
     products: undefined,
     product: undefined,
-    allProductType: undefined
+    allProductType: undefined,
+    productType: undefined
 }
 
 const productSlice = createSlice({
@@ -19,6 +21,9 @@ const productSlice = createSlice({
         },
         setAllProductType: (state,action) => {
             state.allProductType = action.payload
+        },
+        setProductType: (state,action) => {
+            state.productType = action.payload
         }
     }
 })
@@ -34,8 +39,13 @@ export const fetchProducts = () => async (dispatch) => {
 
 export const fetchProduct = (id) => async (dispatch) => {
     try {
-        const response = await productApi.getProduct(id)
-        dispatch(setProduct(response))
+        const promise = [productApi.getProduct(id)] //, commentApi.getComment(id)
+        const data = await Promise.all(promise)
+        dispatch(setProduct({
+            ...data?.[0],
+           // comment: data?.[1]
+        }))
+        return data?.[0]
     } catch (error) {
         console.log(error)
     }
@@ -59,10 +69,20 @@ export const fetchAllProductType = () => async (dispatch) => {
     }
 }
 
+export const fetchProductType = (id) => async (dispatch) => {
+    try {
+        const response = await productApi.getProductType(id)
+        dispatch(setProductType(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const {
     setProducts,
     setProduct,
-    setAllProductType
+    setAllProductType,
+    setProductType
 } = productSlice.actions
 
 export default productSlice.reducer

@@ -5,7 +5,11 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup'
 import userApi from './../../../api/userApi';
+import StaffCard from './../../../components/Card/StaffCard';
+import { useFetchAllStaff, useAllStaff } from '../../../store/user/hook' 
 export default function OurStaff() {
+    useFetchAllStaff()
+    const allStaff = useAllStaff()
     const [inputValue, setInputValue] = useState()
 
     const handleChangeInput = (e) => {
@@ -103,10 +107,13 @@ export default function OurStaff() {
                 </button>
             </div>
 
-            <Table
-                columnsTable={columnsTable}
-                data={data}
-            />
+           <div className="grid grid-cols-4 gap-x-4">
+               {
+                    allStaff?.data?.map((staff, index) => {
+                        return <StaffCard user={staff} key={index} />
+                    })
+               }
+           </div>
         </AdminContainer>
     )
 }

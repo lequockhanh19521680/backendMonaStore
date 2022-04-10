@@ -12,7 +12,6 @@ import { useFetchProduct, useProduct } from '../../store/product/hook'
 export default function ProductDetail() {
   useFetchProduct()
   const product = useProduct()
-  console.log(product)
   const [tab, setTab] = useState(1)
   const handleChangeTab = (tab) => {
     setTab(tab)
@@ -82,19 +81,14 @@ export default function ProductDetail() {
       await productApi.postProduct(dataPost)
     } catch (error) { console.log(error) }
   }
-
+  console.log(product)
   return (
 
     <div className="max-w-screen-xl w-full mx-auto py-5">
       <div className="flex">
         <div className="w-3/5 grid grid-cols-2">
-          <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/March-Chain-Chase-New/kendra-scott-kassie-set-of-3-chain-bracelet-gold-00.jpeg" alt="product-detail" />
-          <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/3-2-Launches/Model-Images/kendra-scott-kassie-bracelet-set-gold-00.jpg" alt="product-detail" />
-          <img className="max-w-full" src="https://res.cloudinary.com/kendra-scott/image/upload/q_auto,f_auto,dpr_auto/w_800,c_fit/Catalogs/kendrascott/Spring-3/Model-Images/Kendra-Scott-Kassie-Bracelet-Set-Gold-06.jpg" alt="product-detail" />
-
-
           {
-            product?.image?.map((image, index) => {
+            product?.data?.image?.map((image, index) => {
               return (
                 <img key={index} className="max-w-full" src={image} alt="product-detail" />
               )
@@ -104,7 +98,7 @@ export default function ProductDetail() {
 
         <div className="w-2/5 pl-5">
           <p className="text-black font-medium text-2xl opacity-80 mb-3">
-            {product?.nameProduct}
+            {product?.data?.nameProduct}
           </p>
           <div className="mb-5">
             <Star
@@ -113,8 +107,8 @@ export default function ProductDetail() {
             />
           </div>
           <Price
-            price={product?.priceSale}
-            priceDel={product?.price}
+            price={product?.data?.priceSale}
+            priceDel={product?.data?.price}
             color="black"
             className="text-lg mb-5"
           />
@@ -153,7 +147,7 @@ export default function ProductDetail() {
             <div>
               <p className="opacity-70">
                 {
-                  product?.description
+                  product?.data?.description
                 }
               </p>
             </div>
@@ -170,7 +164,7 @@ export default function ProductDetail() {
                         METAL
                       </p>
                       <p className="ml-2">
-                        {product?.metal}
+                        {product?.data?.metal}
                       </p>
                     </div>
                   </>
@@ -185,7 +179,7 @@ export default function ProductDetail() {
                         Size
                       </p>
                       <p>
-                        {product?.size}
+                        {product?.data?.size}
                       </p>
                     </div>
                   </>

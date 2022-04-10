@@ -17,10 +17,6 @@ const productApi = {
         const url = `/product/${id}`
         return axiosClient.patch(url, {...body})
     },
-    addToCart: (id) => {
-        const url = ""
-        return axiosClient.post(url, id)
-    },
     getProductByType: (type) => {
         const url = ""
         return axiosClient.get(url, type)
@@ -36,6 +32,18 @@ const productApi = {
     deleteProductType: (id) => {
         const url = `/product/type/${id}`
         return axiosClient.delete(url)
+    },
+    postProductType: (body) => {
+        const url = '/product/type'
+        return axiosClient.post(url, {...body})
+    },
+    editProductType: (id, body) => {
+        const url = `/product/type/${id}`
+        return axiosClient.patch(url, { ...body })
+    },
+    getProductType: (id) => {
+        const url = `/product/type/${id}`
+        return axiosClient.get(url)
     }
 
     
