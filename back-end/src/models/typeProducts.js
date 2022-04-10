@@ -8,8 +8,7 @@ const typeProductSchema = new mongoose.Schema({
     nameType:{
         type: String,
         require: true,
-        unique: true,
-        
+        unique: true,    
     },
     note:{
         type: String,
