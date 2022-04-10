@@ -11,10 +11,10 @@ router.get('/sort',productController.sortProduct)
 router.get('/:id',productController.findProductFromId)
 router.post('/type',productController.addTypeProduct)
 router.post('/',productController.addProduct)
-router.patch('/type/:id',productController.setTypeProduct)//dung id type
+router.patch('/type/:id',productController.setTypeProduct)
 router.patch('/:id',productController.setProduct)
 router.delete('/:id',productController.deleteProductById)
-router.delete('/type/:id',productController.deleteTypeProductById)//dung id type
+router.delete('/type/:id',productController.deleteTypeProductById)
 
 
 

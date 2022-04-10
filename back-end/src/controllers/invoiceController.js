@@ -1,7 +1,25 @@
 const invoiceSchema = require('../models/invoice');
 const userSchema = require('../models/user')
+const productSchema = require('../models/products')
 class InvoiceController {
     
+
+    async sortBestSeller(req,res){
+        try {
+            const findInvoice = await invoiceSchema.aggregate([
+                {$group:{_id: "$productId",
+                count:{$sum: 1}}
+                },
+                {$sort: {totalSale:-1}},
+                {$limit: 8}
+            ])
+            res.send(findInvoice)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     async getUserId(req,res,next){
         const _id = req.params.id;
         try {
@@ -51,6 +69,7 @@ class InvoiceController {
    
     async addInvoice(req, res) {
         const invoices = await new invoiceSchema({
+            productId: req.body.productId,
             userId: req.body.userId,
             phone: req.body.phone ,
             address: req.body.address,

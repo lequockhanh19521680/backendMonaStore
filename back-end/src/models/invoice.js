@@ -3,11 +3,13 @@ const mongoose = require('mongoose')
 const invoiceSchema = new mongoose.Schema({
     userId:{
         type: String,
-        ref:'User'
+        ref:'User',
+        require: true,
     },
     productId:{
         type:String,
-        ref:'Product'
+        ref:'Product',
+        require: true,
     },
     phone:{
         type:String,
