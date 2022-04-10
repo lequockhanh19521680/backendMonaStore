@@ -53,7 +53,7 @@ class ProductController {
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
         try {
-            const product = await productSchema.find().populate('typeId')
+            const product = await productSchema.find()
             res.send(product)
         }
         catch (err) {
