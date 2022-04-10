@@ -34,12 +34,11 @@ class CouponController{
     
     */
     async addCoupon(req,res){
-        var integer = Math.floor(Math.random()* 1000)
         const coupons = await new couponSchema({
             name: req.body.name,
             value: req.body.value,
             amount:req.body.amount,
-            code: integer,
+            code: req.body.code,
             endDate:req.body.endDate,
         })
         try {

@@ -6,9 +6,7 @@ const couponSchema = new mongoose.Schema({
         default:''
     },
     code:{
-        type:Number,
-        min:0,
-        max: 999,
+        type:String,
         require: true,
     },
     value:{
