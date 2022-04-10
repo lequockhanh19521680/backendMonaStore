@@ -16,15 +16,14 @@ class ProductController {
     
 
 
-    async getTypeByIdTypeProduct(req,res,next){
+    async getProductTypeById(req,res,next){
         try{
         const _id = req.params.id;
-        const findProduct = await typeProductSchema.find({"typeId": _id })
+        const findProduct = await typeProductSchema.find({"_id": _id })
         res.send(findProduct)
         }catch(err){
             console.log(err)
         }
-
     }
 
     async getProductFromType(req,res){
@@ -54,7 +53,7 @@ class ProductController {
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
         try {
-            const product = await productSchema.find().populate('type')
+            const product = await productSchema.find().populate('typeId')
             res.send(product)
         }
         catch (err) {
@@ -162,7 +161,7 @@ class ProductController {
     async setProduct(req,res){
         try{
             const _id = req.params.id;
-            const updateField = await productSchema.findByIdAndUpdate(_id,req.query)
+            const updateField = await productSchema.findByIdAndUpdate(_id,req.body)
             res.send(updateField)
         }
         catch(err)
@@ -173,10 +172,9 @@ class ProductController {
     
     async setTypeProduct(req,res){
         try{
-            const id = req.params.id;
-            const updateField = await typeProductSchema.updateOne({typeId: id},req.query)
-            res.send(updateField)
-            console.log(req.query)
+            const _id = req.params.id;
+            const newProductType = await typeProductSchema.findByIdAndUpdate({_id}, req.body)
+            res.send(newProductType)
         }
         catch(err)
         {
@@ -189,7 +187,7 @@ class ProductController {
     async deleteTypeProductById(req,res){
         const id = req.params.id
         try{
-        const product = await typeProductSchema.deleteOne({typeId: id})
+        const product = await typeProductSchema.deleteOne({_id: id})
         res.send(product)
         }catch(err)
         {

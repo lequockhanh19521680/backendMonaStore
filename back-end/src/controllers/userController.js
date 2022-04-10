@@ -166,7 +166,6 @@ class UserController {
             console.log(error)
             console.log(role)
         }
-
     }
 
 

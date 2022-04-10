@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const shordId = require('short-id')
 const typeProductSchema = new mongoose.Schema({
     typeId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         default: shordId.generate()
     },
     nameType:{

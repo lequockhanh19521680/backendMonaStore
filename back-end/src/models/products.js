@@ -12,9 +12,9 @@ const productSchema = new mongoose.Schema({
         require: true,
     },
     typeId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         require: true,
-        ref:'type'
+        ref:'TypeProduct'
     },
     price:
     {
