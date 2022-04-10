@@ -3,10 +3,6 @@ const mongoose = require('mongoose')
 const bson = require('bson')
 //model cua 1 user trong collection users cua mongodb
 const userSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        default: new bson.ObjectId()
-    },
     email:{
         type: String,
         require: true,

@@ -3,6 +3,7 @@ const newRouter = require('./newRouter')
 const productRouter = require('./productRouter')
 const invoiceRouter = require('./invoiceRouter')
 const questionRouter = require('./questionRouter')
+const couponRouter = require('./couponRouter')
 
 function route(app) {
     app.use('/user', userRouter)
@@ -10,6 +11,7 @@ function route(app) {
     app.use('/product',productRouter)
     app.use('/invoice',invoiceRouter)
     app.use('/question',questionRouter)
+    app.use('/coupon',couponRouter)
 }
 
 

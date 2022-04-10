@@ -48,7 +48,7 @@ class InvoiceController {
             console.log(err)
         }
     }
-    // Ham them user vao database, trong do chi can them username vs password la dc, isTeacher va isSelect tu dong la false
+   
     async addInvoice(req, res) {
         const invoices = await new invoiceSchema({
             userId: req.body.userId,
@@ -76,8 +76,6 @@ class InvoiceController {
         catch(err)
         {
             res.send('error' + err)
-            console.log(field)
-            console.log(value)
         }
     }
 
