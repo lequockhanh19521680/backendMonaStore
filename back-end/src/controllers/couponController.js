@@ -34,7 +34,6 @@ class CouponController{
     
     */
     async addCoupon(req,res){
-        var integer = Math.floor(Math.random()* 1000)
         const coupons = await new couponSchema({
             name: req.body.name,
             value: req.body.value,
