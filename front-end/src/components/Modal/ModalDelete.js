@@ -22,7 +22,11 @@ export default function ModalDelete({ open, toggle, onConfirm }) {
                 <button className="text-sm-md px-4 mx-3 py-2 bg-white rounded-lg text-black" onClick={toggle}>
                     No, Keep it
                 </button>
-                <button className="text-sm-md px-4 mx-3 py-2 bg-green-1 rounded-lg text-white" onClick={onConfirm}>
+                <button className="text-sm-md px-4 mx-3 py-2 bg-green-1 rounded-lg text-white" onClick={() => {
+                    onConfirm() 
+                    toggle()
+                }}
+                >
                     Yes, Delete it
                 </button>
             </div>

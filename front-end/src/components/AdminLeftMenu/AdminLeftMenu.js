@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiUsers, FiUser, FiGift, FiSettings, FiList, FiShoppingBag, FiGrid, FiCheckCircle } from "react-icons/fi";
+import { FiUsers, FiUser, FiGift, FiList, FiShoppingBag, FiGrid, FiCheckCircle, FiMessageCircle } from "react-icons/fi";
 import { NavLink } from 'react-router-dom'
 export default function AdminLeftMenu() {
 
@@ -40,14 +40,14 @@ export default function AdminLeftMenu() {
             link: '/admin/our-staff',
         },
         {
-            icon: <FiSettings />,
-            label: 'Setting',
-            link: '/admin/setting',
+            icon: <FiMessageCircle />,
+            label: 'News',
+            link: '/admin/news',
         },
     ]
 
     return (
-        <div className="flex flex-cols bg-dark-1 h-full w-[230px] overflow-hidden fixed">
+        <div className="bg-dark-1 h-full w-[230px] overflow-hidden fixed">
             <ul className="py-10">
                 {
                     leftMenu.map((item, index) => {

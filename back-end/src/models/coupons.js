@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
-const { getAllProductSortPriceIncrease } = require('../controllers/productController');
-//model cua 1 user trong collection users cua mongodb
+
 const couponSchema = new mongoose.Schema({
     name:{
         type:String,
         default:''
     },
     code:{
-        type:Number,
-        min:0,
-        max: 999,
-        default: Math.floor(Math.random())
+        type:String,
+        require: true,
     },
     value:{
         type: Number,
@@ -26,18 +23,24 @@ const couponSchema = new mongoose.Schema({
     amount:{
         type:Number,
         min:0,
-        default:0,
+        default:1,
+        required: true,
     },
     endDate:{
         type:Date,
-        default: new Date(0,0,0)
+        required: true,
     },
     status:{
         type: String,
         enum:['ACTIVE','EXPIRED'],
         default: function(){
-            if((Date.now > endDate) && (Date.now<startDate)) return "ACTIVE"
-            else return "EXPIRED"
+            if((Date.now() < this.endDate)  && (this.amount>0)) 
+            {
+                return "ACTIVE"
+            }
+            else {
+                return "EXPIRED"
+            }
         },
     },
 

@@ -3,7 +3,6 @@ const newSchema = require('../models/new')
 class NewController {
     
 
-    //Ham lay du lieu tu database
     async getAllNew(req, res, next) {
         try {
             const news = await newSchema.find()
@@ -13,7 +12,8 @@ class NewController {
             res.send({ message: err.message })
         }
     }
-    // Ham them user vao database, trong do chi can them username vs password la dc, isTeacher va isSelect tu dong la false
+
+    
     async addNew(req, res) {
         const news = await new newSchema({
             title: req.body.title,
@@ -27,15 +27,12 @@ class NewController {
             res.send('Error' + err)
         }
     }
-    async setQuestion(req,res){
-        const field = req.query.field;
-        const value = req.query.value;
+    async setNew(req,res){
+
         try{
             const _id = req.params.id;
-            const updateField = await newSchema.findByIdAndUpdate(_id,{[field]: value})
+            const updateField = await newSchema.findByIdAndUpdate(_id,req.query)
             res.send(updateField)
-            console.log(field)
-            console.log(value)
         }
         catch(err)
         {

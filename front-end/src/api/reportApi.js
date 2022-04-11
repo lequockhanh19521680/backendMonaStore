@@ -2,7 +2,7 @@ import axiosClient from "./axiosClient";
 
 const reportApi = {
     getReport: () => {
-        const url = ""
+        const url = "/report"
         return axiosClient.get(url)
     }
 }

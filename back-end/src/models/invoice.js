@@ -3,7 +3,13 @@ const mongoose = require('mongoose')
 const invoiceSchema = new mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'user'
+        ref:'User',
+        require: true,
+    },
+    productId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product',
+        require: true,
     },
     phone:{
         type:String,
@@ -11,6 +17,7 @@ const invoiceSchema = new mongoose.Schema({
     },
     time:{
         type:Date,
+        default:Date.now,
     },
     address:{
         type:String,
@@ -22,7 +29,8 @@ const invoiceSchema = new mongoose.Schema({
     },
     paymentMethod:{
         type:String,
-        default:'Chuyen khoan',
+        enum:['CODE','CARD'],
+        default:'CARD',
     },
     status:{
         type:String,

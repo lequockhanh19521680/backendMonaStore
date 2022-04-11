@@ -1,11 +1,8 @@
 
 const mongoose = require('mongoose')
+const bson = require('bson')
 //model cua 1 user trong collection users cua mongodb
 const userSchema = new mongoose.Schema({
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:'user',
-    },
     email:{
         type: String,
         require: true,
@@ -13,7 +10,7 @@ const userSchema = new mongoose.Schema({
     },
     nameAccount:{
         type: String,
-        required: true,
+        default: '',
     },
     password:{
         type: String,
@@ -21,7 +18,7 @@ const userSchema = new mongoose.Schema({
     },
     phone:{
         type: String,
-        require: true,
+        default: ''
     },
     role:{
         type: String,
@@ -30,7 +27,7 @@ const userSchema = new mongoose.Schema({
         default: 'CUSTOMER',
     },
     cart:{
-        Type: [mongoose.Schema.Types.ObjectId],
+        Type: [String],
     },
     createAt:{
         type:Date,

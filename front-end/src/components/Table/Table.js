@@ -1,39 +1,9 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useTable } from 'react-table';
 
-export default function Table({ data, columnsTable}) {
+export default function Table({ data, columnsTable }) {
 
-    const columns = useMemo(
-        // () => [
-        //     {
-        //         Header: 'Pair',
-        //         accessor: 'pair',
-        //     },
-        //     {
-        //         Header: 'Last Price',
-        //         accessor: 'price',
-        //     },
-        //     {
-        //         Header: 'Change',
-        //         accessor: 'change',
-        //     },
-        //     {
-        //         Header: 'Favorite',
-        //         accessor: 'favorite',
-        //     },
-        // ],
-        () => columnsTable,
-        [],
-    );
-
-    // const data = [
-    //     {
-    //         pair: '1',
-    //         price: '2',
-    //         change: '2',
-    //         favorite: '1',
-    //     }
-    // ]
+    const columns = useMemo(() => columnsTable, []);
 
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
         columns,
@@ -50,7 +20,7 @@ export default function Table({ data, columnsTable}) {
                                 <th
                                     key={index}
                                     scope="col"
-                                    className="px-5 py-3"
+                                    className="px-5 py-3 whitespace-nowrap"
                                     {...column.getHeaderProps()}
                                 >
                                     {column.render('Header')}
@@ -65,10 +35,13 @@ export default function Table({ data, columnsTable}) {
                     rows.map((row, index) => {
                         prepareRow(row)
                         return (
-                            <tr {...row.getRowProps()} key={index} className="text-md text-left">
+                            <tr {...row.getRowProps()}
+                                key={index}
+                                className="text-md text-left overflow-hidden"
+                            >
                                 {
                                     row.cells.map((cell) => {
-                                        return <td {...cell.getCellProps()} className="px-5 py-3">
+                                        return <td {...cell.getCellProps()} className="px-5 py-3 break-words">
                                             {cell.render('Cell')}
                                         </td>
                                     })

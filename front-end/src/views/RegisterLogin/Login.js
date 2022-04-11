@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { AlertCircle } from 'react-feather'
 import classnames from 'classnames'
+import userApi from '../../api/userApi'
 export default function Login() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [isValidEmail, setIsValidEmail] = useState(true)
   const [isValidPass, setIsValidPass] = useState(true)
-
+  const [user, setUser] = useState(null)
   const validateEmail = () => {
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (email?.match(mailformat)) {
@@ -17,6 +18,20 @@ export default function Login() {
     }
     else {
       setIsValidEmail(false)
+    }
+  }
+
+
+  const Login = async (e) => {
+    e.preventDefault()
+    try {
+      await userApi.login({email, password}).then((response) => {
+        console.log(response)
+        setUser(response.data)
+
+      })
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -52,7 +67,7 @@ export default function Login() {
                 type="password"
                 placeholder="Password"
                 onChange={(e) => {
-                  setEmail(e.target.value)
+                  setPassword(e.target.value)
                   validateEmail()
                 }}
               />
@@ -67,7 +82,12 @@ export default function Login() {
             <div className="text-center ">
               <Link to="/" className="underline text-white ">Quên mật khẩu?</Link>
             </div>
-            <button className="w-full py-3 bg-black-1 hover:bg-black-2 text-white mt-8 font-medium text-xl">Đăng nhập</button>
+            <button
+              onClick={(e) => { Login(e) }}
+              className="w-full py-3 bg-black-1 hover:bg-black-2 text-white mt-8 font-medium text-xl"
+            >
+              Đăng nhập
+            </button>
           </form>
           <div className="text-center text-white mt-5">
             <Link to="/dang-ki" className="underline">Tạo tài khoản</Link>

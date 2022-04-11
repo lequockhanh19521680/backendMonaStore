@@ -49,8 +49,20 @@ class UserController {
 
 
     async getAllUser(req, res, next) {
+
+        let query = req.query
+        if (req.query.role) {
+            query.role = req.query.role.toUpperCase()
+        }
+
+        if (req.query.textSearch) {
+            query.nameAccount = {
+                $regex: req.query.textSearch
+            }
+        }
+        
         try {
-            const user = await userModel.find()
+            const user = await userModel.find(query)
             res.send(user)
         }
         catch (err) {
@@ -60,7 +72,7 @@ class UserController {
 
 
     async Register(req, res) {
-        const { email, password ,nameAccount,phone} = req.body
+        const { email, password ,nameAccount,phone,role} = req.body
 
         // Simple validation
         if (!email || !password) {
@@ -81,7 +93,7 @@ class UserController {
 
             // All good
             const hashedPassword = await argon2.hash(password)
-            const newUser = new userModel({ email, password: hashedPassword,nameAccount,phone })
+            const newUser = new userModel({ email, password: hashedPassword,nameAccount,phone,role })
             await newUser.save()
 
             console.log( process.env.ACCESS_TOKEN_SECRET);
@@ -147,8 +159,24 @@ class UserController {
         }
     }
 
+    async getStaff(req,res){
+        try {
+            const findRole = await userModel.find({"role": {$ne: 'CUSTOMER' }})
+            res.send(findRole)
+        } catch (error) {
+            console.log(error)
+        }
 
+    }
 
+    async getUserRole(req,res){
+        try {
+            const findRole = await userModel.find(req.query)
+            res.send(findRole)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
 
@@ -179,7 +207,26 @@ class UserController {
         }
     }
 
-   
+    async deleteUserFromId(req,res){
+        const _id = req.params.id
+        try{
+        const user = await userModel.findByIdAndDelete(_id)
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+
+    async getAllCustomers(req, res) {
+        try {
+            const customers = await userModel.find({ role: 'CUSTOMER'})
+            res.send(customers)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
   
 }
 

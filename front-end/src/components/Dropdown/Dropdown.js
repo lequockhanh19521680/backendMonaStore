@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import classnames from 'classnames'
-export default function Dropdown({ title, listDropdown, className }) {
+export default function Dropdown({ title, listDropdown, className, classNameButton, label, value, onSelect }) {
 
     const [titleState, setTitleState] = useState(title)
     const [isShow, setIsShow] = useState(false)
     return (
-        <div className={classnames("w-full text-md relative z-10", className)}>
+        <div className={classnames("w-full text-md relative", className)}>
             <button
-                className="px-2 py-3 rounded-lg bg-gray-3 border border-white w-full flex items-center justify-between opacity-80 h-10"
-                onClick={() => setIsShow(!isShow)}
+                className={
+                    classnames("z-10 px-2 py-3 rounded-lg border border-white w-full flex items-center justify-between opacity-80 h-10",
+                        classNameButton,
+                        { "bg-gray-3": !classNameButton}
+                    )
+                }
+                onClick={(e) => {
+                    e.preventDefault()
+                    setIsShow(!isShow)
+                }}
             >
                 <p>
                     {titleState}
@@ -17,16 +25,18 @@ export default function Dropdown({ title, listDropdown, className }) {
             </button>
             {
                 isShow && (
-                    <div className="border border-white bg-gray-3 absolute w-full">
+                    <div className="border border-white bg-gray-3 absolute w-full z-20">
                         <ul>
                             {
                                 listDropdown.map((item, index) => {
                                     return (
-                                        <li key={index} className="py-1 hover:bg-blue-1 px-2" onClick={() => {
-                                            setTitleState(item)
-                                            setIsShow(false)
-                                        }}>
-                                            {item}
+                                        <li key={index} className="py-1 hover:bg-blue-1 px-2"
+                                            onClick={() => {
+                                                setTitleState(item?.[label] || item)
+                                                setIsShow(false)
+                                                onSelect(item?.[value] || item)
+                                            }}>
+                                            {item?.[label] || item}
                                         </li>
                                     )
                                 })
