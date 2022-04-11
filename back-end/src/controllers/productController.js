@@ -5,8 +5,16 @@ const typeProductSchema = require('../models/typeProducts')
 class ProductController {
 
     async getAllProductType(req,res,next){
+        let query = {}
+
+        if (req.query.textSearch) {
+            query.nameType = {
+                $regex: req.query.textSearch
+            }
+        }
+
         try{
-        const findProduct = await typeProductSchema.find().select()
+            const findProduct = await typeProductSchema.find(query).select()
         res.send(findProduct)
         }catch(err){
             console.log(err)
@@ -52,7 +60,7 @@ class ProductController {
 
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
-        let query = {}
+        let query = req.query
         let querySort = []
 
         if (req.query.typeId) {

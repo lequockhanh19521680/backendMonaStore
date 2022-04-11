@@ -5,6 +5,7 @@ const initialState = {
     users: undefined,
     user: undefined,
     allStaff: undefined,
+    allCustomers: undefined
 }
 
 const userSlice = createSlice({
@@ -19,6 +20,9 @@ const userSlice = createSlice({
         },
         setAllStaff: (state,action) => {
             state.allStaff = action.payload
+        },
+        setAllCustomers: (state, action) => {
+            state.allCustomers = action.payload
         }
     }
 })
@@ -50,10 +54,20 @@ export const fetchAllStaff = () => async (dispatch) => {
     }
 }
 
+export const fetchAllCustomers = () => async (dispatch) => {
+    try {
+        const response = await userApi.getAllCustomers()
+        dispatch(setAllCustomers(response))
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const {
     setUsers,
     setUser,
-    setAllStaff
+    setAllStaff,
+    setAllCustomers
 } = userSlice.actions
 
 export default userSlice.reducer

@@ -49,8 +49,20 @@ class UserController {
 
 
     async getAllUser(req, res, next) {
+
+        let query = req.query
+        if (req.query.role) {
+            query.role = req.query.role.toUpperCase()
+        }
+
+        if (req.query.textSearch) {
+            query.nameAccount = {
+                $regex: req.query.textSearch
+            }
+        }
+        
         try {
-            const user = await userModel.find()
+            const user = await userModel.find(query)
             res.send(user)
         }
         catch (err) {

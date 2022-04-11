@@ -41,7 +41,7 @@ export default function Table({ data, columnsTable }) {
                             >
                                 {
                                     row.cells.map((cell) => {
-                                        return <td {...cell.getCellProps()} className="px-5 py-3">
+                                        return <td {...cell.getCellProps()} className="px-5 py-3 break-words">
                                             {cell.render('Cell')}
                                         </td>
                                     })

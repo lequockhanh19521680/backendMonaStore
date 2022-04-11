@@ -9,7 +9,14 @@ import { useDispatch } from 'react-redux';
 import { useFetchListInvoice, useListInvoice } from '../../../store/invoice/hook'
 import { fetchListInvoice } from '../../../store/invoice'
 import LoadingPage from '../../../components/LoadingPage/Loading'
+import invoiceApi from '../../../api/invoiceApi'
+import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
+import ActionGroup from '../../../components/ActionGroup/ActionGroup';
+import { useNavigate } from 'react-router-dom'
+
 export default function Orders() {
+
+    const navigate = useNavigate()
     useFetchListInvoice()
     const listInvoice = useListInvoice()
     const [inputValue, setInputValue] = useState()
@@ -26,13 +33,25 @@ export default function Orders() {
         }
     }
 
-    const listDropdownStatus = [
-        'Dây chuyền',
-        'Nhẫn',
-        'Bông tai',
-        'Lắc tay',
-        'Đồng hồ',
-    ]
+    const handleChangeStatus = async (id, status) => {
+        try {
+            await invoiceApi.editInvoice(id, {
+                status: status.toUpperCase()
+            })
+            updateInvoice()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleDeleteInvoice = async (id,status) => {
+        try {
+            await invoiceApi.deleteInvoice(id)
+            updateInvoice()
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const listDropdownLimits = [
         'Low to High',
@@ -43,10 +62,20 @@ export default function Orders() {
         {
             Header: 'No',
             accessor: '_id',
+            Cell: data => {
+                return <span>
+                    {data?.row?.original?._id?.slice(0, 4)}...{data?.row?.original?._id?.slice(data?.row?.original?._id?.length - 4, data?.row?.original?._id?.length)}
+                </span>
+            }
         },
         {
             Header: 'TIME',
             accessor: 'time',
+            Cell: data => {
+                return <span>
+                    {formatDDMMYYYYHHmm(data?.row.original.time)}
+                </span>
+            }
         },
         {
             Header: 'SHIPPING ADDRESS',
@@ -61,35 +90,39 @@ export default function Orders() {
             accessor: 'paymentMethod',
         },
         {
-            Header: 'AMOUNT',
+            Header: 'Cost',
             accessor: 'cost'
         },
         {
-            Header: 'STATUS',
-            accessor: 'status'
-        },
-        {
-            Header: 'ACTION',
-            accessor: 'action',
+            Header: 'Status',
+            accessor: 'status',
             Cell: data => {
-                return <Dropdown title="Status"
+                return <Dropdown title={data?.row.original.status}
                     className="w-32"
-                    listDropdown={Object.values(PRODUCT_STATUS)} />
+                    listDropdown={Object.values(PRODUCT_STATUS)}
+                    onSelect={(status) => handleChangeStatus(data?.row.original._id, status)}
+                    classNameButton={data?.row.original.status.toLowerCase() === "cancel" ? "bg-red-500"
+                        : data?.row.original.status.toLowerCase() === "pending" ? "bg-blue-1"
+                            : data?.row.original.status.toLowerCase() === "processing" ? "bg-orange-1"
+                                : "bg-green-1"
+                    }
+                />
             }
         },
         {
-            Header: 'INVOICE',
-            accessor: 'invoice',
+            Header: 'Action',
             Cell: data => {
-                return <button>
-                    <Eye width={20} className="hover:text-green-1"/>
-                </button>
+                return <ActionGroup
+                    showEye={false}
+                    showEdit={false}
+                    onDelete={() => handleDeleteInvoice(data.row.original._id)}
+                />
             }
         },
     ]
 
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 Orders
             </p>
@@ -100,7 +133,7 @@ export default function Orders() {
                     onChange={handleChangeInput}
                     dark={1}
                     type="text"
-                    placeholder="Search by product name"
+                    placeholder="Search by shipping address"
                 />
 
                 <Dropdown
@@ -108,7 +141,7 @@ export default function Orders() {
                     listDropdown={Object.values(PRODUCT_STATUS)}
                 />
                 <Dropdown
-                    title="Order limits"
+                    title="Cost"
                     listDropdown={listDropdownLimits}
                 />
             </div>

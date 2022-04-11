@@ -7,10 +7,10 @@ export const PRODUCT_STATUS = {
 }
 
 export const PRODUCT_STATUS_COLOR = {
-    delivered: '#03543f',
-    pending: '#9f580a',
-    processing:'#1e429f',
-    cancel: '#9b1c1c',
+    delivered: '#0e9f6e',
+    pending: '#3f83f8',
+    processing:'#ff5a1f',
+    cancel: '#c43c3d',
 }
 
 export const COUPON_STATUS = {
@@ -30,11 +30,4 @@ export const STAFF_ROLE = {
     manager: 'Manager',
     accountant: 'Accountant',
     'delivery_person': 'Delivery person',
-}
-
-export const PRODUCT_TYPE = {
-    "6242a20768f1c571729c5e9c": 'Dây chuyền',
-    "6242a21d68f1c571729c5ea1": 'Bông tai',
-    "6242a23f68f1c571729c5ea3": 'Lắc tai',
-    "6242a24e68f1c571729c5ea5": 'Nhẫn bạc',
 }

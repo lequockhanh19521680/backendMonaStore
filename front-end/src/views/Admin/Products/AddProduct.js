@@ -35,7 +35,7 @@ export default function AdminAddProduct() {
     try {
       await productApi.postProduct({
         nameProduct,
-        typeProductId,
+        typeId: typeProductId,
         description,
         price,
         sale,
@@ -50,8 +50,8 @@ export default function AdminAddProduct() {
   }
 
   return (
-    <AdminContainer className="h-screen">
-      <form className="h-screen">
+    <AdminContainer>
+      <form>
         <Input
           className="border border-gray-400 rounded-lg text-md text-white"
           label="Product Name"
@@ -81,7 +81,7 @@ export default function AdminAddProduct() {
           Product Type
         </p>
         <Dropdown
-          title="Price"
+          title="Product Type"
           listDropdown={productTypes?.data}
           label="nameType"
           value="typeId"

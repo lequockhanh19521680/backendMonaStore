@@ -4,22 +4,28 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import DoughnutChart from '../../../components/DoughnutChart/DoughnutChart'
 import BarChart from '../../../components/BarChart/BarChart'
 import Table from '../../../components/Table/Table'
-import { useFetchListCoupon, useListCoupon } from '../../../store/coupon/hook';
+import { useFetchListInvoice, useListInvoice } from '../../../store/invoice/hook'
 import { PRODUCT_STATUS_COLOR, PRODUCT_STATUS } from '../../../constants/index'
 import Badge from '../../../components/Badge/Badge'
 import classnames from 'classnames'
 import LoadingPage from '../../../components/LoadingPage/Loading'
+import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
+
 export default function Dashboard() {
-  useFetchListCoupon()
-  const listCoupon = useListCoupon()
+  useFetchListInvoice()
+  const listInvoice = useListInvoice()
   const labels = ['Nhẫn', 'Dây chuyền', 'Bông tai', 'Lắc tay', 'Đồng hồ']
   const dataDoughnutChart = [15, 15, 20, 25, 25]
-
 
   const columnsTable = [
     {
       Header: 'ORDER TIME',
       accessor: 'time',
+      Cell: data => {
+        return <span>
+          {formatDDMMYYYYHHmm(data?.row.original.time)}
+        </span>
+      }
     },
     {
       Header: 'DELIVERY ADDRESS',
@@ -41,7 +47,11 @@ export default function Dashboard() {
       Header: 'STATUS',
       accessor: 'status',
       Cell: data => {
-        return <Badge className={classnames("text-sm-md px-2 font-medium", `bg-[${PRODUCT_STATUS_COLOR?.[data?.row.original.status.toLowerCase()]}]`)}>{PRODUCT_STATUS?.[data.row.original.status?.toLowerCase()]}</Badge>
+        return <Badge 
+        style={{
+            backgroundColor: PRODUCT_STATUS_COLOR?.[data?.row.original.status.toLowerCase()]
+        }}
+        className={classnames("text-sm-md px-2 font-medium")}>{PRODUCT_STATUS?.[data.row.original.status?.toLowerCase()]}</Badge>
       }
     },
   ]
@@ -147,7 +157,7 @@ export default function Dashboard() {
         </div>
       </div>
       {
-        listCoupon?.data && <Table columnsTable={columnsTable} data={listCoupon?.data} />
+        listInvoice?.data && <Table columnsTable={columnsTable} data={listInvoice?.data} />
       }
     </AdminContainer>
   )

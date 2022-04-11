@@ -15,24 +15,25 @@ export default function Header() {
       link: 'danh-muc'
     },
     {
-      displayName: 'Bộ sưu tập',
+      displayName: 'Nhẫn',
       link: '/bo-suu-tap'
     },
     {
-      displayName: 'Best Seller',
+      displayName: 'Dây chuyền',
       link: '/ban-chay'
+    },
+
+    {
+      displayName: 'Đồng hồ',
+      link: '/lien-he'
+    },
+    {
+      displayName: 'Lắc tay',
+      link: '/gioi-thieu'
     },
     {
       displayName: 'Tin tức',
       link: '/tin-tuc'
-    },
-    {
-      displayName: 'Liên hệ',
-      link: '/lien-he'
-    },
-    {
-      displayName: 'Giới thiệu',
-      link: '/gioi-thieu'
     },
   ]
   return (

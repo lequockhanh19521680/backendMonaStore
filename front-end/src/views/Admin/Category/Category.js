@@ -50,6 +50,11 @@ export default function Category() {
         {
             Header: 'ID',
             accessor: '_id',
+            Cell: data => {
+                return <span>
+                    {data?.row?.original?._id?.slice(0, 4)}...{data?.row?.original?._id?.slice(data?.row?.original?._id?.length - 4, data?.row?.original?._id?.length)}
+                </span>
+            }
         },
         {
             Header: 'NAME',
@@ -77,20 +82,6 @@ export default function Category() {
             </p>
 
             <div className="p-5 w-full rounded-lg bg-dark-1 flex items-center mb-5">
-                <div className="grid grid-cols-2 w-4/5 mr-5 gap-x-5">
-                    <Input
-                        className="border border-gray-400 rounded-lg text-md text-white"
-                        onChange={handleChangeInput}
-                        dark={1}
-                        type="text"
-                        placeholder="Search by product name"
-                    />
-
-                    <Dropdown
-                        title="Category"
-                        listDropdown={listDropdownCategory}
-                    />
-                </div>
 
                 <button className="bg-green-1 rounded-lg px-10 hover:bg-[#057a55] w-1/5 h-[42px]"
                     onClick={() => navigate('/admin/category/add-category')}

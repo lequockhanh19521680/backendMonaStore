@@ -32,6 +32,10 @@ const userApi = {
     getStaff: () => {
         const url = '/user/isStaff'
         return axiosClient.get(url)
+    },
+    getAllCustomers: () => {
+        const url = '/user/customers'
+        return axiosClient.get(url)
     }
 }
 

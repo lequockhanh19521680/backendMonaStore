@@ -3,8 +3,18 @@ const couponSchema = require('../models/coupons')
 class CouponController{
     
     async getAllQuery(req,res){
+        let query = req.query
+        if (req.query.status) {
+            query.status = req.query.status.toUpperCase()
+        }
+        if(req.query.textSearch) {
+            query.name = {
+                $regex: req.query.textSearch
+            }
+        }
+
         try {
-            const find = await couponSchema.find(req.query)
+            const find = await couponSchema.find(query)
             res.send(find)
         } catch (error) {
             console.log(error)

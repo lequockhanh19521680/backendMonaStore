@@ -41,6 +41,12 @@ export default function AdminEditProduct() {
     try {
       await productApi.editProduct(id, {
         nameProduct,
+        typeId: typeProductId,
+        description,
+        price,
+        sale,
+        metal,
+        size,
       })
       setPending(false)
     } catch (error) {
@@ -81,7 +87,7 @@ export default function AdminEditProduct() {
           Product Type
         </p>
         <Dropdown
-          title="Price"
+          title="Product Type"
           listDropdown={productTypes?.data}
           label="nameType"
           value="typeId"

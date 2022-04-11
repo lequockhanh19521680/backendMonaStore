@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import classnames from 'classnames'
-export default function Dropdown({ title, listDropdown, className, label, value, onSelect }) {
+export default function Dropdown({ title, listDropdown, className, classNameButton, label, value, onSelect }) {
 
     const [titleState, setTitleState] = useState(title)
     const [isShow, setIsShow] = useState(false)
     return (
         <div className={classnames("w-full text-md relative", className)}>
             <button
-                className=" z-10 px-2 py-3 rounded-lg bg-gray-3 border border-white w-full flex items-center justify-between opacity-80 h-10"
+                className={
+                    classnames("z-10 px-2 py-3 rounded-lg border border-white w-full flex items-center justify-between opacity-80 h-10",
+                        classNameButton,
+                        { "bg-gray-3": !classNameButton}
+                    )
+                }
                 onClick={(e) => {
                     e.preventDefault()
                     setIsShow(!isShow)
@@ -27,11 +32,11 @@ export default function Dropdown({ title, listDropdown, className, label, value,
                                     return (
                                         <li key={index} className="py-1 hover:bg-blue-1 px-2"
                                             onClick={() => {
-                                                setTitleState(item?.[label])
+                                                setTitleState(item?.[label] || item)
                                                 setIsShow(false)
-                                                onSelect(item?.[value])
+                                                onSelect(item?.[value] || item)
                                             }}>
-                                            {item?.[label]}
+                                            {item?.[label] || item}
                                         </li>
                                     )
                                 })

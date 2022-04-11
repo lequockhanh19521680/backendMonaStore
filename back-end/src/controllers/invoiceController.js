@@ -33,11 +33,17 @@ class InvoiceController {
 
     //Ham lay du lieu tu database
     async getAllInvoice(req, res) {
-        let query = {}
+        let query = req.query
         let querySort = []
 
         if (req.query.status) {
             query.status = req.query.status.toUpperCase()
+        }
+
+        if (req.query.textSearch) {
+            query.address = {
+                $regex: req.query.textSearch
+            }
         }
 
         if(req.query.orderBy && req.query.order) {

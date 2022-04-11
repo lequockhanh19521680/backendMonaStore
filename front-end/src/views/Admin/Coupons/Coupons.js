@@ -9,8 +9,17 @@ import { useFetchListCoupon, useListCoupon } from '../../../store/coupon/hook';
 import LoadingPage from './../../../components/LoadingPage/Loading';
 import { COUPON_STATUS } from '../../../constants/index'
 import classnames from 'classnames';
+import { fetchListCoupon } from '../../../store/coupon';
+import { useDispatch } from 'react-redux';
+import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
+import { useNavigate } from 'react-router-dom'
+import Dropdown from '../../../components/Dropdown/Dropdown'
+
 export default function Coupons() {
+
+    const navigate = useNavigate()
     useFetchListCoupon()
+    const dispatch = useDispatch()
     const listCoupon = useListCoupon()
     const [inputValue, setInputValue] = useState()
 
@@ -18,9 +27,18 @@ export default function Coupons() {
         setInputValue(e.target.value)
     }
 
+    const updateListCoupon = async () => {
+        try {
+            dispatch(fetchListCoupon())
+        } catch (error){
+            console.log(error)
+        }
+    }
+
     const handleDeleteCoupon = async (id) => {
         try {
             await couponApi.deleteCoupon(id)
+            updateListCoupon()
         } catch (err) {
             console.log(err)
         }
@@ -30,14 +48,29 @@ export default function Coupons() {
         {
             Header: 'ID',
             accessor: '_id',
+            Cell: data => {
+                return <span>
+                    {data?.row?.original?._id?.slice(0, 4)}...{data?.row?.original?._id?.slice(data?.row?.original?._id?.length - 4, data?.row?.original?._id?.length)}
+                </span>
+            }
         },
         {
             Header: 'START DATE',
             accessor: 'startDate',
+            Cell: data => {
+                return <span>
+                    {formatDDMMYYYYHHmm(data?.row.original.startDate)}
+                </span>
+            }
         },
         {
             Header: 'END DATE',
             accessor: 'endDate',
+            Cell: data => {
+                return <span>
+                    {formatDDMMYYYYHHmm(data?.row.original.endDate)}
+                </span>
+            }
         },
         {
             Header: 'NAME',
@@ -59,14 +92,22 @@ export default function Coupons() {
             Header: 'STATUS',
             accessor: 'status',
             Cell: data => {
-                return <Badge className={classnames("text-sm-md px-2 font-medium", `bg-[${COUPON_STATUS?.[data.row.original.status.toLowerCase()]?.color}]`)}>{COUPON_STATUS?.[data.row.original.status.toLowerCase()]?.label}</Badge>
+                return <Badge 
+                style={{
+                    backgroundColor: COUPON_STATUS?.[data.row.original.status.toLowerCase()]?.color
+                }}
+                className={classnames("text-sm-md px-2 font-medium")}>{COUPON_STATUS?.[data.row.original.status.toLowerCase()]?.label}</Badge>
             }
         },
         {
             Header: 'ACTIONS',
             accessor: 'action',
             Cell: data => {
-                return <ActionGroup onDelete={() => handleDeleteCoupon(data.row.original._id)} />
+                return <ActionGroup 
+                    showEye={false}
+                    onDelete={() => handleDeleteCoupon(data.row.original._id)} 
+                    onEdit={() => navigate(`/admin/coupons/edit-coupon/${data.row.original._id}`)}
+                />
             }
         },
     ]
@@ -77,16 +118,27 @@ export default function Coupons() {
                 Coupons
             </p>
 
-            <form className="p-5 w-full rounded-lg bg-dark-1 flex items-center">
+            <form className="p-5 w-full rounded-lg bg-dark-1 flex items-center mb-5">
                 <Input
                     className="border border-gray-400 rounded-lg text-md text-white h-[42px] mr-5"
                     onChange={handleChangeInput}
                     dark={1}
                     type="text"
-                    placeholder="Search by product name"
+                    placeholder="Search by coupon name"
+                    classNameContainer="w-full mr-5"
                 />
+                
+               <div className="mr-5 w-2/5">
+                    <Dropdown
+                        title="Coupon Status"
+                        listDropdown={Object.values(COUPON_STATUS)}
+                        label="label"
+                    />
+               </div>
 
-                <button className="bg-green-1 rounded-lg hover:bg-[#057a55] w-1/4 h-[42px]">
+                <button className="bg-green-1 rounded-lg hover:bg-[#057a55] w-1/4 h-[42px]"
+                    onClick={() => navigate('/admin/coupons/add-coupon')}
+                >
                     <div className="flex items-center justify-center text-md h-full">
                         <i className='bx bx-plus mr-2'></i>
                         <span>Add Coupon</span>

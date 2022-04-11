@@ -90,7 +90,7 @@ export default function OurStaff() {
                         onChange={handleChangeInput}
                         dark={1}
                         type="text"
-                        placeholder="Search by product name"
+                        placeholder="Search by staff name"
                     />
 
                     <Dropdown

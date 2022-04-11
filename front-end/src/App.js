@@ -24,6 +24,8 @@ import AdminAddProduct from './views/Admin/Products/AddProduct';
 import AdminEditProduct from './views/Admin/Products/EditProduct';
 import EditCategory from './views/Admin/Category/EditCategory';
 import AddCategory from './views/Admin/Category/AddCategory';
+import AddCoupon from './views/Admin/Coupons/AddCoupon';
+import EditCoupon from './views/Admin/Coupons/EditCoupon';
 const UserLayout = () => {
   return (
     <div className="font-baskerville">
@@ -87,6 +89,8 @@ function App() {
           <Route path="products/edit-product/:id" element={<AdminEditProduct />} />
           <Route path="category/add-category" element={<AddCategory />} />
           <Route path="category/edit-category/:id" element={<EditCategory />} />
+          <Route path="coupons/add-coupon" element={<AddCoupon />} />
+          <Route path="coupons/edit-coupon/:id" element={<EditCoupon />} />
         </Route>
       </Routes>
     </BrowserRouter>

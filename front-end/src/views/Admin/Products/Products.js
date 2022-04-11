@@ -11,7 +11,6 @@ import { fetchProducts } from './../../../store/product/index';
 import { useDispatch } from 'react-redux'
 import { useFetchProducts, useProducts } from './../../../store/product/hook';
 import LoadingPage from './../../../components/LoadingPage/Loading';
-import { PRODUCT_TYPE } from '../../../constants/index'
 import { useNavigate } from 'react-router-dom'
 export const ShowDetail = () => {
     return (
@@ -67,6 +66,11 @@ export default function Products() {
         {
             Header: 'ID',
             accessor: '_id',
+            Cell: data => {
+                return <span>
+                    {data?.row?.original?._id?.slice(0, 4)}...{data?.row?.original?._id?.slice(data?.row?.original?._id?.length - 4, data?.row?.original?._id?.length)}
+                </span>
+            }
         },
         {
             Header: 'PRODUCT NAME   ',
@@ -74,9 +78,12 @@ export default function Products() {
         },
         {
             Header: 'CATEGORY',
+            accessor: 'typeId',
             Cell: data => {
                 return (
-                    <span>{PRODUCT_TYPE?.[data.row.original.typeProductId]}</span>
+                    <span>
+                        {data?.row?.original?.typeId?.nameType}
+                    </span>
                 )
             }
         },
