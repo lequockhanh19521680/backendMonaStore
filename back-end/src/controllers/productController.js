@@ -73,7 +73,6 @@ class ProductController {
             }
         }
 
-
         if (req.query.orderBy && req.query.order) {
             var orderBy, order
             orderBy = req.query.orderBy

@@ -9,12 +9,12 @@ import ActionGroup from '../../../components/ActionGroup/ActionGroup'
 import productApi from '../../../api/productApi'
 import { fetchProducts } from './../../../store/product/index';
 import { useDispatch } from 'react-redux'
-import { useFetchProducts, useProducts } from './../../../store/product/hook';
+import { useFetchProducts, useProducts, useFetchAllProductType, useAllProductType } from './../../../store/product/hook';
 import LoadingPage from './../../../components/LoadingPage/Loading';
 import { useUpdateQuery, useSearchData, useUpdateSearchProduct } from '../../../store/search/hook'
 import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
-
+import { SORT_PRODUCT_PRICE } from '../../../constants/index'
 export const ShowDetail = () => {
     return (
         <button>
@@ -25,7 +25,9 @@ export const ShowDetail = () => {
 
 export default function Products() {
     useUpdateQuery()
+    useFetchAllProductType()
     useUpdateSearchProduct()
+    const productTypes = useAllProductType()
     const searchData = useSearchData()
     const navigate = useNavigate()
     useFetchProducts()
@@ -51,7 +53,7 @@ export default function Products() {
     useEffect(() => {
         setTextSearch(searchData?.textSearch)
     }, [])
-    
+
 
     const updateProduct = () => {
         try {
@@ -69,14 +71,6 @@ export default function Products() {
             console.log(error)
         }
     }
-
-    const listDropdownCategory = [
-        'Dây chuyền',
-        'Nhẫn',
-        'Bông tai',
-        'Lắc tay',
-        'Đồng hồ',
-    ]
 
     const listDropdownFilter = [
         'Low to High',
@@ -161,12 +155,20 @@ export default function Products() {
                 />
 
                 <Dropdown
-                    title="Category"
-                    listDropdown={listDropdownCategory}
+                    title="Product Type"
+                    listDropdown={productTypes?.data}
+                    label="nameType"
+                    onSelect={(typeId) => {
+                        updateFieldSearch('typeId', typeId)
+                    }}
                 />
                 <Dropdown
                     title="Price"
-                    listDropdown={listDropdownFilter}
+                    listDropdown={Object.values(SORT_PRODUCT_PRICE)}
+                    label="label"
+                    onSelect={(item) => {
+                        updateFieldSearch('sort', item)
+                    }}
                 />
 
                 <button
