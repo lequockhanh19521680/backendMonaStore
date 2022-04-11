@@ -67,6 +67,13 @@ class ProductController {
             query.typeId = req.query.typeId
         }
 
+        if (req.query.textSearch) {
+            query.nameProduct = {
+                $regex: req.query.textSearch
+            }
+        }
+
+
         if (req.query.orderBy && req.query.order) {
             var orderBy, order
             orderBy = req.query.orderBy

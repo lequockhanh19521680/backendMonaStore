@@ -6,7 +6,7 @@ import couponReducer from './coupon'
 import newsReducer from './news'
 import reportReducer from './report'
 import invoiceReducer from './invoice'
-
+import searchReducer from './search'
 const store = configureStore({
     reducer: {
         product: productReducer,
@@ -14,7 +14,8 @@ const store = configureStore({
         news: newsReducer,
         report: reportReducer,
         invoice: invoiceReducer,
-        coupon: couponReducer
+        coupon: couponReducer,
+        search: searchReducer,
     }
 })
 

@@ -28,9 +28,9 @@ const productSlice = createSlice({
     }
 })
 
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (params = {}) => async (dispatch) => {
     try {
-        const response = await productApi.getProducts()
+        const response = await productApi.getProducts({...params})
         dispatch(setProducts(response))
     } catch (error) {
         console.log(error)

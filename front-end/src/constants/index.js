@@ -31,3 +31,23 @@ export const STAFF_ROLE = {
     accountant: 'Accountant',
     'delivery_person': 'Delivery person',
 }
+
+export const ORDER_TYPE = {
+    ASC: 'asc',
+    DESC: 'desc',
+}
+
+export const SORT_PRODUCT_PRICE = {
+    LOWEST_PRICE: {
+        label: 'Low to High',
+        value: 'LOWEST_PRICE',
+        field: 'price',
+        type: ORDER_TYPE.ASC,
+    },
+    HIGHEST_PRICE: {
+        label: 'High to Low',
+        value: 'HIGHEST_PRICE',
+        field: 'price',
+        type: ORDER_TYPE.DESC,
+    },
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
@@ -11,7 +11,10 @@ import { fetchProducts } from './../../../store/product/index';
 import { useDispatch } from 'react-redux'
 import { useFetchProducts, useProducts } from './../../../store/product/hook';
 import LoadingPage from './../../../components/LoadingPage/Loading';
+import { useUpdateQuery, useSearchData, useUpdateSearchProduct } from '../../../store/search/hook'
+import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
+
 export const ShowDetail = () => {
     return (
         <button>
@@ -21,16 +24,34 @@ export const ShowDetail = () => {
 }
 
 export default function Products() {
-
+    useUpdateQuery()
+    useUpdateSearchProduct()
+    const searchData = useSearchData()
     const navigate = useNavigate()
     useFetchProducts()
     const products = useProducts()
     const dispatch = useDispatch()
-    const [inputValue, setInputValue] = useState()
+    const [textSearch, setTextSearch] = useState()
 
     const handleChangeInput = (e) => {
-        setInputValue(e.target.value)
+        setTextSearch(e.target.value)
     }
+
+    const updateFieldSearch = (field, value) => {
+        dispatch(updateSearchData({ [field]: value }))
+    }
+
+
+    useEffect(() => {
+        if (textSearch !== undefined) {
+            updateFieldSearch('textSearch', textSearch)
+        }
+    }, [textSearch])
+
+    useEffect(() => {
+        setTextSearch(searchData?.textSearch)
+    }, [])
+    
 
     const updateProduct = () => {
         try {
