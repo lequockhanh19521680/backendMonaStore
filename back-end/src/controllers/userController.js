@@ -205,6 +205,16 @@ class UserController {
             console.log(err)
         }
     }
+
+    async getAllCustomers(req, res) {
+        try {
+            const customers = await userModel.find({ role: 'CUSTOMER'})
+            res.send(customers)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
   
 }
 

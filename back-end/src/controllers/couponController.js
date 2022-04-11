@@ -39,7 +39,7 @@ class CouponController{
             name: req.body.name,
             value: req.body.value,
             amount:req.body.amount,
-            code: integer,
+            code: req.body.code,
             endDate:req.body.endDate,
         })
         try {
@@ -63,7 +63,7 @@ class CouponController{
     async setCoupon(req,res){
         try{
             const _id = req.params.id;
-            const updateField = await couponSchema.findByIdAndUpdate(_id,req.query)
+            const updateField = await couponSchema.findByIdAndUpdate(_id,req.body)
             res.send(updateField)
         }
         catch(err)

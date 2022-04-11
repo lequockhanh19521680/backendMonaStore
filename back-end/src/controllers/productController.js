@@ -52,8 +52,23 @@ class ProductController {
 
     //Ham lay du lieu tu database
     async getAllProduct(req, res, next) {
+        let query = {}
+        let querySort = []
+
+        if (req.query.typeId) {
+            query.typeId = req.query.typeId
+        }
+
+        if (req.query.orderBy && req.query.order) {
+            var orderBy, order
+            orderBy = req.query.orderBy
+            querySort.push(orderBy)
+            order = req.query.order === 'asc' ? 1 : -1
+            querySort.push(order)
+        }
+
         try {
-            const product = await productSchema.find().populate('typeId')
+            const product = await productSchema.find(query).populate('typeId').sort([querySort])
             res.send(product)
         }
         catch (err) {

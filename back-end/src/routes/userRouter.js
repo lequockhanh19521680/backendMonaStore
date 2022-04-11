@@ -14,5 +14,5 @@ router.post('/register',userController.Register)
 router.patch('/changeAdmin/:id',userController.changeRoleAdmin)
 router.patch('/changeCustomer/:id',userController.changeRoleCustomer)
 router.delete('/:id',userController.deleteUserFromId)
-
+router.get('/customers', userController.getAllCustomers)
 module.exports = router

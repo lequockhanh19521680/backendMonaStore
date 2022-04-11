@@ -32,9 +32,24 @@ class InvoiceController {
     }
 
     //Ham lay du lieu tu database
-    async getAllInvoice(req, res, next) {
+    async getAllInvoice(req, res) {
+        let query = {}
+        let querySort = []
+
+        if (req.query.status) {
+            query.status = req.query.status.toUpperCase()
+        }
+
+        if(req.query.orderBy && req.query.order) {
+            var orderBy, order
+            orderBy = req.query.orderBy
+            querySort.push(orderBy)
+            order = req.query.order === 'asc' ? 1 : -1 
+            querySort.push(order)
+        }
+
         try {
-            const invoices = await invoiceSchema.find()
+            const invoices = await invoiceSchema.find(query).sort([querySort])
             res.send(invoices)
         }
         catch (err) {
@@ -89,7 +104,7 @@ class InvoiceController {
     async setInvoice(req,res){
         try{
             const _id = req.params.id;
-            const updateField = await invoiceSchema.findByIdAndUpdate(_id,req.query)
+            const updateField = await invoiceSchema.findByIdAndUpdate(_id,req.body)
             res.send(updateField)
         }
         catch(err)
