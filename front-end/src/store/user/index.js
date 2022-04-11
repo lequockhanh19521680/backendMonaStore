@@ -27,9 +27,9 @@ const userSlice = createSlice({
     }
 })
 
-export const fetchAllUsers = () => async (dispatch) => {
+export const fetchAllUsers = (params = {}) => async (dispatch) => {
     try {
-        const response = await userApi.getAllUsers()
+        const response = await userApi.getAllUsers({...params})
         dispatch(setUsers(response))
     } catch (error) {
         console.log(error)
@@ -45,9 +45,9 @@ export const fetchUser = (id) => async (dispatch) => {
     }
 }
 
-export const fetchAllStaff = () => async (dispatch) => {
+export const fetchAllStaff = (params = {}) => async (dispatch) => {
     try {
-        const response = await userApi.getStaff()
+        const response = await userApi.getStaff({...params})
         dispatch(setAllStaff(response))
     } catch (error) {
         console.log(error)

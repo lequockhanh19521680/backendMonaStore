@@ -30,11 +30,11 @@ export default function Dropdown({ title, listDropdown, className, classNameButt
                             {
                                 listDropdown.map((item, index) => {
                                     return (
-                                        <li key={index} className="py-1 hover:bg-blue-1 px-2"
+                                        <li key={index} className="py-1 hover:bg-blue-1 px-2 cursor-pointer"
                                             onClick={() => {
+                                                onSelect(item?.[value] || item)
                                                 setTitleState(item?.[label] || item)
                                                 setIsShow(false)
-                                                onSelect(item?.[value] || item)
                                             }}>
                                             {item?.[label] || item}
                                         </li>

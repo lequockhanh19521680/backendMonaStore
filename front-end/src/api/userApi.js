@@ -5,9 +5,9 @@ const userApi = {
         const url = `/user/${id}`
         return axiosClient.get(url)
     },
-    getAllUsers: () => {
-        const url = "/user/getAll"
-        return axiosClient.get(url)
+    getAllUsers: (params) => {
+        const url = "/user"
+        return axiosClient.get(url, {params})
     },
     postUser: (body) => {
         const url = '/user'
@@ -29,9 +29,9 @@ const userApi = {
         const url = '/user/register'
         return axiosClient.post(url, {...body})
     },
-    getStaff: () => {
+    getStaff: (params) => {
         const url = '/user/isStaff'
-        return axiosClient.get(url)
+        return axiosClient.get(url, {params})
     },
     getAllCustomers: () => {
         const url = '/user/customers'

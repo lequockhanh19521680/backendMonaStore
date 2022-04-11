@@ -10,8 +10,7 @@ import productApi from '../../../api/productApi'
 import { fetchProducts } from './../../../store/product/index';
 import { useDispatch } from 'react-redux'
 import { useFetchProducts, useProducts, useFetchAllProductType, useAllProductType } from './../../../store/product/hook';
-import LoadingPage from './../../../components/LoadingPage/Loading';
-import { useUpdateQuery, useSearchData, useUpdateSearchProduct } from '../../../store/search/hook'
+import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
 import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
 import { SORT_PRODUCT_PRICE } from '../../../constants/index'
@@ -26,7 +25,7 @@ export const ShowDetail = () => {
 export default function Products() {
     useUpdateQuery()
     useFetchAllProductType()
-    useUpdateSearchProduct()
+    useUpdateSearch()
     const productTypes = useAllProductType()
     const searchData = useSearchData()
     const navigate = useNavigate()

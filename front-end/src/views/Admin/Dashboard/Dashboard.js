@@ -51,7 +51,7 @@ export default function Dashboard() {
         style={{
             backgroundColor: PRODUCT_STATUS_COLOR?.[data?.row.original.status.toLowerCase()]
         }}
-        className={classnames("text-sm-md px-2 font-medium")}>{PRODUCT_STATUS?.[data.row.original.status?.toLowerCase()]}</Badge>
+        className={classnames("text-sm-md px-2 font-medium")}>{PRODUCT_STATUS?.[data.row.original.status?.toLowerCase()]?.label}</Badge>
       }
     },
   ]

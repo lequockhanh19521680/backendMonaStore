@@ -26,9 +26,9 @@ export const fetchCoupon = (id) => async (dispatch) => {
     } catch (error) { }
 }
 
-export const fetchListCoupon = () => async (dispatch) => {
+export const fetchListCoupon = (params = {}) => async (dispatch) => {
     try {
-        const response = await couponApi.getListCoupon()
+        const response = await couponApi.getListCoupon({ ...params })
         dispatch(setListCoupon(response))
     } catch (error) { }
 }

@@ -1,9 +1,9 @@
 import axiosClient from './axiosClient'
 
 const invoiceApi = {
-    getListInvoice: () => {
+    getListInvoice: (params) => {
         const url = "/invoice"
-        return axiosClient.get(url)
+        return axiosClient.get(url, { params })
     },
     getInvoice: (id) => {
         const url= `/invoice/${id}`

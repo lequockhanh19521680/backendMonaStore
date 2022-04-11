@@ -160,8 +160,19 @@ class UserController {
     }
 
     async getStaff(req,res){
+        let query ={ ...req.query, "role": {$ne: 'CUSTOMER' }}
+        if (req.query.role) {
+            query.role = req.query.role.toUpperCase()
+        }
+
+        if (req.query.textSearch) {
+            query.nameAccount = {
+                $regex: req.query.textSearch
+            }
+        }
+
         try {
-            const findRole = await userModel.find({"role": {$ne: 'CUSTOMER' }})
+            const findRole = await userModel.find(query)
             res.send(findRole)
         } catch (error) {
             console.log(error)

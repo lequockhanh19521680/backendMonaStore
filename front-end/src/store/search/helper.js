@@ -9,8 +9,21 @@ export const formatQueryProducts = (query) => {
         queryObj.order = _query.data.sort.type
     }
 
+    if (_query?.data?.nameAccount?.value) {
+        queryObj.nameAccount = _query.data.nameAccount.value
+    }
+
     if (_query?.data?.typeId?._id) {
         queryObj.typeId = _query.data.typeId._id
     }
+    
+    if (_query?.data?.status?.value) {
+        queryObj.status = _query.data.status.value
+    }
+
+    if(_query?.data?.role?.value) {
+        queryObj.role = _query.data.role.value
+    }
+
     return queryObj
 }

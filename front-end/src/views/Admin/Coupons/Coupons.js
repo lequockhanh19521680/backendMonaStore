@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Table from './../../../components/Table/Table';
@@ -6,26 +6,44 @@ import ActionGroup from './../../../components/ActionGroup/ActionGroup';
 import Badge from '../../../components/Badge/Badge'
 import couponApi from '../../../api/couponApi';
 import { useFetchListCoupon, useListCoupon } from '../../../store/coupon/hook';
-import LoadingPage from './../../../components/LoadingPage/Loading';
 import { COUPON_STATUS } from '../../../constants/index'
 import classnames from 'classnames';
 import { fetchListCoupon } from '../../../store/coupon';
 import { useDispatch } from 'react-redux';
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
+import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
+import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
 import Dropdown from '../../../components/Dropdown/Dropdown'
 
 export default function Coupons() {
 
-    const navigate = useNavigate()
     useFetchListCoupon()
+    useUpdateSearch()
+    useUpdateQuery()
+    const searchData = useSearchData()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const listCoupon = useListCoupon()
-    const [inputValue, setInputValue] = useState()
+    const [textSearch, setTextSearch] = useState()
 
     const handleChangeInput = (e) => {
-        setInputValue(e.target.value)
+        setTextSearch(e.target.value)
     }
+
+    const updateFieldSearch = (field, value) => {
+        dispatch(updateSearchData({ [field]: value }))
+    }
+
+    useEffect(() => {
+        if (textSearch !== undefined) {
+            updateFieldSearch('textSearch', textSearch)
+        }
+    }, [textSearch])
+
+    useEffect(() => {
+        setTextSearch(searchData?.textSearch)
+    }, [])
 
     const updateListCoupon = async () => {
         try {
@@ -133,6 +151,9 @@ export default function Coupons() {
                         title="Coupon Status"
                         listDropdown={Object.values(COUPON_STATUS)}
                         label="label"
+                        onSelect={(status) => {
+                            updateFieldSearch('status', status)
+                        }}
                     />
                </div>
 

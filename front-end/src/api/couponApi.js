@@ -1,9 +1,9 @@
 import axiosClient from './axiosClient'
 
 const couponApi = {
-    getListCoupon: () => {
+    getListCoupon: (params) => {
         const url = "/coupon"
-        return axiosClient.get(url)
+        return axiosClient.get(url, { params })
     },
     getCoupon: (id) => {
         const url = `/coupon/${id}`
