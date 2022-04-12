@@ -10,6 +10,6 @@ router.post('/',invoiceController.addInvoice)
 router.patch('/:id',invoiceController.setInvoice)
 router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
-
+router.get('/test',invoiceController.getTotalPening)
 
 module.exports = router

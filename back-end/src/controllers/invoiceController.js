@@ -4,6 +4,19 @@ const productSchema = require('../models/products')
 class InvoiceController {
     
 
+    async getTotalPening(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "PENDING"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     async sortBestSeller(req,res){
         try {
             const findInvoice = await invoiceSchema.aggregate([
