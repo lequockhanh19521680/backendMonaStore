@@ -61,6 +61,19 @@ class InvoiceController {
         }
     }
 
+    async getTotalCANCEL(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "CANCEL"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
 
     async sortBestSeller(req,res){
         try {
