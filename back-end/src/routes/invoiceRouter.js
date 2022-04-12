@@ -10,6 +10,9 @@ router.post('/',invoiceController.addInvoice)
 router.patch('/:id',invoiceController.setInvoice)
 router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
-router.get('/test',invoiceController.getTotalPening)
+router.get('/totalPending',invoiceController.getTotalPending)
+router.get('/totalDelivered',invoiceController.getTotalDELIVERED)
+router.get('/totalProcessing',invoiceController.getTotalProcessing)
+router.get('/getTypeStatus',invoiceController.getCount)
 
 module.exports = router
