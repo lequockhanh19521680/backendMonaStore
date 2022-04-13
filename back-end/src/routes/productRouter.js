@@ -5,6 +5,7 @@ const productController = require('../controllers/productController');
 //o day chuyen den router de get va post data trong mongo
 router.get('/',productController.getAllProduct)
 router.get('/getAllProductType',productController.getAllProductType)
+router.get('/countType',productController.countTypeProduct)
 router.get('/type/:id', productController.getProductTypeById)// dung id type
 router.get('/',productController.getProductFromType)// dung id type
 router.get('/sort',productController.sortProduct)

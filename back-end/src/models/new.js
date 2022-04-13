@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-//model cua 1 user trong collection users cua mongodb
 const newSchema = new mongoose.Schema({
     title:{
         type: String,

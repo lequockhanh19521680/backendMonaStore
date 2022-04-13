@@ -73,7 +73,6 @@ class ProductController {
             }
         }
 
-
         if (req.query.orderBy && req.query.order) {
             var orderBy, order
             orderBy = req.query.orderBy
@@ -91,7 +90,22 @@ class ProductController {
         }
     }
 
-
+    async countTypeProduct(req,res){
+        try {
+            const findType = await typeProductSchema.aggregate([
+                {$group:{_id: "$nameType",
+                count:{$sum: 1}}},
+           
+            ])
+            const findType2 = await typeProductSchema.aggregate([
+                {$group:{_id:null,
+                totalCount:{$sum: 1}}}
+                ])
+            res.send([findType,findType2])
+        } catch (error) {
+            console.log(error)
+        }
+    }
     //sort get
     /*
     async getAllProductSortCreateAtIncrease(req, res, next) {

@@ -7,7 +7,8 @@ const initialState = {
     data: {
         sort: undefined,
         typeId: undefined,
-        textSearch: undefined
+        textSearch: undefined,
+        nameAccount: undefined
     },
     canUpdateQuery: false,
 }

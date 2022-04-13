@@ -1,20 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
-import Table from '../../../components/Table/Table'
-import ActionGroup from '../../../components/ActionGroup/ActionGroup'
 import userApi from './../../../api/userApi';
 import StaffCard from './../../../components/Card/StaffCard';
+import { useDispatch } from 'react-redux';
 import { useFetchAllStaff, useAllStaff } from '../../../store/user/hook' 
+import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
+import { updateSearchData } from '../../../store/search/index'
+import { STAFF_ROLE } from '../../../constants/index'
 export default function OurStaff() {
     useFetchAllStaff()
+    useUpdateSearch()
+    useUpdateQuery()
+    const searchData = useSearchData()
     const allStaff = useAllStaff()
-    const [inputValue, setInputValue] = useState()
+    const dispatch = useDispatch()
+    const [textSearch, setTextSearch] = useState()
 
     const handleChangeInput = (e) => {
-        setInputValue(e.target.value)
+        setTextSearch(e.target.value)
     }
+
+    const updateFieldSearch = (field, value) => {
+        dispatch(updateSearchData({ [field]: value }))
+    }
+
+    useEffect(() => {
+        if (textSearch !== undefined) {
+            updateFieldSearch('textSearch', textSearch)
+        }
+    }, [textSearch])
+
+    useEffect(() => {
+        setTextSearch(searchData?.textSearch)
+    }, [])
 
     const handleDeleteStaff = async (id) => {
         try {
@@ -30,51 +50,6 @@ export default function OurStaff() {
         'Manager',
         'Accountant',
         'Delivery Person',
-    ]
-
-    const columnsTable = [
-        {
-            Header: 'ID',
-            accessor: 'id',
-        },
-        {
-            Header: 'NAME',
-            accessor: 'name',
-        },
-        {
-            Header: 'EMAIL',
-            accessor: 'email',
-        },
-        {
-            Header: 'CONTACT',
-            accessor: 'contact',
-        },
-        {
-            Header: 'JOINING DATE',
-            accessor: 'join-date',
-        },
-        {
-            Header: 'ROLE',
-            accessor: 'role'
-        },
-        {
-            Header: 'ACTIONS',
-            accessor: 'actions',
-            Cell: data => {
-                return <ActionGroup showEye={false} onDelete={() => handleDeleteStaff(data.row.original._id)}/>
-            }
-        },
-    ]
-
-    const data = [
-        {
-            id: '1',
-            name: '1',
-            email: '@',
-            contact: '19191',
-            'join-date': '18/11/2000',
-            role: 'admin',
-        }
     ]
 
     return (
@@ -95,7 +70,11 @@ export default function OurStaff() {
 
                     <Dropdown
                         title="Staff Role"
-                        listDropdown={listRole}
+                        listDropdown={Object.values(STAFF_ROLE)}
+                        label="label"
+                        onSelect={(role) => {
+                            updateFieldSearch('role', role)
+                        }}
                     />
                 </div>
 

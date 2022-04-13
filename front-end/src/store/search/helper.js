@@ -5,11 +5,25 @@ export const formatQueryProducts = (query) => {
         queryObj.textSearch = _query.data.textSearch
     }
     if (_query?.data?.sort?.value) {
-        queryObj.order = _query.data.sort.field
-        queryObj.orderBy = _query.data.sort.type
+        queryObj.orderBy = _query.data.sort.field
+        queryObj.order = _query.data.sort.type
     }
-    if (_query?.data?.typeId?.value) {
-        queryObj.typeId = _query.data.typeId.value
+
+    if (_query?.data?.nameAccount?.value) {
+        queryObj.nameAccount = _query.data.nameAccount.value
     }
+
+    if (_query?.data?.typeId?._id) {
+        queryObj.typeId = _query.data.typeId._id
+    }
+    
+    if (_query?.data?.status?.value) {
+        queryObj.status = _query.data.status.value
+    }
+
+    if(_query?.data?.role?.value) {
+        queryObj.role = _query.data.role.value
+    }
+
     return queryObj
 }

@@ -26,9 +26,9 @@ export const fetchInvoice = (id) => async (dispatch) => {
     } catch (error) { }
 }
 
-export const fetchListInvoice = () => async (dispatch) => {
+export const fetchListInvoice = (params = {}) => async (dispatch) => {
     try {
-        const response = await invoiceApi.getListInvoice()
+        const response = await invoiceApi.getListInvoice({...params})
         dispatch(setListInvoice(response))
     } catch (error) { }
 }

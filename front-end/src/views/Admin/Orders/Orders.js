@@ -1,29 +1,49 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Dropdown from '../../../components/Dropdown/Dropdown'
 import Table from '../../../components/Table/Table'
 import { Eye } from 'react-feather'
-import { PRODUCT_STATUS, PRODUCT_STATUS_COLOR } from '../../../constants/index'
+import { PRODUCT_STATUS } from '../../../constants/index'
 import { useDispatch } from 'react-redux';
 import { useFetchListInvoice, useListInvoice } from '../../../store/invoice/hook'
 import { fetchListInvoice } from '../../../store/invoice'
-import LoadingPage from '../../../components/LoadingPage/Loading'
 import invoiceApi from '../../../api/invoiceApi'
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
-import ActionGroup from '../../../components/ActionGroup/ActionGroup';
+import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
+import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
+import ActionGroup from '../../../components/ActionGroup/ActionGroup';
+import { SORT_PRODUCT_COST } from '../../../constants/index'
 
 export default function Orders() {
 
-    const navigate = useNavigate()
     useFetchListInvoice()
-    const listInvoice = useListInvoice()
-    const [inputValue, setInputValue] = useState()
+    useUpdateSearch()
+    useUpdateQuery()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
+    const searchData = useSearchData()
+    const listInvoice = useListInvoice()
+    const [textSearch, setTextSearch] = useState()
+
     const handleChangeInput = (e) => {
-        setInputValue(e.target.value)
+        setTextSearch(e.target.value)
     }
+
+    const updateFieldSearch = (field, value) => {
+        dispatch(updateSearchData({ [field]: value }))
+    }
+
+    useEffect(() => {
+        if (textSearch !== undefined) {
+            updateFieldSearch('textSearch', textSearch)
+        }
+    }, [textSearch])
+
+    useEffect(() => {
+        setTextSearch(searchData?.textSearch)
+    }, [])
 
     const updateInvoice = () => {
         try {
@@ -139,11 +159,20 @@ export default function Orders() {
                 <Dropdown
                     title="Status"
                     listDropdown={Object.values(PRODUCT_STATUS)}
+                    label="label"
+                    onSelect={(status) => {
+                        updateFieldSearch('status', status)
+                    }}
                 />
                 <Dropdown
                     title="Cost"
-                    listDropdown={listDropdownLimits}
+                    listDropdown={Object.values(SORT_PRODUCT_COST)}
+                    label="label"
+                    onSelect={(item) => {
+                        updateFieldSearch('sort', item)
+                    }}
                 />
+
             </div>
 
 

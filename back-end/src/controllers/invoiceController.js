@@ -1,8 +1,79 @@
 const invoiceSchema = require('../models/invoice');
 const userSchema = require('../models/user')
-const productSchema = require('../models/products')
+const productSchema = require('../models/products');
+const invoice = require('../models/invoice');
 class InvoiceController {
     
+
+    async getCount(req,res){
+        try {
+            const findInvoice = await invoiceSchema.aggregate([
+                {$group:{_id: "$status",
+                count:{$sum: 1}}},
+           
+            ])
+            const findInvoice2 = await invoiceSchema.aggregate([
+                {$group:{_id:null,
+                totalCount:{$sum: 1}}}
+                ])
+            res.send([findInvoice,findInvoice2])
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getTotalPending(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "PENDING"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async getTotalProcessing(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "PROCESSING"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async getTotalDELIVERED(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "DELIVERED"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    async getTotalCANCEL(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$match: {status: "CANCEL"}},
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
 
     async sortBestSeller(req,res){
         try {

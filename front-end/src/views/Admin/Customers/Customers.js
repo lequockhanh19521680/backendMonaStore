@@ -1,24 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Input from '../../../components/Input/Input'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup';
-import { Tab } from '@headlessui/react';
 import userApi from '../../../api/userApi';
-import { useFetchAllCustomers, useAllCustomers } from '../../../store/user/hook' 
+import { useFetchUsers, useUsers } from '../../../store/user/hook' 
 import { fetchAllCustomers } from '../../../store/user';
 import { useDispatch } from 'react-redux';
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
-
+import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
+import { updateSearchData } from '../../../store/search/index'
 export default function Customers() {
-    useFetchAllCustomers()
-    const customers = useAllCustomers()
+    useFetchUsers({role: 'Customer'})
+    useUpdateSearch()
+    useUpdateQuery()
+    const searchData = useSearchData()
+    const customers = useUsers()
     const dispatch = useDispatch()
-    const [inputValue, setInputValue] = useState()
+    const [textSearch, setTextSearch] = useState()
 
     const handleChangeInput = (e) => {
-        setInputValue(e.target.value)
+        setTextSearch(e.target.value)
     }
+
+    const updateFieldSearch = (field, value) => {
+        dispatch(updateSearchData({ [field]: value }))
+    }
+
 
     const updateCustomers = () => {
         try {
@@ -27,6 +35,16 @@ export default function Customers() {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        if (textSearch !== undefined) {
+            updateFieldSearch('textSearch', textSearch)
+        }
+    }, [textSearch])
+
+    useEffect(() => {
+        setTextSearch(searchData?.textSearch)
+    }, [])
 
     const handleDeleteCustomer = async (id) => {
         try {
