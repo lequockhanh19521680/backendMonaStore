@@ -49,10 +49,10 @@ class QuestionCotroller {
         }
     }
    
-    async getQuestionByIdTypeProduct(req,res,next){
+    async getQuestionByIdProduct(req,res,next){
         try{
         const _id = req.params.id;
-        const findQuestion = await questionSchema.find({"typeId": _id })
+        const findQuestion = await typeProductSchema.find({"_id": _id })
         res.send(findQuestion)
         }catch(err){
             console.log(err)
