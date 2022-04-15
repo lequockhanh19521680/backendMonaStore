@@ -41,8 +41,8 @@ class QuestionCotroller {
     async deleteQuestionFromId(req,res){
         const _id = req.params.id
         try{
-        const user = await questionSchema.findByIdAndDelete(_id)
-        res.send(user)
+        const question = await questionSchema.findByIdAndDelete(_id)
+        res.send(question)
         }catch(err)
         {
             console.log(err)
