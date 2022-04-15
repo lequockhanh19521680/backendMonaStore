@@ -36,7 +36,7 @@ class commentController{
     async getCommentByIdProduct(req,res,next){
         try{
         const _id = req.params.id;
-        const findComment = await typeProductSchema.find({"_id": _id })
+        const findComment = await commentSchema.find({"_id": _id })
         res.send(findComment)
         }catch(err){
             console.log(err)
