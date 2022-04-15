@@ -22,6 +22,19 @@ class InvoiceController {
         }
     }
 
+
+    async getTotal(req,res){
+        try{
+            const findInvoice = await invoiceSchema.aggregate([
+                    {$group: {_id: null , 
+                        total: {$sum: "$cost"}}}
+                ])
+                res.send(findInvoice)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
     async getTotalPending(req,res){
         try{
             const findInvoice = await invoiceSchema.aggregate([
@@ -167,7 +180,8 @@ class InvoiceController {
             address: req.body.address,
             cost: req.body.cost,
             paymemtMethod: req.body.paymemtMethod,
-            status: req.body.status
+            status: req.body.status,
+            amount: req.body.amount
         })
         try {
             const temp = await invoices.save()

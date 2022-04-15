@@ -54,10 +54,11 @@ const productSchema = new mongoose.Schema({
         type:String,
         default:'',
     },
-    isPublished:{
-        type: Boolean,
-        default: true,
-    },
+    status:{
+        type: String,
+        enum: ['SELLING','SOLD'],
+        default: 'SELLING'
+    }
     })
 
 module.exports = mongoose.model('Product',productSchema);

@@ -10,6 +10,8 @@ router.post('/',invoiceController.addInvoice)
 router.patch('/:id',invoiceController.setInvoice)
 router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
+
+router.get('/total',invoiceController.getTotal)
 router.get('/totalPending',invoiceController.getTotalPending)
 router.get('/totalCancel',invoiceController.getTotalCANCEL)
 router.get('/totalDelivered',invoiceController.getTotalDELIVERED)

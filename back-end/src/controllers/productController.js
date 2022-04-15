@@ -92,12 +92,14 @@ class ProductController {
 
     async countTypeProduct(req,res){
         try {
-            const findType = await typeProductSchema.aggregate([
-                {$group:{_id: "$nameType",
+            const findType = await productSchema.aggregate([
+                {$match: {status: "SOLD"}},
+                {$group:{_id: "$typeId",
                 count:{$sum: 1}}},
            
             ])
-            const findType2 = await typeProductSchema.aggregate([
+            const findType2 = await productSchema.aggregate([
+                {$match: {status: "SOLD"}},
                 {$group:{_id:null,
                 totalCount:{$sum: 1}}}
                 ])
@@ -192,7 +194,7 @@ class ProductController {
             description: req.body.description,
             metal: req.body.metal,
             size: req.body.size,
-            isPublished: req.body.isPublished
+            status: req.body.status
         })
         try {
             const temp = await products.save()
