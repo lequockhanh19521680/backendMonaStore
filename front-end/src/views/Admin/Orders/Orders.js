@@ -120,6 +120,8 @@ export default function Orders() {
                 return <Dropdown title={data?.row.original.status}
                     className="w-32"
                     listDropdown={Object.values(PRODUCT_STATUS)}
+                    value="value"
+                    label="label"
                     onSelect={(status) => handleChangeStatus(data?.row.original._id, status)}
                     classNameButton={data?.row.original.status.toLowerCase() === "cancel" ? "bg-red-500"
                         : data?.row.original.status.toLowerCase() === "pending" ? "bg-blue-1"

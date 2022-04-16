@@ -25,5 +25,9 @@ export const formatQueryProducts = (query) => {
         queryObj.role = _query.data.role.value
     }
 
+    if (_query?.data?.typeIdArray?.length) {
+        queryObj.typeId = _query?.data?.typeIdArray.join(',')
+    }
+
     return queryObj
 }

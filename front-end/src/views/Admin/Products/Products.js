@@ -139,7 +139,7 @@ export default function Products() {
     ]
 
     return (
-        <AdminContainer className="">
+        <AdminContainer className="h-screen">
             <p className="text-lg font-medium mb-6">
                 Products
             </p>

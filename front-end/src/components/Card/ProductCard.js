@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
                     product?.image?.[1] && <img src={product?.image?.[1]} alt="product" className="w-full h-full absolute top-0 opacity-0 transition-opacity duration-1000 ease-linear group-hover:opacity-100" />
                }
             </Link>
-            <Link to={`/san-pham/${product?._id}`} className="text-[#334862] hover:text-black text-sm-md font-medium mt-2">BIG BANG MXM18 SANG BLEU 39</Link>
+            <Link to={`/san-pham/${product?._id}`} className="text-[#334862] hover:text-black text-sm-md font-medium mt-2">{product?.nameProduct}</Link>
             <Price 
                 price={product?.priceSale}
                 priceDel={product?.price}

@@ -1,19 +1,19 @@
 
 export const PRODUCT_STATUS = {
     delivered: {
-        label: 'Delivered',
+        label: 'DELIVERED',
         value: 'Delivered',
     },
     pending: {
-        label: 'Pending',
+        label: 'PENDING',
         value: 'Pending',
     },
     processing: {
-        label: 'Processing',
+        label: 'PROCESSING',
         value: 'Processing',
     },
     cancel: {
-        label: 'Cancel',
+        label: 'CANCEL',
         value: 'Cancel',
     },
 }
@@ -94,4 +94,51 @@ export const SORT_PRODUCT_COST = {
         field: 'cost',
         type: ORDER_TYPE.DESC,
     },
+}
+
+
+export const SORT_PRODUCT_PAGE_PRODUCT = {
+    LOWEST_PRICE: {
+        label: 'Giá: Thấp đến cao',
+        value: 'LOWEST_PRICE',
+        field: 'priceSale',
+        type: ORDER_TYPE.ASC,
+    },
+    HIGHEST_PRICE: {
+        label: 'Giá: Cao đến thấp',
+        value: 'HIGHEST_PRICE',
+        field: 'priceSale',
+        type: ORDER_TYPE.DESC,
+    },
+    NEWEST: {
+        label: 'Mới nhất',
+        value: 'NEWEST',
+        field: 'createAt',
+        type: ORDER_TYPE.DESC,
+    },
+    OLDEST: {
+        label: 'Cũ nhất',
+        value: 'OLDEST',
+        field: 'createAt',
+        type: ORDER_TYPE.ASC,
+    },
+}
+
+export const FILTER_PRICE_PRODUCT = {
+    UNDER_3_MIL: {
+        from: 0,
+        to: '3000000',
+    },
+    FROM_3_TO_5_MIL: {
+        from: '3000000',
+        to: '5000000',
+    },
+    FROM_5_TO_10_MIL: {
+        from: '5000000',
+        to: '10000000',
+    },
+    ABOVE_10_MIL: {
+        from: '10000000',
+        to: '100000000',
+    }
 }

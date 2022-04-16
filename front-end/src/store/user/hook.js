@@ -14,6 +14,8 @@ export const useAllStaff = () => useSelector((state) => state.user.allStaff)
 
 export const useAllCustomers = () => useSelector(state => state.user.allCustomers) 
 
+export const useUserLogin = () => useSelector(state => state.user.userLogin)
+
 export const useFetchUsers = (defaultQuery = {}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()

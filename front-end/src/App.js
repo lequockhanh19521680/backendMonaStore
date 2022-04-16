@@ -1,7 +1,6 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
 import Home from './views/Home/Home';
 import Product from './views/Product/Product';
-import ProductType from './views/Product/ProductType';
 import Login from './views/RegisterLogin/Login';
 import Register from './views/RegisterLogin/Register';
 import News from './views/News/News';
@@ -45,8 +44,9 @@ const LoginLayout = () => {
 }
 
 const AdminLayout = () => {
+
   return (
-    <div className="flex flex-col">
+    <div>
       <AdminHeader />
       <div className="flex">
         <AdminLeftMenu />
@@ -65,7 +65,6 @@ function App() {
         <Route element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="/danh-muc" element={<Product />} />
-          <Route path="/danh-muc/:type" element={<ProductType />} />
           <Route path="/tin-tuc" element={<News />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Buy />} />

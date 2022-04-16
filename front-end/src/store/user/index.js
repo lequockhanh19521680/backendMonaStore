@@ -5,7 +5,8 @@ const initialState = {
     users: undefined,
     user: undefined,
     allStaff: undefined,
-    allCustomers: undefined
+    allCustomers: undefined,
+    userLogin: undefined,
 }
 
 const userSlice = createSlice({
@@ -23,6 +24,9 @@ const userSlice = createSlice({
         },
         setAllCustomers: (state, action) => {
             state.allCustomers = action.payload
+        },
+        setUserLogin: (state, action) => {
+            state.userLogin = action.payload
         }
     }
 })
@@ -67,7 +71,8 @@ export const {
     setUsers,
     setUser,
     setAllStaff,
-    setAllCustomers
+    setAllCustomers,
+    setUserLogin
 } = userSlice.actions
 
 export default userSlice.reducer

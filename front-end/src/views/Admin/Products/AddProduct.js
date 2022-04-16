@@ -52,6 +52,20 @@ export default function AdminAddProduct() {
   return (
     <AdminContainer>
       <form>
+        <div className="mb-5">
+          <div className="mb-3">
+            <label for="product-des">Product Description:</label>
+          </div>
+
+          <textarea
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Image Link"
+            id="image-link"
+            name="image-link"
+            className="p-3 w-full h-40 border-gray-400 rounded-lg text-md text-white bg-dark-1 border"
+          />
+        </div>
+
         <Input
           className="border border-gray-400 rounded-lg text-md text-white"
           label="Product Name"

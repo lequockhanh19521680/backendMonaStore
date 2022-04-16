@@ -11,7 +11,7 @@ export default function Comment() {
     setTab(tab)
   }
   return (
-    <div>
+    <div id="product-review">
 
       <div className="py-4 border-b borer-gray-300 mt-10">
         <h1 className="text-2xl font-medium text-center">Customer Reviews</h1>

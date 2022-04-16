@@ -15,20 +15,11 @@ export default function Header() {
       link: 'danh-muc'
     },
     {
-      displayName: 'Nhẫn',
+      displayName: 'Đơn hàng',
       link: '/bo-suu-tap'
     },
     {
-      displayName: 'Dây chuyền',
-      link: '/ban-chay'
-    },
-
-    {
-      displayName: 'Đồng hồ',
-      link: '/lien-he'
-    },
-    {
-      displayName: 'Lắc tay',
+      displayName: 'Giới thiệu',
       link: '/gioi-thieu'
     },
     {

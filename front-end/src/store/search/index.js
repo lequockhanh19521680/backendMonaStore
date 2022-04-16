@@ -8,7 +8,8 @@ const initialState = {
         sort: undefined,
         typeId: undefined,
         textSearch: undefined,
-        nameAccount: undefined
+        nameAccount: undefined,
+        typeIdArray: undefined
     },
     canUpdateQuery: false,
 }
@@ -41,7 +42,14 @@ const searchSlice = createSlice({
         setCanUpdateQuery: (state, action) => {
             state.canUpdateQuery = action.payload
         },
-        resetSearchData: (state) => ({ ...initialState }),
+        resetSearchData: (state) => {
+            state.data = {
+                sort: undefined,
+                typeId: undefined,
+                textSearch: undefined,
+                nameAccount: undefined
+            }
+        },
     }
 })
 

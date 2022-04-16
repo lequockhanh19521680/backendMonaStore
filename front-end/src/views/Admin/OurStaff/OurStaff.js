@@ -53,7 +53,7 @@ export default function OurStaff() {
     ]
 
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 All Staff
             </p>

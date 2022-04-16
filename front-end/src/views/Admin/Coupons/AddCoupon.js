@@ -47,7 +47,7 @@ export default function AddCoupon() {
 
     return (
         <AdminContainer>
-            <form className="h-screen">
+            <form>
                 <Input
                     className="border border-gray-400 rounded-lg text-md text-white"
                     label="Coupon Name"

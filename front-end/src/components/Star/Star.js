@@ -23,7 +23,8 @@ export default function Star({ numberStar = 5, className, size = "md"}) {
      {'text-xl': size === 'xl'},
      {'text-md': size === 'md'},
      {'text-lg': size === 'lg'},
-     "flex items-center text-red-500"
+     "flex items-center text-red-500",
+      className
     )}
     >
       

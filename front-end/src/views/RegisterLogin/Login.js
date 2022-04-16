@@ -4,6 +4,9 @@ import Tooltip from '../../components/Tooltip/Tooltip';
 import { AlertCircle } from 'react-feather'
 import classnames from 'classnames'
 import userApi from '../../api/userApi'
+import { setUserLogin } from '../../store/user/index'
+import { useUserLogin } from './../../store/user/hook';
+
 export default function Login() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
@@ -26,10 +29,9 @@ export default function Login() {
     e.preventDefault()
     try {
       await userApi.login({email, password}).then((response) => {
+        setUserLogin(response.data)
         console.log(response)
-        setUser(response.data)
-
-      })
+      }).catch(error => console.log(error))
     } catch (error) {
       console.log(error)
     }

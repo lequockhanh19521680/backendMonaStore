@@ -76,7 +76,7 @@ export default function Category() {
     ]
 
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 Category
             </p>

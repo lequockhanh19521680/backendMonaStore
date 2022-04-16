@@ -63,8 +63,11 @@ class ProductController {
         let query = req.query
         let querySort = []
 
+
         if (req.query.typeId) {
-            query.typeId = req.query.typeId
+            query.typeId = {
+                $in: req.query.typeId.split(',')
+            }
         }
 
         if (req.query.textSearch) {

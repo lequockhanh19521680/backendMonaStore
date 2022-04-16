@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ChevronRight, ChevronLeft } from 'react-feather'
 import classnames from 'classnames'
 
-const Pagination = ({ children, className, itemsPerPage, data }) => {
+const Pagination = ({ children, className, itemsPerPage, data, classNameContain }) => {
     const limitPage = Math.ceil(data?.length / itemsPerPage)
 
     const [currentPage, setCurrentPage] = useState(1)
@@ -47,20 +47,20 @@ const Pagination = ({ children, className, itemsPerPage, data }) => {
     }
 
     return (
-        <div>
+        <div className={classNameContain}>
             <div className={classnames(className, '')}>
                 {React.Children.toArray(children).slice(indexOfFirstElementCurrentPage, indexOfLastElementCurrentPage)}
             </div>
 
             <div className="w-full flex items-center justify-center py-10">
-                <button className="w-24 h-9" onClick={handleClickPrevPage}>
+                <button className="h-9 w-9 bg-gray-300 rounded-full flex items-center justify-center" onClick={handleClickPrevPage}>
                     <ChevronLeft />
                 </button>
 
                 <form onSubmit={handleSubmit}>
                     <input
                         type="number"
-                        className="bg-transparent text-blue4 font-bold text-left text-sm-md rounded-xl w-16 h-9 border border-blue2 px-3 flex items-center ml-3 mr-1"
+                        className="ring-2 bg-blue-1 text-white text-blue4 font-bold text-left text-sm-md rounded-xl w-16 h-9 border border-blue2 px-3 flex items-center ml-3 mr-1"
                         onChange={handleInputPage}
                         value={inputPage}
                     />
@@ -70,7 +70,7 @@ const Pagination = ({ children, className, itemsPerPage, data }) => {
                     {limitPage}
                 </p>
 
-                <button className="w-24 h-9" onClick={handleClickNextPage}>
+                <button className="h-9 w-9 bg-gray-300 rounded-full flex items-center justify-center" onClick={handleClickNextPage}>
                     <ChevronRight />
                 </button>
             </div>

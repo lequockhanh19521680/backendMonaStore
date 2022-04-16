@@ -95,16 +95,6 @@ export default function Customers() {
         },
     ]
 
-    const data = [
-        {
-            id: '1',
-            date: '1',
-            name: '3',
-            email: '33@@@',
-            phone: '3',
-        }
-    ]
-
     return (
         <AdminContainer className="h-screen">
             <p className="text-lg font-medium mb-6">
