@@ -5,7 +5,6 @@ import { useFetchProductType, useProductType } from './../../../store/product/ho
 import productApi from '../../../api/productApi'
 import Button from '../../../components/Button/Button'
 import { useParams } from 'react-router-dom';
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
 
 export default function EditCategory() {
   useFetchProductType()
@@ -32,10 +31,8 @@ export default function EditCategory() {
         note: note,
       })
       setPending(false)
-      showToastSuccess("Cập nhật thành công")
     } catch (error) {
       console.log(error)
-      showToastError("Cập nhật thất bại")
     }
   }
 

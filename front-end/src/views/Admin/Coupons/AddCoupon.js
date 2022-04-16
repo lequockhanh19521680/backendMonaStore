@@ -5,7 +5,6 @@ import couponApi from '../../../api/couponApi'
 import Button from '../../../components/Button/Button'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
 
 export default function AddCoupon() {
 
@@ -41,10 +40,8 @@ export default function AddCoupon() {
             })
             setPending(false)
             resetInput()
-            showToastSuccess("Thêm mã giảm giá thành công")
         } catch (error) {
             console.log(error)
-            showToastError("Thêm mã giảm giá thất bại")
         }
     }
 

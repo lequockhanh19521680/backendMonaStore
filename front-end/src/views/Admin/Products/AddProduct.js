@@ -5,8 +5,6 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import { useFetchAllProductType, useAllProductType } from './../../../store/product/hook';
 import productApi from '../../../api/productApi'
 import Button from '../../../components/Button/Button'
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
-
 export default function AdminAddProduct() {
   useFetchAllProductType()
   const productTypes = useAllProductType()
@@ -45,11 +43,9 @@ export default function AdminAddProduct() {
         size,
       })
       setPending(false)
-      showToastSuccess("Thêm sản phẩm thành công")
+      resetInput()
     } catch (error) {
       console.log(error)
-      setPending(false)
-      showToastError("Thêm sản phẩm thất bại")
     }
   }
 

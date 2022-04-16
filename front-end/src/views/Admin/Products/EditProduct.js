@@ -6,8 +6,6 @@ import { useFetchAllProductType, useFetchProduct, useAllProductType, useProduct 
 import productApi from '../../../api/productApi'
 import Button from '../../../components/Button/Button'
 import { useParams } from 'react-router-dom';
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
-
 export default function AdminEditProduct() {
   useFetchAllProductType()
   useFetchProduct()
@@ -51,10 +49,8 @@ export default function AdminEditProduct() {
         size,
       })
       setPending(false)
-      showToastSuccess("Cập nhật thành công")
     } catch (error) {
       console.log(error)
-      showToastError("Cập nhật thất bại")
     }
   }
 
