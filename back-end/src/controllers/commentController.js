@@ -6,7 +6,7 @@ class commentController{
             res.send(comment)
         }
         catch (err) {
-            res.send({ message: err.message })
+            throw new Error(err)
         }
     }
     async addComment(req, res) {
@@ -20,7 +20,7 @@ class commentController{
             const temp = await questions.save()
             res.json(temp)
         } catch (err) {
-            res.send('Error' + err)
+            throw new Error(err)
         }
     }
     async findCommentFromId(req,res){
@@ -30,7 +30,7 @@ class commentController{
         res.send(comment)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
     async getCommentByIdProduct(req,res,next){
@@ -39,7 +39,7 @@ class commentController{
         const findComment = await commentSchema.find({"_id": _id })
         res.send(findComment)
         }catch(err){
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -51,7 +51,7 @@ class commentController{
         }
         catch(err)
         {
-            res.send('error' + err)
+            throw new Error(err)
         }
     }
 
@@ -62,7 +62,7 @@ class commentController{
         res.send(comment)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 }
