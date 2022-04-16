@@ -93,7 +93,7 @@ class ProductController {
         }
     }
 
-    async countTypeProduct(req,res){
+    async countTypeProductSold(req,res){
         try {
             const findType = await productSchema.aggregate([
                 {$match: {status: "SOLD"}},
@@ -101,12 +101,7 @@ class ProductController {
                 count:{$sum: 1}}},
            
             ])
-            const findType2 = await productSchema.aggregate([
-                {$match: {status: "SOLD"}},
-                {$group:{_id:null,
-                totalCount:{$sum: 1}}}
-                ])
-            res.send([findType,findType2])
+            res.send(findType)
         } catch (error) {
             console.log(error)
         }
