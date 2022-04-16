@@ -149,6 +149,7 @@ class UserController {
             )
 
             res.json({
+                user,
                 success: true,
                 message: 'User logged in successfully',
                 accessToken
@@ -236,6 +237,43 @@ class UserController {
         }
         catch (error) {
             console.log(error)
+        }
+    }
+
+
+    async addCart(req,res){
+        try {
+            const user = await userModel.findByIdAndUpdate(
+                {_id:req.params.id},
+                {$push:{cart: req.body.productId}}
+            )
+            res.send(user)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteCart(req,res){
+        try{
+        const user = await userModel.findByIdAndUpdate(
+            {_id:req.params.id},
+            {$pull:{cart: req.body.productId}}
+        )
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
+        }
+    }
+
+    async getOneUser(req,res){
+        const _id = req.params.id
+        try{
+        const user = await userModel.findById(_id)
+        res.send(user)
+        }catch(err)
+        {
+            console.log(err)
         }
     }
   

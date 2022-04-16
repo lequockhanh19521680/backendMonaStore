@@ -27,6 +27,10 @@ const invoiceSchema = new mongoose.Schema({
         type: Number,
         default:'0'
     },
+    amount:{
+        type: Number,
+        default: '0',
+    },
     paymentMethod:{
         type:String,
         enum:['CODE','CARD'],
