@@ -1,21 +1,31 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import Dropdown from '../../../components/Dropdown/Dropdown'
 import DoughnutChart from '../../../components/DoughnutChart/DoughnutChart'
 import BarChart from '../../../components/BarChart/BarChart'
 import Table from '../../../components/Table/Table'
-import { useFetchListInvoice, useListInvoice } from '../../../store/invoice/hook'
+import { useFetchListInvoice, useListInvoice, useFetchReport, useTotal, useCost } from '../../../store/invoice/hook'
 import { PRODUCT_STATUS_COLOR, PRODUCT_STATUS } from '../../../constants/index'
 import Badge from '../../../components/Badge/Badge'
 import classnames from 'classnames'
 import LoadingPage from '../../../components/LoadingPage/Loading'
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
-
+import arrayToObject from '../../../utils/arrayToObject'
 export default function Dashboard() {
   useFetchListInvoice()
+  useFetchReport()
   const listInvoice = useListInvoice()
+  const total = useTotal()
+  const cost = useCost()
+  const [reportCost, setReportCost] = useState()
+  const [reportTotal, setReportTotal] = useState()
   const labels = ['Nhẫn', 'Dây chuyền', 'Bông tai', 'Lắc tay', 'Đồng hồ']
   const dataDoughnutChart = [15, 15, 20, 25, 25]
+
+  useEffect(() => {
+    setReportCost(arrayToObject(cost?.data, "_id", "total"))
+    setReportTotal(arrayToObject(total?.data, "_id", "count"))
+  }, [total, cost])
 
   const columnsTable = [
     {
@@ -66,18 +76,18 @@ export default function Dashboard() {
       <div className="grid grid-cols-3 gap-x-5">
         <div className="bg-green-2 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-layer text-4xl'></i>
-          <p className="text-lg mt-1">Total Order</p>
-          <p className="text-3xl font-bold mt-2">$300</p>
+          <p className="text-lg mt-1">Total Processing</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.PROCESSING} VND</p>
         </div>
         <div className="bg-blue-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-cart text-4xl'></i>
-          <p className="text-lg mt-1">Total Order</p>
-          <p className="text-3xl font-bold mt-2">$5000</p>
+          <p className="text-lg mt-1">Total Pending</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.PENDING} VND</p>
         </div>
         <div className="bg-green-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bxs-credit-card text-4xl'></i>
-          <p className="text-lg mt-1">Total Order</p>
-          <p className="text-3xl font-bold mt-2">$95000</p>
+          <p className="text-lg mt-1">Total Delivered</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.DELIVERED} VND</p>
         </div>
       </div>
 
@@ -88,10 +98,10 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-md opacity-50">
-              Total Order
+              Total Cancel
             </p>
             <p className="font-bold text-2xl">
-              172
+              {reportTotal?.CANCEL}
             </p>
           </div>
         </div>
@@ -104,7 +114,7 @@ export default function Dashboard() {
               Order Pending
             </p>
             <p className="font-bold text-2xl">
-              37
+              {reportTotal?.PENDING}
             </p>
           </div>
         </div>
@@ -118,7 +128,7 @@ export default function Dashboard() {
               Order Processing
             </p>
             <p className="font-bold text-2xl">
-              59
+              {reportTotal?.PROCESSING}
             </p>
           </div>
         </div>
@@ -132,7 +142,7 @@ export default function Dashboard() {
               Order Delivered
             </p>
             <p className="font-bold text-2xl">
-              61
+              {reportTotal?.DELIVERED}
             </p>
           </div>
         </div>

@@ -20,6 +20,14 @@ const invoiceApi = {
     editInvoice: (id, body) => {
         const url = `/invoice/${id}`
         return axiosClient.patch(url, {...body})
+    },
+    getTotal: () => {
+        const url = '/invoice/total'
+        return axiosClient.get(url)
+    },
+    getCost: () => {
+        const url = '/invoice/cost'
+        return axiosClient.get(url)
     }
 }
 

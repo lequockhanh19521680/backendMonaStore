@@ -25,6 +25,8 @@ import EditCategory from './views/Admin/Category/EditCategory';
 import AddCategory from './views/Admin/Category/AddCategory';
 import AddCoupon from './views/Admin/Coupons/AddCoupon';
 import EditCoupon from './views/Admin/Coupons/EditCoupon';
+import { ToastContainer } from 'react-toastify'
+
 const UserLayout = () => {
   return (
     <div className="font-baskerville">
@@ -92,6 +94,7 @@ function App() {
           <Route path="coupons/edit-coupon/:id" element={<EditCoupon />} />
         </Route>
       </Routes>
+      <ToastContainer newestOnTop />
     </BrowserRouter>
   );
 }

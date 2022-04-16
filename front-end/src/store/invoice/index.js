@@ -3,7 +3,9 @@ import invoiceApi from './../../api/invoiceApi';
 
 const initialState = {
     listInvoice: undefined,
-    invoice: undefined
+    invoice: undefined,
+    total: undefined,
+    cost: undefined,
 }
 
 const invoiceSlice = createSlice({
@@ -15,6 +17,12 @@ const invoiceSlice = createSlice({
         },
         setInvoice: (state,action) => {
             state.invoice = action.payload
+        },
+        setTotal: (state,action) => {
+            state.total = action.payload
+        },
+        setCost: (state,action) => {
+            state.cost = action.payload
         }
     }
 })
@@ -33,10 +41,25 @@ export const fetchListInvoice = (params = {}) => async (dispatch) => {
     } catch (error) { }
 }
 
+export const fetchTotal = () => async (dispatch) => {
+    try {
+        const response = await invoiceApi.getTotal()
+        dispatch(setTotal(response))
+    } catch (error) {}
+}
+
+export const fetchCost = () => async (dispatch) => {
+    try {
+        const response = await invoiceApi.getCost()
+        dispatch(setCost(response))
+    } catch (error) {}
+}
 
 export const {
     setInvoice,
-    setListInvoice
+    setListInvoice,
+    setTotal,
+    setCost
 } = invoiceSlice.actions
 
 export default invoiceSlice.reducer

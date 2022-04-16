@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { fetchInvoice, fetchListInvoice } from './index'
+import { fetchInvoice, fetchListInvoice, fetchTotal, fetchCost } from './index'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { getUrlQuery, useQuery } from '../../utils'
@@ -9,6 +9,10 @@ import { useSearchQuery, useCanUpdateQuery, usePathStoreQuery } from '../search/
 export const useListInvoice = () => useSelector((state) => state.invoice.listInvoice)
 
 export const useInvoice = () => useSelector((state) => state.invoice.invoice)
+
+export const useTotal = () => useSelector(state => state.invoice.total)
+
+export const useCost = () => useSelector(state => state.invoice.cost)
 
 export const useFetchListInvoice = (defaultQuery = {}) => {
     const dispatch = useDispatch()
@@ -37,5 +41,13 @@ export const useFetchInvoice = () => {
     useEffect(() => {
         dispatch(fetchInvoice(id))
     }, [])
+}
 
+export const useFetchReport = () => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTotal())
+        dispatch(fetchCost())
+    }, [])
 }

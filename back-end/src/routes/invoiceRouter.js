@@ -11,7 +11,7 @@ router.patch('/:id',invoiceController.setInvoice)
 router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
 
-router.get('/total',invoiceController.getTotal)
-router.get('/getTypeStatus',invoiceController.getCount)
+router.get('/cost',invoiceController.getTotal)
+router.get('/total',invoiceController.getCount)
 
 module.exports = router

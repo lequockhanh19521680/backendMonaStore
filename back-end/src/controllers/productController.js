@@ -198,7 +198,7 @@ class ProductController {
             const temp = await products.save()
             res.json(temp)
         } catch (err) {
-            res.send('Error' + err)
+            throw new Error(err)
         }
     }
 

@@ -4,7 +4,7 @@ const typeProductSchema = require('./typeProducts')
 const productSchema = new mongoose.Schema({
     nameProduct:{
         type: String,
-        require: true,
+        required: true,
     },
     typeId:{
         type: mongoose.Schema.Types.ObjectId,
