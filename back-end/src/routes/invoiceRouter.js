@@ -12,10 +12,6 @@ router.delete('/:id',invoiceController.deleteInvoiceFromId)
 
 
 router.get('/total',invoiceController.getTotal)
-router.get('/totalPending',invoiceController.getTotalPending)
-router.get('/totalCancel',invoiceController.getTotalCANCEL)
-router.get('/totalDelivered',invoiceController.getTotalDELIVERED)
-router.get('/totalProcessing',invoiceController.getTotalProcessing)
 router.get('/getTypeStatus',invoiceController.getCount)
 
 module.exports = router
