@@ -242,14 +242,16 @@ class UserController {
 
 
     async addCart(req,res){
+        const cart1 = req.body.productId
+        const _id = req.params.id
         try {
-            const user = await userModel.findByIdAndUpdate(
-                {_id:req.params.id},
-                {$push:{cart: req.body.productId}}
-            )
+            const user = await userModel.findById(_id)
+            user.cart.push(cart1)
+            user.save()
             res.send(user)
         } catch (error) {
             console.log(error)
+            console.log(cart1)
         }
     }
 

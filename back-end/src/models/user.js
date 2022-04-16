@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
         default: 'CUSTOMER',
     },
     cart:{
-        Type: [String],
+        type: [String],
+        default:[]
     },
     createAt:{
         type:Date,
