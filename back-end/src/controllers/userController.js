@@ -149,6 +149,7 @@ class UserController {
             )
 
             res.json({
+                user,
                 success: true,
                 message: 'User logged in successfully',
                 accessToken
