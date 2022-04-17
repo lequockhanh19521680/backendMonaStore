@@ -14,7 +14,7 @@ class InvoiceController {
             ])
             res.send(findInvoice)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
     }
 
@@ -27,7 +27,7 @@ class InvoiceController {
                 ])
                 res.send(findInvoice)
         }catch(err){
-            throw new error(err)
+            throw new Error(err)
         }
     }
 
@@ -46,7 +46,7 @@ class InvoiceController {
             ])
             res.send(findInvoice)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
     }
 
@@ -57,7 +57,7 @@ class InvoiceController {
             const findInvoice = await userSchema.find({"userId": _id })
             res.send(findInvoice)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
         
     }
@@ -100,7 +100,7 @@ class InvoiceController {
             res.send(findStatus)
             console.log(req.query)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
 
     }
@@ -115,7 +115,7 @@ class InvoiceController {
         res.send(invoice)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
    
@@ -159,7 +159,7 @@ class InvoiceController {
         res.send(invoice)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
    

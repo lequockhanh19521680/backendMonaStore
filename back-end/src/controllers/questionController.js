@@ -45,7 +45,7 @@ class QuestionCotroller {
         res.send(user)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
    
@@ -55,7 +55,7 @@ class QuestionCotroller {
         const findQuestion = await questionSchema.find({"typeId": _id })
         res.send(findQuestion)
         }catch(err){
-            throw new error(err)
+            throw new Error(err)
         }
     }
     async findQuestionFromId(req,res){
@@ -65,7 +65,7 @@ class QuestionCotroller {
         res.send(question)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
 }

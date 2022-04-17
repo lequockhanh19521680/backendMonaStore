@@ -42,7 +42,7 @@ class UserController {
                 return res.status(400).json({ success: false, message: 'User not found' })
             res.json({ success: true, user })
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -109,7 +109,7 @@ class UserController {
                 accessToken
             })
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -155,7 +155,7 @@ class UserController {
                 accessToken
             })
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -176,7 +176,7 @@ class UserController {
             const findRole = await userModel.find(query)
             res.send(findRole)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
 
     }
@@ -186,7 +186,7 @@ class UserController {
             const findRole = await userModel.find(req.query)
             res.send(findRole)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
     }
 
@@ -226,7 +226,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
 
@@ -236,7 +236,7 @@ class UserController {
             res.send(customers)
         }
         catch (error) {
-            throw new error(error)
+            throw new Error(error)
         }
     }
 
@@ -250,7 +250,7 @@ class UserController {
             user.save()
             res.send(user)
         } catch (error) {
-            throw new error(error)
+            throw new Error(error)
             console.log(cart1)
         }
     }
@@ -264,7 +264,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
 
@@ -275,7 +275,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
   

@@ -46,7 +46,7 @@ class NewController {
         res.send(user)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
     async findNewFromId(req,res){
@@ -56,7 +56,7 @@ class NewController {
         res.send(news)
         }catch(err)
         {
-            throw new error(err)
+            throw new Error(err)
         }
     }
   
