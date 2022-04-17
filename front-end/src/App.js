@@ -26,12 +26,16 @@ import AddCategory from './views/Admin/Category/AddCategory';
 import AddCoupon from './views/Admin/Coupons/AddCoupon';
 import EditCoupon from './views/Admin/Coupons/EditCoupon';
 import { ToastContainer } from 'react-toastify'
-
+import { useUserLogin } from './store/user/hook';
+import { useAllProductType } from './store/product/hook';
+import { USER_LOGIN } from './utils/storage'
 const UserLayout = () => {
   return (
-    <div className="font-baskerville">
+    <div className="font-baskerville flex flex-col min-h-screen">
       <Header />
-      <Outlet />
+      <div className="flex-1">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   )
@@ -46,7 +50,11 @@ const LoginLayout = () => {
 }
 
 const AdminLayout = () => {
+  const userLogin = JSON.parse(localStorage.getItem("USER_LOGIN"))
 
+  if (userLogin && userLogin?.role === 'CUSTOMER') {
+    return <p>abc</p>
+  }
   return (
     <div>
       <AdminHeader />
@@ -57,8 +65,6 @@ const AdminLayout = () => {
     </div>
   )
 }
-
-const abc = false
 
 function App() {
   return (

@@ -18,10 +18,11 @@ export default function Product() {
   useFetchAllProductType()
   useUpdateQuery()
   useUpdateSearch()
+
   const searchData = useSearchData()
-  console.log(searchData)
+
   const products = useProducts()
-  console.log(products)
+
   const productTypes = useAllProductType()
   const [reset, setReset] = useState(false)
   const dispatch = useDispatch()
@@ -33,7 +34,6 @@ export default function Product() {
 
   const handleClear = (e) => {
     e.preventDefault();
-    console.log(1)
     dispatch(resetSearchData())
     setReset(true)
   }

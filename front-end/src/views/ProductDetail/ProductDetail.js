@@ -8,14 +8,25 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import productApi from './../../api/productApi';
 import { useFetchProduct, useProduct } from '../../store/product/hook'
+import { useParams } from 'react-router-dom'
+import { addToCart } from './../../utils/addToCart';
+import { useDispatch } from 'react-redux'
+import { fetchUser } from '../../store/user'
 
 export default function ProductDetail() {
+
   useFetchProduct()
   const product = useProduct()
   const [tab, setTab] = useState(1)
+  const { id } = useParams()
+  const dispatch = useDispatch()
+
+  const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
+
   const handleChangeTab = (tab) => {
     setTab(tab)
   }
+
   const products = [
     {
       name: 'MICHAEL KORS WATCH',
@@ -72,7 +83,7 @@ export default function ProductDetail() {
 
   return (
 
-   <div className="w-full bg-white">
+    <div className="w-full bg-white">
       <div className="max-w-screen-xl w-full mx-auto py-5">
         <div className="flex">
           <div className="w-3/5 grid grid-cols-2 gap-2">
@@ -111,30 +122,35 @@ export default function ProductDetail() {
             </a>
 
             <div className="flex items-center w-full mt-5 pb-10 border-b border-gray-300">
-              <button className="bg-black text-white font-medium text-lg py-4 px-5 hover:opacity-80 w-full uppercase">
+              <button
+                onClick={async () => {
+                  await addToCart(userLogin?._id, id)
+                  await dispatch(fetchUser(userLogin?._id))
+                }}
+                className="bg-black text-white font-medium text-lg py-4 px-5 hover:opacity-80 w-full uppercase">
                 Thêm vào giỏ hàng
               </button>
             </div>
-            
+
             <div className="py-5 pl-3">
-             <div className="flex items-center py-1">
+              <div className="flex items-center py-1">
                 <i className='bx bxs-truck text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
                   Free Expedited Shipping over 200+
                 </p>
-             </div>
-             <div className="flex items-center py-1">
+              </div>
+              <div className="flex items-center py-1">
                 <i class='bx bx-revision text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
                   60-Day Returns
                 </p>
-             </div>
-             <div className="flex items-center py-1">
+              </div>
+              <div className="flex items-center py-1">
                 <i className='bx bx-check-shield text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
                   2 Year Warranty
                 </p>
-             </div>
+              </div>
             </div>
           </div>
         </div>
@@ -288,11 +304,11 @@ export default function ProductDetail() {
             <div className="px-20">
               <img src="https://res.cloudinary.com/mejuri-com/image/upload/v1572878529/brand-story/Coveteur.svg" alt="icon" />
             </div>
-        </div>
+          </div>
 
         </div>
       </div>
 
-   </div>
+    </div>
   )
 }

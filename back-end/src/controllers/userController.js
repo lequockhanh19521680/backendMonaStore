@@ -1,6 +1,7 @@
 const userModel = require('../models/user')
 const argon2 = require('argon2')
 const jwt = require('jsonwebtoken')
+const user = require('../models/user')
 class UserController {
 
 
@@ -52,7 +53,7 @@ class UserController {
 
         let query = req.query
         if (req.query.role) {
-            query.role = req.query.role.toUpperCase()
+            query.role = req.query.role.toUpperCase().split(',')
         }
 
         if (req.query.textSearch) {
@@ -242,16 +243,16 @@ class UserController {
 
 
     async addCart(req,res){
-        const cart1 = req.body.productId
+        const product = req.body.productId
         const _id = req.params.id
         try {
             const user = await userModel.findById(_id)
-            user.cart.push(cart1)
+            user.cart.push(product)
             user.save()
             res.send(user)
         } catch (error) {
             console.log(error)
-            console.log(cart1)
+            console.log(product)
         }
     }
 

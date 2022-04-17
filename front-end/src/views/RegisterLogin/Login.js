@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { AlertCircle } from 'react-feather'
-import classnames from 'classnames'
 import userApi from '../../api/userApi'
 import { setUserLogin } from '../../store/user/index'
 import { useUserLogin } from './../../store/user/hook';
-
+import { showToastSuccess, showToastError } from './../../components/CustomToast/CustomToast';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
+import { USER_LOGIN } from '../../utils/storage'
 export default function Login() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [isValidEmail, setIsValidEmail] = useState(true)
   const [isValidPass, setIsValidPass] = useState(true)
   const [user, setUser] = useState(null)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const validateEmail = () => {
     let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (email?.match(mailformat)) {
@@ -29,11 +33,17 @@ export default function Login() {
     e.preventDefault()
     try {
       await userApi.login({email, password}).then((response) => {
-        setUserLogin(response.data)
-        console.log(response)
+        USER_LOGIN.set(JSON.stringify(response?.data?.user))
+        showToastSuccess("Đăng nhập thành công")
+        if(response?.data?.user?.role !== 'CUSTOMER') {
+          navigate("/admin/dashboard")
+        } else {
+          navigate("/")
+        }
       }).catch(error => console.log(error))
     } catch (error) {
       console.log(error)
+      showToastError("Đăng nhập thất bại")
     }
   }
 

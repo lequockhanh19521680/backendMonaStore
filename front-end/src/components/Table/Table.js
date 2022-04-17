@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useTable } from 'react-table';
+import classnames from 'classnames'
 
-export default function Table({ data, columnsTable }) {
+export default function Table({ data, columnsTable, bgNone=false }) {
 
     const columns = useMemo(() => columnsTable, []);
 
@@ -11,7 +12,7 @@ export default function Table({ data, columnsTable }) {
     });
 
     return (
-        <table className="w-full bg-dark-1 border border-gray-700 text-sm-md" {...getTableProps()}>
+        <table className={classnames("w-full text-sm-md", {"bg-dark-1 border border-gray-700": !bgNone})} {...getTableProps()}>
             <thead className="border-b border-gray-700 text-left">
                 {headerGroups.map((headerGroup, i) => (
                     <tr {...headerGroup.getHeaderGroupProps()} key={i} className="">

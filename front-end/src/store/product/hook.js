@@ -19,6 +19,9 @@ export const useAllProductType = () => useSelector((state) => state.product.allP
 
 export const useProductType = () => useSelector((state) => state.product.productType)
 
+export const useTotalPrice = () => useSelector(state => state.product.totalPrice)
+
+
 export const useFetchProducts = (defaultQuery = {}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()

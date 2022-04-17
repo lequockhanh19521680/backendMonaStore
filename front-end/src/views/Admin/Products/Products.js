@@ -71,11 +71,6 @@ export default function Products() {
         }
     }
 
-    const listDropdownFilter = [
-        'Low to High',
-        'High to Low',
-    ]
-
     const columnsTable = [
         {
             Header: 'ID',

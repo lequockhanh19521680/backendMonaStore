@@ -20,7 +20,7 @@ export default function Category() {
     const handleChangeInput = (e) => {
         setInputValue(e.target.value)
     }
-    console.log(productTypes)
+
     const updateProductType = async () => {
         try {
             dispatch(fetchAllProductType())
@@ -37,14 +37,6 @@ export default function Category() {
             console.log(error)
         }
     }
-
-    const listDropdownCategory = [
-        'Dây chuyền',
-        'Nhẫn',
-        'Bông tai',
-        'Lắc tay',
-        'Đồng hồ',
-    ]
 
     const columnsTable = [
         {

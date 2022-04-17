@@ -4,8 +4,11 @@ import CartIcon from '../../../components/CartIcon/CartIcon';
 import ProductCardV2 from '../../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
+import { useFetchProducts, useProducts } from '../../../store/product/hook'
 export default function TopProduct() {
+    useFetchProducts()
+    const products = useProducts()
+
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -24,41 +27,10 @@ export default function TopProduct() {
         }
     };
 
-    const products = [
-        {
-            name: 'MICHAEL KORS WATCH',
-            image1: '/images/home/product5.jpg',
-            image2: '/images/home/product6.jpg',
-            id: '',
-            price: '5,000,000 ',
-            priceSale: '3,250,000',
-        },
-        {
-            name: 'MICHAEL KORS WATCH',
-            image1: '/images/home/product7.jpg',
-            image2: '/images/home/product8.jpg',
-            id: '',
-            price: '5,000,000 ',
-            priceSale: '3,250,000',
-        },
-        {
-            name: 'MICHAEL KORS WATCH',
-            image1: '/images/home/product9.jpg',
-            image2: '/images/home/product10.jpg',
-            id: '',
-            price: '5,000,000 ',
-            priceSale: '3,250,000',
-        },
-        {
-            name: 'MICHAEL KORS WATCH',
-            image1: '/images/home/product11.jpg',
-            image2: '/images/home/product12.jpg',
-            id: '',
-            price: '5,000,000 ',
-            priceSale: '3,250,000',
-        },
+    if(products === undefined) {
+        return <p>Loading...</p>
+    }
 
-    ]
     return (
         <div className="w-full bg-black-2 py-20">
             <div className="mb-10">
@@ -86,9 +58,12 @@ export default function TopProduct() {
                     >
 
                         {
-                            products.map((product, index) => {
+                            products?.data?.map((product, index) => {
+                                if(index === 8) {
+                                    return
+                                }
                                 return (
-                                    <ProductCardV2 product={product} />
+                                    <ProductCardV2 product={product} key={product?._id} />
                                 )
                             })
                         }

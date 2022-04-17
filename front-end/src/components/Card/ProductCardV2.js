@@ -12,7 +12,7 @@ export default function ProductCardV2({ product }) {
               </div>
               <div className="px-3 text-center">
                   <p className="text-[#334862] text-md overflow-hidden font-medium mb-3 whitespace-nowrap">
-                      {product?.name}
+                      {product?.nameProduct}
                   </p>
                   <Price
                      className="mb-3"

@@ -21,10 +21,10 @@ class CouponController{
         }
     }
 
-    async findCouponFromId(req,res){
-        const _id = req.params.id
+    async findCouponByCode(req,res){
+        const code = req.params.code
         try{
-        const coupon = await couponSchema.findById(_id)
+        const coupon = await couponSchema.find({code})
         res.send(coupon)
         }catch(err)
         {

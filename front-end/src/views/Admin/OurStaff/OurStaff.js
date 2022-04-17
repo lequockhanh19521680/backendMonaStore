@@ -5,16 +5,17 @@ import Dropdown from '../../../components/Dropdown/Dropdown'
 import userApi from './../../../api/userApi';
 import StaffCard from './../../../components/Card/StaffCard';
 import { useDispatch } from 'react-redux';
-import { useFetchAllStaff, useAllStaff } from '../../../store/user/hook' 
 import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
 import { updateSearchData } from '../../../store/search/index'
 import { STAFF_ROLE } from '../../../constants/index'
+import { useFetchUsers, useUsers } from '../../../store/user/hook'
 export default function OurStaff() {
-    useFetchAllStaff()
+    useFetchUsers({ role: 'Customer,Seller,CEO,Manager,Account,Delivery' })
     useUpdateSearch()
     useUpdateQuery()
     const searchData = useSearchData()
-    const allStaff = useAllStaff()
+    const allStaff = useUsers()
+    console.log(allStaff)
     const dispatch = useDispatch()
     const [textSearch, setTextSearch] = useState()
 

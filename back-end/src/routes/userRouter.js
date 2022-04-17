@@ -9,14 +9,16 @@ router.get('/userRole',userController.getUserRole)
 router.get('/',userController.getAllUser)
 router.get('/:id',userController.getOneUser)
 
-router.get('/isStaff',userController.getStaff)
+router.get('/getStaff',userController.getStaff)
 
 router.post('/login',userController.Login)
 router.post('/register',userController.Register)
-router.post('/cart/:id',userController.addCart)
 router.patch('/changeAdmin/:id',userController.changeRoleAdmin)
 router.patch('/changeCustomer/:id',userController.changeRoleCustomer)
 router.delete('/:id',userController.deleteUserFromId)
+
+router.post('/cart/:id',userController.addCart)
 router.delete('/cart/:id',userController.deleteCart)
+
 router.get('/customers', userController.getAllCustomers)
 module.exports = router

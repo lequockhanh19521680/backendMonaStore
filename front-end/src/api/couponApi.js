@@ -5,8 +5,8 @@ const couponApi = {
         const url = "/coupon"
         return axiosClient.get(url, { params })
     },
-    getCoupon: (id) => {
-        const url = `/coupon/${id}`
+    getCoupon: (code) => {
+        const url = `/coupon/${code}`
         return axiosClient.get(url)
     },
     deleteCoupon: (id) => {

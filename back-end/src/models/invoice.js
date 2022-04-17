@@ -33,7 +33,7 @@ const invoiceSchema = new mongoose.Schema({
     },
     paymentMethod:{
         type:String,
-        enum:['CODE','CARD'],
+        enum:['COD','CARD'],
         default:'CARD',
     },
     status:{

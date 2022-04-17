@@ -77,17 +77,17 @@ export default function Dashboard() {
         <div className="bg-green-2 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-layer text-4xl'></i>
           <p className="text-lg mt-1">Total Processing</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.PROCESSING} VND</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.PROCESSING || 0} VND</p>
         </div>
         <div className="bg-blue-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-cart text-4xl'></i>
           <p className="text-lg mt-1">Total Pending</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.PENDING} VND</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.PENDING || 0} VND</p>
         </div>
         <div className="bg-green-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bxs-credit-card text-4xl'></i>
           <p className="text-lg mt-1">Total Delivered</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.DELIVERED} VND</p>
+          <p className="text-3xl font-bold mt-2">{reportCost?.DELIVERED || 0} VND</p>
         </div>
       </div>
 
@@ -101,7 +101,7 @@ export default function Dashboard() {
               Total Cancel
             </p>
             <p className="font-bold text-2xl">
-              {reportTotal?.CANCEL}
+              {reportTotal?.CANCEL || 0}
             </p>
           </div>
         </div>
@@ -114,7 +114,7 @@ export default function Dashboard() {
               Order Pending
             </p>
             <p className="font-bold text-2xl">
-              {reportTotal?.PENDING}
+              {reportTotal?.PENDING || 0}
             </p>
           </div>
         </div>
@@ -128,7 +128,7 @@ export default function Dashboard() {
               Order Processing
             </p>
             <p className="font-bold text-2xl">
-              {reportTotal?.PROCESSING}
+              {reportTotal?.PROCESSING || 0}
             </p>
           </div>
         </div>
@@ -142,7 +142,7 @@ export default function Dashboard() {
               Order Delivered
             </p>
             <p className="font-bold text-2xl">
-              {reportTotal?.DELIVERED}
+              {reportTotal?.DELIVERED || 0}
             </p>
           </div>
         </div>

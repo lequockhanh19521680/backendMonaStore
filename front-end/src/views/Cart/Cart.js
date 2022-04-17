@@ -1,144 +1,164 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '../../components/Container/Container'
-import { X, Tag, ArrowLeft } from 'react-feather'
+import { Tag, ArrowLeft } from 'react-feather'
 import Price from '../../components/Price/Price'
 import { Link } from 'react-router-dom'
+import productApi from './../../api/productApi';
+import { fetchUser } from './../../store/user/index'
+import { fetchProduct } from './../../store/product/index'
+import { useUser } from './../../store/user/hook'
+import { useDispatch } from 'react-redux'
+import CartRow from './components/CartRow'
+import couponApi from './../../api/couponApi';
+import { showToastError, showToastSuccess } from './../../components/CustomToast/CustomToast';
+
 export default function Cart() {
 
-    const [inputValue, setInputValue] = useState(1)
+    const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
+    const dispatch = useDispatch()
+    const [cart, setCart] = useState([])
+    const [totalPrice, setTotalPrice] = useState()
+    const [code, setCode] = useState()
+    const [disabled, setDisabled] = useState(false)
+    const user = useUser()
 
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value)
-        console.log(inputValue)
+    useEffect(() => {
+        try {
+            dispatch(fetchUser(userLogin?._id))
+        } catch (err) {
+            console.log(err)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (user) {
+            const getListCart = async () => {
+                const promise = user?.data?.cart.map(async (productId) => {
+                    const productDetail = await productApi.getProduct(productId)
+                    return productDetail
+                })
+                const res = await Promise.all(promise)
+                setCart(res)
+            }
+            getListCart()
+        }
+    }, [dispatch, user])
+
+    useEffect(() => {
+        const total = cart.reduce((total, product) => total + product?.data?.priceSale, 0)
+        setTotalPrice(total)
+    }, [cart])
+
+    const handleUseCoupon = async () => {
+        try {
+            const coupon = await couponApi.getCoupon(code)
+            await couponApi.editCoupon(coupon?.data?.[0]?._id, {
+                amount: coupon?.data?.[0]?.amount - 1
+            })
+            if (coupon?.data?.[0]?.status === 'ACTIVE') {
+                setTotalPrice(totalPrice - totalPrice * coupon?.data?.[0]?.value / 100)
+                showToastSuccess("Sử dụng mã giảm giá thành công")
+                setDisabled(true)
+            } else {
+                showToastError("Mã giảm giá đã hết hạn")
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
-    const handleIncrease = (e) => {
-        e.preventDefault()
-        setInputValue(inputValue + 1)
+    if (cart === undefined || user === undefined) {
+        return <p>Loading...</p>
     }
-    const handleDecrease = (e) => {
-        e.preventDefault()
-        setInputValue(inputValue - 1)
-    }
+
     return (
-       <div className="w-full bg-white">
-            <Container className="items-start">
-                <div className="my-5 w-3/5 px-5">
-                    <table className="w-full">
-                        <thead className="border-b-2 border-gray-300">
-                            <tr className="mb-3">
-                                <th className="text-left pb-3">
-                                    Sản phẩm
-                                </th>
-                                <th className="text-center">
-                                    Giá
-                                </th>
-                                <th className="text-center">
-                                    Số lượng
-                                </th>
-                                <th className="text-right">
-                                    Tổng
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td className="flex items-center py-5">
-                                    <button className="opacity-50 w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center mr-2">
-                                        <X width={15} />
-                                    </button>
-                                    <img src="/images/home/product9.jpg" alt="product" width={100} height={100} />
-                                    <p className="opacity-80 ml-3">Vòng cổ tím huyền bí</p>
-                                </td>
-                                <td>
-                                    <Price
-                                        price="3,250,000"
-                                        color="black"
+        <div className="w-full">
+            {
+                cart.length ? (
+                    <div className="items-start max-w-screen-3xl mx-auto w-full flex">
+                        <div className="my-5 w-3/5 px-5 flex-1">
+                            <table className="w-full">
+                                <thead className="border-b-2 border-gray-300">
+                                    <tr className="mb-3">
+                                        <th className="text-left pb-3">
+                                            Sản phẩm
+                                        </th>
+                                        {/* <th className="text-center">
+                                            Giá
+                                        </th> */}
+                                        {/* <th className="text-center">
+                                            Số lượng
+                                        </th> */}
+                                        <th className="text-right">
+                                            Giá
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        cart?.map((product, index) => {
+                                            return (
+                                                <CartRow key={index} product={product} />
+                                            )
+                                        })
+                                    }
+                                </tbody>
+                            </table>
 
-                                    />
-                                </td>
+                            <div className="mt-5">
+                                <Link to="/danh-muc" className="flex py-1 items-center border-2 border-yellow-1 text-yellow-1 uppercase font-medium w-64 justify-center">
+                                    <ArrowLeft width={20} className="mr-1" />
+                                    Tiếp tục xem sản phẩm
+                                </Link>
+                            </div>
+                        </div>
 
-                                <td>
+                        <div className="w-2/5 px-10 mt-7 mb-5">
+                            <div className="border-b-2 border-gray-300 pb-1">
+                                <p className="uppercase font-medium text-black">Tổng số lượng</p>
+                            </div>
+                            <div className="flex items-center justify-between py-2 border-b border-gray-300">
+                                <p>Giao hàng</p>
+                                <div className="flex items-end flex-col">
+                                    <p className="text-sm-md opacity-80 mb-2">
+                                        Giao hàng miễn phí
+                                    </p>
+                                </div>
+                            </div>
 
-                                    <form className="flex items-center">
-                                        <button className="bg-[#f9f9f9] px-2 py-2 border border-gray-300"
-                                            onClick={handleDecrease}
-                                        >
-                                            -
-                                        </button>
-                                        <input value={inputValue} className="w-8 py-2 text-center border border-gray-300" onChange={handleInputChange} />
-                                        <button
-                                            className="bg-[#f9f9f9] px-2 py-2 border border-gray-300"
-                                            onClick={handleIncrease}
-                                        >
-                                            +
-                                        </button>
-                                    </form>
+                            <div className="flex items-center justify-between py-2 border-b-2 border-gray-300">
+                                <p>Tổng</p>
+                                <Price
+                                    price={totalPrice}
+                                    color="black"
+                                />
+                            </div>
 
-                                </td>
-                                <td className="text-right">
-                                    <Price
-                                        price="3,250,000"
-                                        color="black"
-                                    />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            <div className="text-black font-medium flex items-center py-3 border-b-2 border-gray-300">
+                                <Tag width={20} className="mr-2" />
+                                Phiếu ưu đãi
+                            </div>
 
-                    <div className="">
-                        <Link to="/danh-muc" className="flex py-1 items-center border-2 border-yellow-1 text-yellow-1 uppercase font-medium w-64 justify-center">
-                            <ArrowLeft width={20} className="mr-1" />
-                            Tiếp tục xem sản phẩm
-                        </Link>
-                    </div>
-                </div>
+                            <input disabled={disabled} placeholder="Mã ưu đãi" className="p-2 my-3 border border-gray-300 w-full" onChange={(e) => setCode(e.target.value)} />
 
-                <div className="w-2/5 px-5 mt-7 mb-5 border-l border-gray-300">
-                    <div className="border-b-2 border-gray-300 pb-1">
-                        <p className="uppercase font-medium text-black">Tổng số lượng</p>
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-gray-300">
-                        <p>Tổng phụ</p>
-                        <Price
-                            price="6,750,000"
-                            color="black"
-                        />
-                    </div>
-                    <div className="flex items-center justify-between py-2 border-b border-gray-300">
-                        <p>Giao hàng</p>
-                        <div className="flex items-end flex-col">
-                            <p className="text-sm-md opacity-80 mb-2">
-                                Giao hàng miễn phí
-                            </p>
+                            <button
+                                disabled={disabled}
+                                onClick={handleUseCoupon}
+                                className="bg-[#f9f9f9] w-full py-2 border border-gray-300 hover:bg-[#c7c7c7]"
+                            >
+                                Áp dụng
+                            </button>
+                            <Link to="/thanh-toan">
+                                <div className="text-center w-full py-2 text-white font-medium uppercase bg-[#d26e4b] hover:bg-[#a8583c] my-3">
+                                    Tiến hành thanh toán
+                                </div>
+                            </Link>
                         </div>
                     </div>
-
-                    <div className="flex items-center justify-between py-2 border-b-2 border-gray-300">
-                        <p>Tổng</p>
-                        <Price
-                            price="6,750,000"
-                            color="black"
-                        />
-                    </div>
-
-                    <div className="text-black font-medium flex items-center py-3 border-b-2 border-gray-300">
-                        <Tag width={20} className="mr-2" />
-                        Phiếu ưu đãi
-                    </div>
-
-                    <input placeholder="Mã ưu đãi" className="p-2 my-3 border border-gray-300 w-full" />
-
-                    <button className="bg-[#f9f9f9] w-full py-2 border border-gray-300 hover:bg-[#c7c7c7]">
-                        Áp dụng
-                    </button>
-                    <Link to="/thanh-toan">
-                        <div className="text-center w-full py-2 text-white font-medium uppercase bg-[#d26e4b] hover:bg-[#a8583c] my-3">
-                            Tiến hành thanh toán
-                        </div>
-                    </Link>
-                </div>
-            </Container>
-       </div>
+                ) : (
+                    <p className='text-2xl text-center mt-10'>Không có sản phẩm trong giỏ hàng</p>
+                )
+            }
+        </div>
     )
 }

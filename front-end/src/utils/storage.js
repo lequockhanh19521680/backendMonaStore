@@ -9,3 +9,13 @@ export const ADD_ITEM_TO_JUST_VIEW = {
     },
     delete: () => localStorage?.removeItem('JUST_VIEW_PRODUCT'),
 }
+
+export const USER_LOGIN = {
+    get: () => {
+        localStorage?.getItem("USER_LOGIN")
+    },
+    set: (newValue) => {
+        localStorage?.setItem("USER_LOGIN", newValue)
+    },
+    delete: () => localStorage?.removeItem("USER_LOGIN")
+}

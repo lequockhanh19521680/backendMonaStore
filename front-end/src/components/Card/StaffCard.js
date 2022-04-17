@@ -18,7 +18,7 @@ export default function StaffCard({ user }) {
       </div>
 
      
-      <p className="text-2xl font-medium text-center mb-5">
+      <p className="text-2xl font-medium text-center mb-5 h-9">
         {
           user?.nameAccount
         }

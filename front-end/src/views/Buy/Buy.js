@@ -9,25 +9,9 @@ export default function Buy() {
         <div className="border-2 border-yellow-1 p-5 w-4/5 flex">
           <div className="w-1/2 px-10">
             <p className="uppercase text-black text-md font-medium">Đơn hàng của bạn</p>
-            <div className="flex items-center justify-between uppercase text-black text-sm-md font-medium py-3 border-b-2 border-gray-300">
-              <p>Sản phẩm</p>
-              <p className="opacity-80 font-medium">
-                Vòng cổ
-                <span className="ml-1 text-sm">
-                  x 2
-                </span>
-              </p>
-            </div>
 
             <div className="flex items-center justify-between text-black text-sm-md font-medium py-3 border-b border-gray-300">
               <p>Tổng</p>
-              <Price
-                price="6,500,000"
-                color="black"
-              />
-            </div>
-            <div className="flex items-center justify-between text-black text-sm-md font-medium py-3 border-b border-gray-300">
-              <p>Tổng phụ</p>
               <Price
                 price="6,500,000"
                 color="black"

@@ -36,6 +36,20 @@ const userApi = {
     getAllCustomers: () => {
         const url = '/user/customers'
         return axiosClient.get(url)
+    },
+    addCart: (id, productId) => {
+        const url = `/user/cart/${id}`
+        return axiosClient.post(url, {
+            productId: productId
+        })
+    },
+    deleteCart: (id, productId) => {
+        const url = `/user/cart/${id}`
+        return axiosClient.delete(url, {
+            data: {
+                productId: productId
+            }
+        })
     }
 }
 
