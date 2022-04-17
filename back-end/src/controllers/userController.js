@@ -98,15 +98,15 @@ class UserController {
 
             console.log( process.env.ACCESS_TOKEN_SECRET);
             // Return token
-            const accessToken = jwt.sign(
+           /* const accessToken = jwt.sign(
                 { userId: newUser._id },
                 process.env.ACCESS_TOKEN_SECRET
             )
-
+*/
             res.json({
                 success: true,
                 message: 'User created successfully',
-                accessToken
+              //  accessToken
             })
         } catch (error) {
             throw new Error(error)
@@ -143,16 +143,16 @@ class UserController {
 
             // All good
             // Return token
-            const accessToken = jwt.sign(
+           /* const accessToken = jwt.sign(
                 { userId: user._id },
                 process.env.ACCESS_TOKEN_SECRET
-            )
+            )*/
 
             res.json({
                 user,
                 success: true,
                 message: 'User logged in successfully',
-                accessToken
+               // accessToken
             })
         } catch (error) {
             throw new Error(error)
