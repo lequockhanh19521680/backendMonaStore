@@ -17,7 +17,7 @@ class CouponController{
             const find = await couponSchema.find(query)
             res.send(find)
         } catch (error) {
-            console.log(error)
+            throw new Error(err)
         }
     }
 
@@ -28,7 +28,7 @@ class CouponController{
         res.send(coupon)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -55,7 +55,7 @@ class CouponController{
             const temp = await coupons.save()
             res.send(temp)
         } catch (err) {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -90,7 +90,7 @@ class CouponController{
             const coupon = await couponSchema.findByIdAndDelete(_id)
             res.send(coupon)
         } catch (err) {
-            console.log(err)
+            throw new Error(err)
         }
     }
 

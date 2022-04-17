@@ -5,7 +5,7 @@ import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup';
 import userApi from '../../../api/userApi';
 import { useFetchUsers, useUsers } from '../../../store/user/hook' 
-import { fetchAllUsers } from '../../../store/user';
+import { fetchAllCustomers } from '../../../store/user';
 import { useDispatch } from 'react-redux';
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
 import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
@@ -27,9 +27,10 @@ export default function Customers() {
         dispatch(updateSearchData({ [field]: value }))
     }
 
+
     const updateCustomers = () => {
         try {
-            dispatch(fetchAllUsers())
+            dispatch(fetchAllCustomers())
         } catch (error) {
             console.log(error)
         }

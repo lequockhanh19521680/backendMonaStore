@@ -8,7 +8,7 @@ const productSchema = new mongoose.Schema({
     },
     typeId:{
         type: mongoose.Schema.Types.ObjectId,
-        require: true,
+        required: true,
         ref:'TypeProduct'
     },
     price:

@@ -6,7 +6,7 @@ const connect = async () => {
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
         await client.connect(err => {
-        console.log(err)
+        throw new Error(err)
         });
         console.log("Connect db successfully")
 

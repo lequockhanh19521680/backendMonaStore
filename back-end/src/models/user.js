@@ -5,7 +5,7 @@ const bson = require('bson')
 const userSchema = new mongoose.Schema({
     email:{
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     nameAccount:{
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        require: true,
+        required: true,
         enum:['ADMIN','SELLER','CEO','MANAGER','ACCOUNT','DELIVERY','CUSTOMER'],
         default: 'CUSTOMER',
     },

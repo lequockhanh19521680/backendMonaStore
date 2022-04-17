@@ -3,7 +3,7 @@ const bson = require('bson')
 const typeProductSchema = new mongoose.Schema({
     nameType:{
         type: String,
-        require: true,
+        required: true,
         unique: true,    
     },
     note:{

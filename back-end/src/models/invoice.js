@@ -4,12 +4,12 @@ const invoiceSchema = new mongoose.Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User',
-        require: true,
+        required: true,
     },
     productId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Product',
-        require: true,
+        required: true,
     },
     phone:{
         type:String,

@@ -8,8 +8,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useFetchCoupon, useCoupon } from '../../../store/coupon/hook'
 import { useParams } from 'react-router-dom'
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
-
 export default function EditCoupon() {
   useFetchCoupon()
   const coupon = useCoupon()
@@ -46,10 +44,8 @@ export default function EditCoupon() {
         endDate: new Date(endDate).toISOString()
       })
       setPending(false)
-      showToastSuccess("Cập nhật thành công")
     } catch (error) {
       console.log(error)
-      showToastError("Cập nhật thất bại")
     }
   }
 

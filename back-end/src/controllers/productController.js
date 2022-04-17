@@ -17,7 +17,7 @@ class ProductController {
             const findProduct = await typeProductSchema.find(query).select()
         res.send(findProduct)
         }catch(err){
-            console.log(err)
+            throw new Error(err)
         }
 
     }
@@ -30,7 +30,7 @@ class ProductController {
         const findProduct = await typeProductSchema.find({"_id": _id })
         res.send(findProduct)
         }catch(err){
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -40,7 +40,7 @@ class ProductController {
             res.send(findProduct)
             console.log(key)
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
             console.log(key)
         }
 
@@ -53,7 +53,7 @@ class ProductController {
         res.send(product)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -103,7 +103,7 @@ class ProductController {
             ])
             res.send(findType)
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
         }
     }
     //sort get
@@ -164,7 +164,7 @@ class ProductController {
             res.send(products)
         }
         catch(err){
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -178,7 +178,7 @@ class ProductController {
             res.send(temp)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -198,7 +198,7 @@ class ProductController {
             const temp = await products.save()
             res.json(temp)
         } catch (err) {
-            throw new Error(err)
+            res.send('Error' + err)
         }
     }
 
@@ -235,7 +235,7 @@ class ProductController {
         res.send(product)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -246,7 +246,7 @@ class ProductController {
         res.send(product)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 

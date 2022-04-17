@@ -43,7 +43,7 @@ class UserController {
                 return res.status(400).json({ success: false, message: 'User not found' })
             res.json({ success: true, user })
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -99,18 +99,18 @@ class UserController {
 
             console.log( process.env.ACCESS_TOKEN_SECRET);
             // Return token
-            const accessToken = jwt.sign(
+           /* const accessToken = jwt.sign(
                 { userId: newUser._id },
                 process.env.ACCESS_TOKEN_SECRET
             )
-
+*/
             res.json({
                 success: true,
                 message: 'User created successfully',
-                accessToken
+              //  accessToken
             })
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -144,19 +144,19 @@ class UserController {
 
             // All good
             // Return token
-            const accessToken = jwt.sign(
+           /* const accessToken = jwt.sign(
                 { userId: user._id },
                 process.env.ACCESS_TOKEN_SECRET
-            )
+            )*/
 
             res.json({
                 user,
                 success: true,
                 message: 'User logged in successfully',
-                accessToken
+               // accessToken
             })
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
     }
@@ -177,7 +177,7 @@ class UserController {
             const findRole = await userModel.find(query)
             res.send(findRole)
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
         }
 
     }
@@ -187,7 +187,7 @@ class UserController {
             const findRole = await userModel.find(req.query)
             res.send(findRole)
         } catch (error) {
-            console.log(error)
+            throw new Error(error)
         }
     }
 
@@ -227,7 +227,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -237,7 +237,7 @@ class UserController {
             res.send(customers)
         }
         catch (error) {
-            console.log(error)
+            throw new Error(error)
         }
     }
 
@@ -251,8 +251,8 @@ class UserController {
             user.save()
             res.send(user)
         } catch (error) {
-            console.log(error)
-            console.log(product)
+            throw new Error(error)
+            console.log(cart1)
         }
     }
 
@@ -265,7 +265,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
 
@@ -276,7 +276,7 @@ class UserController {
         res.send(user)
         }catch(err)
         {
-            console.log(err)
+            throw new Error(err)
         }
     }
   

@@ -3,7 +3,6 @@ import Input from '../../../components/Input/Input'
 import AdminContainer from '../../../components/AdminContainer/AdminContainer'
 import productApi from '../../../api/productApi'
 import Button from '../../../components/Button/Button'
-import { showToastSuccess, showToastError } from '../../../components/CustomToast/CustomToast';
 export default function AddCategory() {
 
     const [nameType, setNameType] = useState()
@@ -25,11 +24,9 @@ export default function AddCategory() {
             })
             setPending(false)
             resetInput()
-            showToastSuccess("Thêm loại sản phẩm thành công")
         } catch (error) {
             console.log(error)
             setPending(false)
-            showToastError("Thêm loại sản phẩm thất bại")
         }
     }
 
