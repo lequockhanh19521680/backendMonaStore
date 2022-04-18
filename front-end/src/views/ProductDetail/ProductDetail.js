@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom'
 import { addToCart } from './../../utils/addToCart';
 import { useDispatch } from 'react-redux'
 import { fetchUser } from '../../store/user'
-
+import { setCart } from '../../store/product'
 export default function ProductDetail() {
 
   useFetchProduct()

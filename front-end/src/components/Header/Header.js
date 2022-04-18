@@ -4,20 +4,22 @@ import Container from '../Container/Container';
 import { NavLink, Link } from 'react-router-dom';
 import '../../styles/header.scss';
 import { fetchUser } from './../../store/user/index'
-import { fetchProduct } from './../../store/product/index'
+import { fetchProduct, setTotalPriceRedux } from './../../store/product/index'
 import { useUser } from './../../store/user/hook'
 import { useDispatch } from 'react-redux'
 import productApi from '../../api/productApi';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../store/product/hook'
+import { setCart } from '../../store/product/index'
 export default function Header() {
 
   const navigate = useNavigate()
   const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
   const dispatch = useDispatch()
-  const [cart, setCart] = useState([])
   const [totalPrice, setTotalPrice] = useState()
   const user = useUser()
-
+  const cart = useCart()
+  
   const handleLogout = () => {
     localStorage.removeItem("USER_LOGIN")
     navigate('/dang-nhap')
@@ -41,7 +43,7 @@ export default function Header() {
           return productDetail
         })
         const res = await Promise.all(promise)
-        setCart(res)
+        dispatch(setCart(res))
       }
       getListCart()
     }
@@ -49,8 +51,9 @@ export default function Header() {
 
 
   useEffect(() => {
-    const total = cart.reduce((total, product) => total + product?.data?.priceSale, 0)
+    const total = cart?.reduce((total, product) => total + product?.data?.priceSale, 0)
     setTotalPrice(total)
+    dispatch(setTotalPriceRedux(total))
   }, [cart])
 
 
@@ -65,7 +68,7 @@ export default function Header() {
     },
     {
       displayName: 'Đơn hàng',
-      link: '/bo-suu-tap'
+      link: '/don-hang'
     },
     {
       displayName: 'Giới thiệu',
@@ -158,7 +161,7 @@ export default function Header() {
                 </div>
                 <div className="group-hover:flex absolute bg-white top-full border px-3 hidden border-gray-300 min-w-[260px] -right-[20px] min-h-[100px] z-10">
                   {
-                    !cart.length ? (
+                    !cart?.length ? (
                       <div className="text-[#777] flex items-center justify-center">
                         Chưa có sản phẩm trong giỏ hàng
                       </div>

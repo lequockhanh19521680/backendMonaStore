@@ -9,6 +9,7 @@ const initialState = {
     allProductType: undefined,
     productType: undefined,
     totalPrice: undefined,
+    cart: undefined
 }
 
 const productSlice = createSlice({
@@ -27,8 +28,11 @@ const productSlice = createSlice({
         setProductType: (state,action) => {
             state.productType = action.payload
         },
-        setTotalPrice: (state,action) => {
+        setTotalPriceRedux: (state,action) => {
             state.totalPrice = action.payload
+        },
+        setCart: (state,actinon) => {
+            state.cart = actinon.payload
         }
     }
 })
@@ -89,7 +93,8 @@ export const {
     setProduct,
     setAllProductType,
     setProductType,
-    setTotalPrice
+    setTotalPriceRedux,
+    setCart
 } = productSlice.actions
 
 export default productSlice.reducer

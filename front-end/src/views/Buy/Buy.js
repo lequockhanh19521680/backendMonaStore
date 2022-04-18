@@ -1,10 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../../components/Container/Container'
 import Price from '../../components/Price/Price'
 import Input from '../../components/Input/Input'
+import { formatPrice } from '../../utils/formatPrice'
+import { useTotalPrice, useCart } from './../../store/product/hook';
+import invoiceApi from './../../api/invoiceApi';
+import { showToastError, showToastSuccess } from './../../components/CustomToast/CustomToast';
+import { useDispatch } from 'react-redux'
+
 export default function Buy() {
+  const totalPrice = useTotalPrice()
+  const cart = useCart()
+
+  const [disabled, setdisabled] = useState()
+  const dispatch = useDispatch()
+  const handleOrder = async () => {
+    try {
+
+      await invoiceApi.postInvoice({
+        
+      })
+      showToastSuccess("Đặt hàng thành công")
+    } catch (err) {
+      console.log(err)
+      showToastError("Đặt hàng thất bại")
+    }
+  }
+
+
   return (
-   <div className="bg-white w-full">
+    <div className="bg-white w-full">
       <Container className="py-20 flex justify-center">
         <div className="border-2 border-yellow-1 p-5 w-4/5 flex">
           <div className="w-1/2 px-10">
@@ -13,7 +38,7 @@ export default function Buy() {
             <div className="flex items-center justify-between text-black text-sm-md font-medium py-3 border-b border-gray-300">
               <p>Tổng</p>
               <Price
-                price="6,500,000"
+                price={formatPrice(totalPrice)}
                 color="black"
               />
             </div>
@@ -25,7 +50,7 @@ export default function Buy() {
             <div className="flex items-center justify-between text-black text-sm-md font-medium py-3 border-b-2 border-gray-300">
               <p>Tổng</p>
               <Price
-                price="6,500,000"
+                price={formatPrice(totalPrice)}
                 color="black"
               />
             </div>
@@ -66,12 +91,14 @@ export default function Buy() {
               </li>
             </ul>
 
-            <button className="mt-4 px-8 py-2 font-medium uppercase text-white bg-[#d26e4b] hover:bg-[#a8583c]">
+            <button
+              disabled={disabled}
+              className="mt-4 px-8 py-2 font-medium uppercase text-white bg-[#d26e4b] hover:bg-[#a8583c]">
               Đặt hàng
             </button>
           </div>
         </div>
       </Container>
-   </div>
+    </div>
   )
 }

@@ -21,6 +21,7 @@ export const useProductType = () => useSelector((state) => state.product.product
 
 export const useTotalPrice = () => useSelector(state => state.product.totalPrice)
 
+export const useCart = () => useSelector(state => state.product.cart)
 
 export const useFetchProducts = (defaultQuery = {}) => {
     const dispatch = useDispatch()

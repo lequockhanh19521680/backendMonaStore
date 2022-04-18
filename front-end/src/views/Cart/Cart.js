@@ -5,7 +5,8 @@ import Price from '../../components/Price/Price'
 import { Link } from 'react-router-dom'
 import productApi from './../../api/productApi';
 import { fetchUser } from './../../store/user/index'
-import { fetchProduct } from './../../store/product/index'
+import { fetchProduct, setTotalPriceRedux, setCart } from './../../store/product/index'
+import { useCart } from '../../store/product/hook'
 import { useUser } from './../../store/user/hook'
 import { useDispatch } from 'react-redux'
 import CartRow from './components/CartRow'
@@ -13,42 +14,17 @@ import couponApi from './../../api/couponApi';
 import { showToastError, showToastSuccess } from './../../components/CustomToast/CustomToast';
 
 export default function Cart() {
-
-    const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
     const dispatch = useDispatch()
-    const [cart, setCart] = useState([])
+
     const [totalPrice, setTotalPrice] = useState()
     const [code, setCode] = useState()
     const [disabled, setDisabled] = useState(false)
-    const user = useUser()
+    const cart = useCart()
 
     useEffect(() => {
-        if (userLogin) {
-            try {
-                dispatch(fetchUser(userLogin?._id))
-            } catch (err) {
-                console.log(err)
-            }
-        }
-    }, [])
-
-    useEffect(() => {
-        if (user) {
-            const getListCart = async () => {
-                const promise = user?.data?.cart.map(async (productId) => {
-                    const productDetail = await productApi.getProduct(productId)
-                    return productDetail
-                })
-                const res = await Promise.all(promise)
-                setCart(res)
-            }
-            getListCart()
-        }
-    }, [dispatch, user])
-
-    useEffect(() => {
-        const total = cart.reduce((total, product) => total + product?.data?.priceSale, 0)
+        const total = cart?.reduce((total, product) => total + product?.data?.priceSale, 0)
         setTotalPrice(total)
+        dispatch(setTotalPriceRedux(total))
     }, [cart])
 
     const handleUseCoupon = async () => {
@@ -58,18 +34,24 @@ export default function Cart() {
                 amount: coupon?.data?.[0]?.amount - 1
             })
             if (coupon?.data?.[0]?.status === 'ACTIVE') {
-                setTotalPrice(totalPrice - totalPrice * coupon?.data?.[0]?.value / 100)
+                const total = totalPrice - totalPrice * coupon?.data?.[0]?.value / 100
+                setTotalPrice(total)
+                dispatch(setTotalPriceRedux(total))
                 showToastSuccess("Sử dụng mã giảm giá thành công")
                 setDisabled(true)
             } else {
-                showToastError("Mã giảm giá đã hết hạn")
+                if(code) {
+                    showToastError("Mã giảm giá đã hết hạn")
+                } else {
+                    showToastError("Mã giảm giá không hợp lệ")
+                }
             }
         } catch (err) {
             console.log(err)
         }
     }
 
-    if (cart === undefined || user === undefined) {
+    if (cart === undefined) {
         return <p>Loading...</p>
     }
 

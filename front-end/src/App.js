@@ -26,9 +26,9 @@ import AddCategory from './views/Admin/Category/AddCategory';
 import AddCoupon from './views/Admin/Coupons/AddCoupon';
 import EditCoupon from './views/Admin/Coupons/EditCoupon';
 import { ToastContainer } from 'react-toastify'
-import { useUserLogin } from './store/user/hook';
-import { useAllProductType } from './store/product/hook';
-import { USER_LOGIN } from './utils/storage'
+import Intro from './views/Intro/Intro'
+import DonHang from './views/DonHang/DonHang'
+
 const UserLayout = () => {
   return (
     <div className="font-baskerville flex flex-col min-h-screen">
@@ -73,9 +73,11 @@ function App() {
         <Route element={<UserLayout />}>
           <Route index element={<Home />} />
           <Route path="/danh-muc" element={<Product />} />
+          <Route path="/gioi-thieu" element={<Intro />} />
           <Route path="/tin-tuc" element={<News />} />
           <Route path="/gio-hang" element={<Cart />} />
           <Route path="/thanh-toan" element={<Buy />} />
+          <Route path="/don-hang" element={<DonHang />} />
           <Route path="/san-pham/:id" element={<ProductDetail />} />
         </Route>
         <Route element={<LoginLayout />}>
