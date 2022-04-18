@@ -131,7 +131,7 @@ export default function Coupons() {
     ]
 
     return (
-        <AdminContainer className="overflow-hidden h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 Coupons
             </p>

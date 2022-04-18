@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FiMail, FiClock, FiPhone, FiSearch, FiUser } from "react-icons/fi";
+import { FiMail, FiClock, FiPhone, FiSearch, FiUser, FiLogOut } from "react-icons/fi";
 import Container from '../Container/Container';
 import { NavLink, Link } from 'react-router-dom';
 import '../../styles/header.scss';
@@ -8,20 +8,28 @@ import { fetchProduct } from './../../store/product/index'
 import { useUser } from './../../store/user/hook'
 import { useDispatch } from 'react-redux'
 import productApi from '../../api/productApi';
+import { useNavigate } from 'react-router-dom';
 export default function Header() {
 
-
+  const navigate = useNavigate()
   const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
   const dispatch = useDispatch()
   const [cart, setCart] = useState([])
   const [totalPrice, setTotalPrice] = useState()
   const user = useUser()
 
+  const handleLogout = () => {
+    localStorage.removeItem("USER_LOGIN")
+    navigate('/dang-nhap')
+  }
+
   useEffect(() => {
-    try {
-      dispatch(fetchUser(userLogin?._id))
-    } catch (err) {
-      console.log(err)
+    if (userLogin) {
+      try {
+        dispatch(fetchUser(userLogin?._id))
+      } catch (err) {
+        console.log(err)
+      }
     }
   }, [])
 
@@ -96,9 +104,25 @@ export default function Header() {
             </div>
           </div>
 
-          <Link to="/dang-nhap" className="text-white text-2xl cursor-pointer">
-            <FiUser />
-          </Link>
+          {
+            userLogin ? (
+              <button
+                onClick={handleLogout}
+                className="flex items-center text-white"
+              >
+                <span className="mr-2">
+                  {
+                    userLogin?.nameAccount
+                  }
+                </span>
+                <FiLogOut width={15} />
+              </button>
+            ) : (
+              <Link to="/dang-nhap" className="text-white text-2xl cursor-pointer">
+                <FiUser />
+              </Link>
+            )
+          }
         </div>
       </div>
       <div className="w-full bg-black-2">
@@ -124,49 +148,51 @@ export default function Header() {
               })
             }
 
-            <div className="group relative cart-item text-white cursor-pointer flex items-center transition-all duration-100 ease-linear rounded hover:p-3 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
-              <span className=" text-md font-medium mr-3">
-                {totalPrice} <span className="underline">đ</span>
-              </span>
-              <div className="text-md font-medium w-[30px] h-[30px] relative border-2 border-white flex items-center justify-center cart-icon-header text-white">
-                {cart?.length}
-              </div>
-              <div className="group-hover:flex absolute bg-white top-full border px-3 hidden border-gray-300 min-w-[260px] -right-[20px] min-h-[100px] z-10">
-                {
-                  !cart.length ? (
-                    <div className="text-[#777] flex items-center justify-center">
-                      Chưa có sản phẩm trong giỏ hàng
-                    </div>
-                  ) : (
-                    <div>
-                      {
-                        cart.map((product, index) => {
-                          if ( index >= 5) {
-                            return
-                          }
-                          return (
-                            <a href={`/san-pham/${product?.data?._id}`} key={index} >
-                              <div className="flex items-center p-2">
-                                <img src={product?.data?.image?.[0]} alt="product" width={50} />
-                                <p className="text-black text-md ml-3">
-                                  {product?.data?.nameProduct}
-                                </p>
-                              </div>
-                            </a>
-                          )
-                        })
-                      }
+            <Link to="/gio-hang">
+              <div className="group relative cart-item text-white cursor-pointer flex items-center transition-all duration-100 ease-linear rounded hover:p-3 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
+                <span className=" text-md font-medium mr-3">
+                  {totalPrice} <span className="underline">đ</span>
+                </span>
+                <div className="text-md font-medium w-[30px] h-[30px] relative border-2 border-white flex items-center justify-center cart-icon-header text-white">
+                  {cart?.length}
+                </div>
+                <div className="group-hover:flex absolute bg-white top-full border px-3 hidden border-gray-300 min-w-[260px] -right-[20px] min-h-[100px] z-10">
+                  {
+                    !cart.length ? (
+                      <div className="text-[#777] flex items-center justify-center">
+                        Chưa có sản phẩm trong giỏ hàng
+                      </div>
+                    ) : (
+                      <div>
+                        {
+                          cart.map((product, index) => {
+                            if (index >= 5) {
+                              return
+                            }
+                            return (
+                              <a href={`/san-pham/${product?.data?._id}`} key={index} >
+                                <div className="flex items-center p-2">
+                                  <img src={product?.data?.image?.[0]} alt="product" width={50} />
+                                  <p className="text-black text-md ml-3">
+                                    {product?.data?.nameProduct}
+                                  </p>
+                                </div>
+                              </a>
+                            )
+                          })
+                        }
 
                         <div className="text-center">
                           <a href="/gio-hang" className="py-1 underline text-lg">
                             Xem tất cả
                           </a>
+                        </div>
                       </div>
-                    </div>
-                  )
-                }
+                    )
+                  }
+                </div>
               </div>
-            </div>
+            </Link>
           </ul>
         </Container>
       </div>

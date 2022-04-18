@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import CartIcon from '../../components/CartIcon/CartIcon'
 import Price from '../../components/Price/Price'
+import { formatPrice } from '../../utils/formatPrice'
+
 export default function ProductCardV2({ product }) {
   return (
       <div className="flex flex-col bg-white relative group">

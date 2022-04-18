@@ -23,10 +23,12 @@ export default function Cart() {
     const user = useUser()
 
     useEffect(() => {
-        try {
-            dispatch(fetchUser(userLogin?._id))
-        } catch (err) {
-            console.log(err)
+        if (userLogin) {
+            try {
+                dispatch(fetchUser(userLogin?._id))
+            } catch (err) {
+                console.log(err)
+            }
         }
     }, [])
 

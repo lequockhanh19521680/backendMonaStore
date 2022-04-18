@@ -96,7 +96,7 @@ export default function Customers() {
     ]
 
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 Customers
             </p>

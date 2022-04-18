@@ -14,9 +14,11 @@ import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/s
 import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
 import { SORT_PRODUCT_PRICE } from '../../../constants/index'
-export const ShowDetail = () => {
+import { formatPrice } from '../../../utils/formatPrice'
+
+export const ShowDetail = ({ onClick }) => {
     return (
-        <button>
+        <button onClick={onClick}>
             <Eye className="hover:text-green-1" />
         </button>
     )
@@ -99,25 +101,37 @@ export default function Products() {
         {
             Header: 'PRICE',
             accessor: 'price',
+            Cell: data => {
+                return <span>
+                    {formatPrice(data?.row?.original?.price)} VND
+                </span>
+            }
         },
         {
             Header: 'PRICE SALE',
             accessor: 'priceSale',
+            Cell: data => {
+                return <span>
+                    {formatPrice(data?.row?.original?.priceSale)} VND
+                </span>
+            }
         },
         {
             Header: 'DETAILS',
             accessor: 'details',
             Cell: data => {
-                return <ShowDetail />
+                return <ShowDetail 
+                onClick={() => navigate(`/san-pham/${data.row.original._id}`)}
+                />
             }
         },
-        {
-            Header: 'PUBLISHED',
-            accessor: 'published',
-            Cell: data => {
-                return <ToggleButton isChecked={true} />
-            }
-        },
+        // {
+        //     Header: 'PUBLISHED',
+        //     accessor: 'published',
+        //     Cell: data => {
+        //         return <ToggleButton isChecked={true} />
+        //     }
+        // },
         {
             Header: 'ACTIONS',
             accessor: 'actions',
@@ -134,7 +148,7 @@ export default function Products() {
     ]
 
     return (
-        <AdminContainer className="h-screen">
+        <AdminContainer>
             <p className="text-lg font-medium mb-6">
                 Products
             </p>
