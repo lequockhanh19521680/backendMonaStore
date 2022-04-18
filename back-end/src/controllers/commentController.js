@@ -1,4 +1,6 @@
 const commentSchema = require('../models/comments')
+const User = require('../models/user')
+const Product = require('../models/products')
 class commentController{
     async getAllComment(req, res, next) {
         try {
@@ -12,7 +14,7 @@ class commentController{
     async addComment(req, res) {
         const comment = await new commentSchema({
             productId: req.body.productId,
-            userID: req.body.userID,
+            userId: req.body.userId,
             content: req.body.content,
             star: req.body.star,
         })
@@ -36,7 +38,11 @@ class commentController{
     async getCommentByIdProduct(req,res,next){
         try{
         const _id = req.params.id;
-        const findComment = await commentSchema.find({"_id": _id })
+        const findComment = await commentSchema.find({"productId": _id })
+        .populate({
+        path: 'userId',
+        select: 'nameAccount'},
+        )
         res.send(findComment)
         }catch(err){
             throw new Error(err)

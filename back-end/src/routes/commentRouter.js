@@ -5,7 +5,7 @@ const commentController = require('../controllers/commentController')
 //o day chuyen den router de get va post data trong mongo
 router.get('/',commentController.getAllComment)
 router.get('/:id',commentController.findCommentFromId)
-router.get('/type/:id',commentController.getCommentByIdProduct)// dung id type
+router.get('/product/:id',commentController.getCommentByIdProduct)// dung id type
 
 router.post('/',commentController.addComment)
 
