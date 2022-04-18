@@ -19,6 +19,7 @@ export default function Star({ numberStar = 5, className, size = "md"}) {
   return (
     <div
     className={classnames(
+      { 'text-3xl': size === '3xl' },
      {'text-2xl': size === '2xl'},
      {'text-xl': size === 'xl'},
      {'text-md': size === 'md'},

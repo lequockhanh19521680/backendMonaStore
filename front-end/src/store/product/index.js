@@ -44,7 +44,7 @@ export const fetchProducts = (params = {}) => async (dispatch) => {
 
 export const fetchProduct = (id) => async (dispatch) => {
     try {
-        const promise = [productApi.getProduct(id), commentApi.getCommentByProductId(id)]
+        const promise = [productApi.getProduct(id), commentApi.getCommentByProductId(id), questionApi.getQuestionByProductId(id)]
         const data = await Promise.all(promise)
         dispatch(setProduct({
             ...data?.[0],

@@ -6,7 +6,7 @@ import Comment from '../../components/Comment'
 import ProductCardV2 from '../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { useFetchProduct, useProduct } from '../../store/product/hook'
+import { useFetchProduct, useProduct, useFetchProducts, useProducts } from '../../store/product/hook'
 import { useParams } from 'react-router-dom'
 import { addToCart } from './../../utils/addToCart';
 import { useDispatch } from 'react-redux'
@@ -15,52 +15,19 @@ import { fetchUser } from '../../store/user'
 export default function ProductDetail() {
 
   useFetchProduct()
+  useFetchProducts()
   const product = useProduct()
+  const products = useProducts()
   const [tab, setTab] = useState(1)
   const { id } = useParams()
   const dispatch = useDispatch()
-  console.log(product)
+  
   const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
 
   const handleChangeTab = (tab) => {
     setTab(tab)
   }
 
-  const products = [
-    {
-      name: 'MICHAEL KORS WATCH',
-      image1: '/images/home/product5.jpg',
-      image2: '/images/home/product6.jpg',
-      id: '',
-      price: '5,000,000 ',
-      priceSale: '3,250,000',
-    },
-    {
-      name: 'MICHAEL KORS WATCH',
-      image1: '/images/home/product7.jpg',
-      image2: '/images/home/product8.jpg',
-      id: '',
-      price: '5,000,000 ',
-      priceSale: '3,250,000',
-    },
-    {
-      name: 'MICHAEL KORS WATCH',
-      image1: '/images/home/product9.jpg',
-      image2: '/images/home/product10.jpg',
-      id: '',
-      price: '5,000,000 ',
-      priceSale: '3,250,000',
-    },
-    {
-      name: 'MICHAEL KORS WATCH',
-      image1: '/images/home/product11.jpg',
-      image2: '/images/home/product12.jpg',
-      id: '',
-      price: '5,000,000 ',
-      priceSale: '3,250,000',
-    },
-
-  ]
 
   const responsive = {
     desktop: {
@@ -219,69 +186,84 @@ export default function ProductDetail() {
           }
         </div>
 
-        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Gợi ý cho bạn</p>
-        <div className="mr-[-8px] ml-[-8px]">
-          <Carousel
-            swipeable
-            autoPlay
-            autoPlaySpeed={2000}
-            draggable={true}
-            showDots={false}
-            responsive={responsive}
-            ssr={true} // means to render carousel on server-side.
-            infinite={true}
-            keyBoardControl={true}
-            // removeArrowOnDeviceType={["tablet", "mobile"]}
-            minimumTouchDrag={80}
-            slidesToSlide={1}
-            itemClass="top-product-carousel-items"
-            containerClass="top-product-carousel-container"
-            partialVisible
-          >
+        {
+          products && (
+            <>
+              <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Gợi ý cho bạn</p>
+              <div className="mr-[-8px] ml-[-8px]">
+                <Carousel
+                  swipeable
+                  autoPlay
+                  autoPlaySpeed={2000}
+                  draggable={true}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  keyBoardControl={true}
+                  // removeArrowOnDeviceType={["tablet", "mobile"]}
+                  minimumTouchDrag={80}
+                  slidesToSlide={1}
+                  itemClass="top-product-carousel-items"
+                  containerClass="top-product-carousel-container"
+                  partialVisible
+                >
 
-            {
-              products.map((product, index) => {
-                return (
-                  <ProductCardV2 product={product} />
-                )
-              })
-            }
+                  {
+                    products?.data?.map((product, index) => {
+                      if (index % 5 === 0) {
+                        return
+                      }
+                      return (
+                        <ProductCardV2 product={product} key={product?._id} />
+                      )
+                    })
+                  }
 
-          </Carousel>
-        </div>
+                </Carousel>
+              </div>
+            </>
+          )
+        }
 
-        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Xem gần đây</p>
-        <div className="mr-[-8px] ml-[-8px]">
-          <Carousel
-            swipeable
-            autoPlay
-            autoPlaySpeed={2000}
-            draggable={true}
-            showDots={false}
-            responsive={responsive}
-            ssr={true} // means to render carousel on server-side.
-            infinite={true}
-            keyBoardControl={true}
-            // removeArrowOnDeviceType={["tablet", "mobile"]}
-            minimumTouchDrag={80}
-            slidesToSlide={1}
-            itemClass="top-product-carousel-items"
-            containerClass="top-product-carousel-container"
-            partialVisible
-          >
+        {
+          products && (
+            <>
+              <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Xem gần đây</p>
+              <div className="mr-[-8px] ml-[-8px]">
+                <Carousel
+                  swipeable
+                  autoPlay
+                  autoPlaySpeed={2000}
+                  draggable={true}
+                  showDots={false}
+                  responsive={responsive}
+                  ssr={true} // means to render carousel on server-side.
+                  infinite={true}
+                  keyBoardControl={true}
+                  // removeArrowOnDeviceType={["tablet", "mobile"]}
+                  minimumTouchDrag={80}
+                  slidesToSlide={1}
+                  itemClass="top-product-carousel-items"
+                  containerClass="top-product-carousel-container"
+                  partialVisible
+                >
 
-            {
-              products.map((product, index) => {
-                return (
-                  <ProductCardV2 product={product} />
-                )
-              })
-            }
+                  {
+                    products?.data?.map((product, index) => {
+                      return (
+                        <ProductCardV2 product={product} />
+                      )
+                    })
+                  }
 
-          </Carousel>
-        </div>
+                </Carousel>
+              </div>
+            </>
 
-        <Comment comment={product?.comment?.data} />
+          )
+        }
+        <Comment comment={product?.comment?.data} question={product?.question?.data} productId={id} />
 
         <div className="w-full border-t border-gray-300 py-10">
           <p className="font-medium text-lg text-center mb-5">

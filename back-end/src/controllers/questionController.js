@@ -20,7 +20,6 @@ class QuestionCotroller {
             productId: req.body.productId,
             userId: req.body.userId,
             question: req.body.question,
-            answer: req.body.answer,
         })
         try {
             const temp = await questions.save()
@@ -33,7 +32,7 @@ class QuestionCotroller {
     async setQuestion(req,res){
         try{
             const _id = req.params.id;
-            const updateField = await questionSchema.findByIdAndUpdate(_id,req.query)
+            const updateField = await questionSchema.findByIdAndUpdate(_id,req.body)
             res.send(updateField)
         }
         catch(err)
@@ -56,7 +55,10 @@ class QuestionCotroller {
     async getQuestionByIdProduct(req, res, next) {
         try {
             const _id = req.params.id;
-            const findQuestion = await questionSchema.find({ "productId": _id })
+            const findQuestion = await questionSchema.find({ "productId": _id }).populate({
+                path: 'userId',
+                select: 'nameAccount'
+            })
             res.send(findQuestion)
         } catch (err) {
             throw new Error(err)
