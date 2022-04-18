@@ -17,7 +17,7 @@ class commentController{
             star: req.body.star,
         })
         try {
-            const temp = await questions.save()
+            const temp = await comment.save()
             res.json(temp)
         } catch (err) {
             throw new Error(err)
