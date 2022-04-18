@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
-//model cua 1 user trong collection users cua mongodb
+
 const questionSchema = new mongoose.Schema({
     productId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Product'
+        ref:'Product',
+        required: true
+    },
+    userId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required: true
     },
     question:{
         type:String,

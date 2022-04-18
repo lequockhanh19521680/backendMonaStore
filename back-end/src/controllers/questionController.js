@@ -5,7 +5,10 @@ class QuestionCotroller {
         //Ham lay du lieu tu database
     async getAllQuestion(req, res, next) {
         try {
-            const question = await questionSchema.find()
+            const question = await questionSchema.find().populate({
+                path:'userId',
+                select:'nameAccount'
+            },)
             res.send(question)
         }
         catch (err) {
@@ -15,6 +18,7 @@ class QuestionCotroller {
     async addQuestion(req, res) {
         const questions = await new questionSchema({
             productId: req.body.productId,
+            userId: req.body.userId,
             question: req.body.question,
             answer: req.body.answer,
         })
