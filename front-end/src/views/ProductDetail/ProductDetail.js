@@ -6,7 +6,6 @@ import Comment from '../../components/Comment'
 import ProductCardV2 from '../../components/Card/ProductCardV2';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import productApi from './../../api/productApi';
 import { useFetchProduct, useProduct } from '../../store/product/hook'
 import { useParams } from 'react-router-dom'
 import { addToCart } from './../../utils/addToCart';
@@ -107,7 +106,7 @@ export default function ProductDetail() {
                 className="px-2"
               />
               <a href="#product-review" className="px-2 border-l border-gray-300 underline">
-                See 18 reviews
+                Xem {product?.comment?.data?.length} đánh giá
               </a>
             </div>
             <Price
@@ -118,7 +117,7 @@ export default function ProductDetail() {
             />
 
             <a href="#des-detail" className="text-primary underline">
-              Description & Details
+              Mô tả & Chi tiết
             </a>
 
             <div className="flex items-center w-full mt-5 pb-10 border-b border-gray-300">
@@ -136,19 +135,19 @@ export default function ProductDetail() {
               <div className="flex items-center py-1">
                 <i className='bx bxs-truck text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
-                  Free Expedited Shipping over 200+
+                  Miễn phí giao hàng
                 </p>
               </div>
               <div className="flex items-center py-1">
                 <i class='bx bx-revision text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
-                  60-Day Returns
+                  Đổi trả trong 60 ngày
                 </p>
               </div>
               <div className="flex items-center py-1">
                 <i className='bx bx-check-shield text-2xl opacity-80'></i>
                 <p className="opacity-80 text-sm-md ml-5">
-                  2 Year Warranty
+                  Bảo hành 2 năm
                 </p>
               </div>
             </div>
@@ -161,13 +160,13 @@ export default function ProductDetail() {
               className={classnames("uppercase text-black mr-4 px-2 pb-1 cursor-pointer", { "border-b-4 border-primary": tab === 1 })}
               onClick={() => handleChangeTab(1)}
             >
-              Description
+              Mô tả
             </div>
             <div
               className={classnames("uppercase text-black px-2 pb-1 cursor-pointer", { "border-b-4 border-primary": tab === 2 })}
               onClick={() => handleChangeTab(2)}
             >
-              Details
+              Chi tiết
             </div>
 
           </div>
@@ -220,7 +219,7 @@ export default function ProductDetail() {
           }
         </div>
 
-        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Recommend for you</p>
+        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Gợi ý cho bạn</p>
         <div className="mr-[-8px] ml-[-8px]">
           <Carousel
             swipeable
@@ -251,7 +250,7 @@ export default function ProductDetail() {
           </Carousel>
         </div>
 
-        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Recently Viewed</p>
+        <p className="text-black font-medium text-2xl py-5 my-10 border-b border-gray-300">Xem gần đây</p>
         <div className="mr-[-8px] ml-[-8px]">
           <Carousel
             swipeable
@@ -282,7 +281,7 @@ export default function ProductDetail() {
           </Carousel>
         </div>
 
-        <Comment />
+        <Comment comment={product?.comment?.data} />
 
         <div className="w-full border-t border-gray-300 py-10">
           <p className="font-medium text-lg text-center mb-5">

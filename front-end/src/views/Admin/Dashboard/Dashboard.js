@@ -11,6 +11,8 @@ import classnames from 'classnames'
 import LoadingPage from '../../../components/LoadingPage/Loading'
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
 import arrayToObject from '../../../utils/arrayToObject'
+import { formatPrice } from './../../../utils/formatPrice';
+
 export default function Dashboard() {
   useFetchListInvoice()
   useFetchReport()
@@ -77,17 +79,17 @@ export default function Dashboard() {
         <div className="bg-green-2 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-layer text-4xl'></i>
           <p className="text-lg mt-1">Total Processing</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.PROCESSING || 0} VND</p>
+          <p className="text-3xl font-bold mt-2">{formatPrice(reportCost?.PROCESSING) || 0} VND</p>
         </div>
         <div className="bg-blue-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bx-cart text-4xl'></i>
           <p className="text-lg mt-1">Total Pending</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.PENDING || 0} VND</p>
+          <p className="text-3xl font-bold mt-2">{formatPrice(reportCost?.PENDING) || 0} VND</p>
         </div>
         <div className="bg-green-1 rounded-lg flex flex-col items-center justify-center py-5">
           <i className='bx bxs-credit-card text-4xl'></i>
           <p className="text-lg mt-1">Total Delivered</p>
-          <p className="text-3xl font-bold mt-2">{reportCost?.DELIVERED || 0} VND</p>
+          <p className="text-3xl font-bold mt-2">{formatPrice(reportCost?.DELIVERED) || 0} VND</p>
         </div>
       </div>
 

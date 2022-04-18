@@ -37,7 +37,7 @@ export default function EditCategory() {
   }
 
   return (
-    <AdminContainer className="h-screen">
+    <AdminContainer>
       <form>
         <Input
           className="border border-gray-400 rounded-lg text-md text-white"

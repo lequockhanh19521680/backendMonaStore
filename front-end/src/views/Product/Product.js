@@ -12,6 +12,7 @@ import CheckBox from './../../components/Checkbox/Checkbox';
 import { updateSearchData, resetSearchData } from '../../store/search/index'
 import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../store/search/hook'
 import { useDispatch } from 'react-redux'
+import OnTop from '../../components/OnTop/OnTop'
 
 export default function Product() {
   useFetchProducts()
@@ -58,9 +59,12 @@ export default function Product() {
 
   return (
     <div className="w-full bg-white px-5">
+      <div className="fixed bottom-10 right-10">
+        <OnTop />
+      </div>
       <div className="max-w-screen-3xl w-full mx-auto py-5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center text-xl">
+          <div className="flex items-center text-xl" id="top">
             <Link to="/" className="opacity-50 hover:opacity-100">TRANG CHỦ</Link>
             <span className="mx-3">/</span>
             <p className="text-black font-medium">CỬA HÀNG</p>

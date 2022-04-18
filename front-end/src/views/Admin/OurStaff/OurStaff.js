@@ -10,7 +10,7 @@ import { updateSearchData } from '../../../store/search/index'
 import { STAFF_ROLE } from '../../../constants/index'
 import { useFetchUsers, useUsers } from '../../../store/user/hook'
 export default function OurStaff() {
-    useFetchUsers({ role: 'Customer,Seller,CEO,Manager,Account,Delivery' })
+    useFetchUsers({ role: 'Admin,Seller,CEO,Manager,Account,Delivery' })
     useUpdateSearch()
     useUpdateQuery()
     const searchData = useSearchData()

@@ -3,18 +3,49 @@ import UserComment from './components/UserComment'
 import UserQuestion from './components/UserQuestion'
 import classnames from 'classnames'
 import Star from '../../components/Star/Star'
-export default function Comment() {
+export default function Comment({ comment }) {
 
   const [tab, setTab] = useState(1)
+  const [oneStar, setOneStar] = useState(0)
+  const [twoStar, setTwoStar] = useState(0)
+  const [threeStar, setThreeStar] = useState(0)
+  const [fourStar, setFourStar] = useState(0)
+  const [fiveStar, setFiveStar] = useState(0)
+  useEffect(() => {
+    let oneStarTemp = 0, twoStarTemp = 0, threeStarTemp = 0, fourStarTemp = 0, fiveStarTemp = 0
+    comment?.map(item => {
+      if (item?.star === 1) {
+        oneStarTemp++
+      }
+      if (item?.star === 2) {
+        twoStarTemp++
+      }
+      if (item?.star === 3) {
+        threeStarTemp++
+      }
+      if (item?.star === 4) {
+        fourStarTemp++
+      }
+      if (item?.star === 5) {
+        fiveStarTemp++
+      }
+    })
+    setOneStar(oneStarTemp)
+    setTwoStar(twoStarTemp)
+    setThreeStar(threeStarTemp)
+    setFourStar(fourStarTemp)
+    setFiveStar(fiveStarTemp)
+  }, [comment])
 
   const handleChangeTab = (tab) => {
     setTab(tab)
   }
+  console.log(comment)
   return (
     <div id="product-review">
 
       <div className="py-4 border-b borer-gray-300 mt-10">
-        <h1 className="text-2xl font-medium text-center">Customer Reviews</h1>
+        <h1 className="text-2xl font-medium text-center">Đánh giá của khách hàng</h1>
       </div>
 
       <div className="flex justify-between py-5 mb-5 items-start">
@@ -22,11 +53,11 @@ export default function Comment() {
           <div className="flex items-center border-r border-gray-300 pr-5">
             <div className="flex mr-2">
               <Star
-                numberStar = {5}
+                numberStar ={5}
                 size="2xl"
               />
             </div>
-            <span className="opacity-70 text-md">15 Reviews</span>
+            <span className="opacity-70 text-md">{comment?.length} Đánh giá</span>
           </div>
 
           <div className="pl-5">
@@ -36,7 +67,7 @@ export default function Comment() {
                   numberStar={5}
                 />
               </div>
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <span className="text-sm-md text-yellow-2 px-2">({fiveStar})</span>
               <div>
 
               </div>
@@ -48,7 +79,7 @@ export default function Comment() {
                 />
               </div>
 
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <span className="text-sm-md text-yellow-2 px-2">({fourStar})</span>
 
               <div>
 
@@ -61,7 +92,7 @@ export default function Comment() {
                 />
               </div>
 
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <span className="text-sm-md text-yellow-2 px-2">({threeStar})</span>
 
               <div>
 
@@ -74,7 +105,7 @@ export default function Comment() {
                 />
               </div>
 
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <span className="text-sm-md text-yellow-2 px-2">({twoStar})</span>
 
               <div>
 
@@ -87,7 +118,7 @@ export default function Comment() {
                 />
               </div>
 
-              <span className="text-sm-md text-yellow-2 px-2">(15)</span>
+              <span className="text-sm-md text-yellow-2 px-2">({oneStar})</span>
 
               <div>
 
@@ -108,7 +139,7 @@ export default function Comment() {
 
           onClick={() => handleChangeTab(1)}
         >
-          Reviews (15)
+          Đánh giá ({comment?.length})
         </div>
         <div
           className={classnames(
@@ -117,11 +148,15 @@ export default function Comment() {
           )}
           onClick={() => handleChangeTab(2)}
         >
-          Questions (3)
+          Câu hỏi (3)
         </div>
       </div>
       {
-        tab === 1 ? <UserComment /> : null
+        tab === 1 ? (
+          comment?.map((item,index) => {
+            return <UserComment key={index} comment={item?.content} name={item?.userId} numOfStar={item?.star} />
+          })
+        ) : null
       }
       {
         tab === 2 ? <UserQuestion /> : null
