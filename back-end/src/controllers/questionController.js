@@ -49,15 +49,17 @@ class QuestionCotroller {
         }
     }
    
-    async getQuestionByIdTypeProduct(req,res,next){
-        try{
-        const _id = req.params.id;
-        const findQuestion = await questionSchema.find({"typeId": _id })
-        res.send(findQuestion)
-        }catch(err){
+    async getQuestionByIdProduct(req, res, next) {
+        try {
+            const _id = req.params.id;
+            const findQuestion = await questionSchema.find({ "productId": _id })
+            res.send(findQuestion)
+        } catch (err) {
             throw new Error(err)
         }
     }
+
+    
     async findQuestionFromId(req,res){
         const _id = req.params.id
         try{

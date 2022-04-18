@@ -19,7 +19,7 @@ export default function ProductDetail() {
   const [tab, setTab] = useState(1)
   const { id } = useParams()
   const dispatch = useDispatch()
-
+  console.log(product)
   const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
 
   const handleChangeTab = (tab) => {

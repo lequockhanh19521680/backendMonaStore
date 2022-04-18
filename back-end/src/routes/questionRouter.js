@@ -4,7 +4,7 @@ const questionCotroller = require('../controllers/questionController')
 
 //o day chuyen den router de get va post data trong mongo
 router.get('/',questionCotroller.getAllQuestion)
-router.get('/type/:id',questionCotroller.getQuestionByIdTypeProduct)// dung id type
+router.get('/product/:id', questionCotroller.getQuestionByIdProduct)
 router.get('/:id',questionCotroller.findQuestionFromId)
 router.post('/',questionCotroller.addQuestion)
 

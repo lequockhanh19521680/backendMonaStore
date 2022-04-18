@@ -40,7 +40,7 @@ export default function Comment({ comment }) {
   const handleChangeTab = (tab) => {
     setTab(tab)
   }
-  console.log(comment)
+
   return (
     <div id="product-review">
 
@@ -154,7 +154,7 @@ export default function Comment({ comment }) {
       {
         tab === 1 ? (
           comment?.map((item,index) => {
-            return <UserComment key={index} comment={item?.content} name={item?.userId} numOfStar={item?.star} />
+            return <UserComment createdAt={item?.createAt} key={index} comment={item?.content} name={item?.userId?.nameAccount} numOfStar={item?.star} />
           })
         ) : null
       }
