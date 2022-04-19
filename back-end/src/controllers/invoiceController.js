@@ -51,18 +51,6 @@ class InvoiceController {
     }
 
 
-    async getUserId(req,res,next){
-        const _id = req.params.id;
-        try {
-            const findInvoice = await userSchema.find({"userId": _id })
-            res.send(findInvoice)
-        } catch (error) {
-            throw new Error(error)
-        }
-        
-    }
-
-    //Ham lay du lieu tu database
     async getAllInvoice(req, res) {
         let query = req.query
         let querySort = []
@@ -89,10 +77,25 @@ class InvoiceController {
             const invoices = await invoiceSchema.find(query).sort([querySort])
             res.send(invoices)
         }
+        //.find(query).sort([querySort])
         catch (err) {
             res.send({ message: err.message })
         }
     }
+
+    async getUserId(req,res,next){
+        const _id = req.params.id;
+        try {
+            const findInvoice = await userSchema.find({"userId": _id })
+            res.send(findInvoice)
+        } catch (error) {
+            throw new Error(error)
+        }
+        
+    }
+
+    //Ham lay du lieu tu database
+   
 
     async getInvoiceStatus(req,res){
         try {
@@ -138,7 +141,32 @@ class InvoiceController {
         }
     }
 
+        async addProduct(req,res){
+        const product = req.body.productId
+        const _id = req.params.id
+        try {
+            const invoice = await invoiceSchema.findById(_id)
+            invoice.productId.push(product)
+            invoice.save()
+            res.send(invoice)
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 
+
+    async deleteProduct(req,res){
+        try{
+            const flag = false
+        const invoice = await invoiceSchema.findByIdAndUpdate(
+            {_id:req.params.id},
+            {$pop: {productId:  req.body.productId}})
+        res.send(invoice)
+        }catch(err)
+        {
+            throw new Error(err)
+        }
+    }
     async setInvoice(req,res){
         try{
             const _id = req.params.id;
