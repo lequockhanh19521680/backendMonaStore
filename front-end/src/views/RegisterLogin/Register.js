@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useDebounce from '../../hooks/useDebounce';
 import userApi from './../../api/userApi';
 import { showToastSuccess, showToastError } from '../../components/CustomToast/CustomToast';
-export default function Register() {
 
+export default function Register() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState()
   const [nameAccount, setNameAccount] = useState()
   const [password, setPassword] = useState()
@@ -25,6 +26,7 @@ export default function Register() {
           phone
         })
         showToastSuccess("Đăng kí tài khoản thành công")
+        navigate('/dang-nhap')
       }
     } catch (error) {
       console.log(error)

@@ -154,10 +154,10 @@ export default function Header() {
             <Link to="/gio-hang">
               <div className="group relative cart-item text-white cursor-pointer flex items-center transition-all duration-100 ease-linear rounded hover:p-3 hover:text-yellow-2 hover:border hover:border-dashed hover:border-yellow-2">
                 <span className=" text-md font-medium mr-3">
-                  {totalPrice} <span className="underline">đ</span>
+                  {totalPrice || 0} <span className="underline">đ</span>
                 </span>
                 <div className="text-md font-medium w-[30px] h-[30px] relative border-2 border-white flex items-center justify-center cart-icon-header text-white">
-                  {cart?.length}
+                  {cart?.length || 0}
                 </div>
                 <div className="group-hover:flex absolute bg-white top-full border px-3 hidden border-gray-300 min-w-[260px] -right-[20px] min-h-[100px] z-10">
                   {
