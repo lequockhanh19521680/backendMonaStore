@@ -6,11 +6,21 @@ const invoiceSchema = new mongoose.Schema({
         ref:'User',
         required: true,
     },
-    productId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Product',
-        required: true,
-    },
+    product:{
+                type: [{
+                    productId:{
+                        type: mongoose.Schema.ObjectId,
+                        ref:'Product',
+                    },
+                    total:{
+                        type:Number,
+                    }
+                }
+            ],
+            default:[]
+              
+
+        },
     phone:{
         type:String,
         default: ""
