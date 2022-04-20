@@ -13,12 +13,12 @@ export default function UserComment({ name, createdAt, numOfStar = 5, comment })
 
             <div className="flex items-center mb-3">
                 <Star
-                    numberStar={numOfStar}
+                    numberStar={numOfStar || 0}
                 />
             </div>
 
             <p className="text-md mb-2">
-                {comment}
+                {comment || ''}
             </p>
         </div>
     )

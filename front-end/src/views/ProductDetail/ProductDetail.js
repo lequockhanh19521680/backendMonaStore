@@ -73,7 +73,7 @@ export default function ProductDetail() {
                 className="px-2"
               />
               <a href="#product-review" className="px-2 border-l border-gray-300 underline">
-                Xem {product?.comment?.data?.length} đánh giá
+                Xem {product?.comment?.data?.length || 0} đánh giá
               </a>
             </div>
             <Price

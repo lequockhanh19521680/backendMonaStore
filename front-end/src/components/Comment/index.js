@@ -73,10 +73,12 @@ export default function Comment({ comment, question, productId }) {
       }
     })
 
-    if (comment?.length) {
-      count = comment?.reduce((total, star) => {
-        return total + star?.star
-      }, 0)
+    if (comment) {
+      if (comment?.length) {
+        count = comment?.reduce((total, star) => {
+          return total + star?.star
+        }, 0)
+      }
     }
     
     setOneStar(oneStarTemp)
@@ -84,7 +86,8 @@ export default function Comment({ comment, question, productId }) {
     setThreeStar(threeStarTemp)
     setFourStar(fourStarTemp)
     setFiveStar(fiveStarTemp)
-    setStar(Math.round((count / (oneStarTemp + twoStarTemp + threeStarTemp + fourStarTemp + fiveStarTemp)) / 0.5) * 0.5)
+    setStar(Math.round((count / (comment?.length || 1)) / 0.5) * 0.5)
+
   }, [comment])
 
   const handleChangeTab = (tab) => {
