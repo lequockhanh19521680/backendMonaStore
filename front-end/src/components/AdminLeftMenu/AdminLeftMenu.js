@@ -39,11 +39,11 @@ export default function AdminLeftMenu() {
             label: 'Our Staff',
             link: '/admin/our-staff',
         },
-        {
-            icon: <FiMessageCircle />,
-            label: 'News',
-            link: '/admin/news',
-        },
+        // {
+        //     icon: <FiMessageCircle />,
+        //     label: 'News',
+        //     link: '/admin/news',
+        // },
     ]
 
     return (

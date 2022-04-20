@@ -21,7 +21,7 @@ const couponSlice = createSlice({
 
 export const fetchCoupon = (name) => async (dispatch) => {
     try {
-        const response = await couponApi.getCoupon(name)
+        const response = await couponApi.getCouponById(name)
         dispatch(setCoupon(response))
     } catch (error) { }
 }

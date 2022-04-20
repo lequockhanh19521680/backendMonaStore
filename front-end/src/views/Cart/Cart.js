@@ -29,7 +29,7 @@ export default function Cart() {
 
     const handleUseCoupon = async () => {
         try {
-            const coupon = await couponApi.getCoupon(code)
+            const coupon = await couponApi.getCouponByCode(code)
             await couponApi.editCoupon(coupon?.data?.[0]?._id, {
                 amount: coupon?.data?.[0]?.amount - 1
             })

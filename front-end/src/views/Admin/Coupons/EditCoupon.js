@@ -12,6 +12,7 @@ import { showToastError, showToastSuccess } from './../../../components/CustomTo
 export default function EditCoupon() {
   useFetchCoupon()
   const coupon = useCoupon()
+
   const [name, setName] = useState()
   const [amount, setAmount] = useState()
   const [value, setValue] = useState()
@@ -19,14 +20,15 @@ export default function EditCoupon() {
   const [pending, setPending] = useState(false)
   const [endDate, setEndDate] = useState();
   const { id } = useParams()
-
+  
 
   useEffect(() => {
-    setName(coupon?.data?.name)
-    setAmount(coupon?.data?.amount)
-    setCode(coupon?.data?.code)
-    setValue(coupon?.data?.value)
-    setEndDate(new Date(coupon?.data?.endDate))
+    setName(coupon?.data?.[0]?.name)
+    setAmount(coupon?.data?.[0]?.amount)
+    setCode(coupon?.data?.[0]?.code)
+    setValue(coupon?.data?.[0]?.value)
+    setEndDate(coupon?.data?.endDate)
+
   }, [coupon])
 
   const handleChangeDate = (date) => {
@@ -36,6 +38,7 @@ export default function EditCoupon() {
   const handleUpdateCoupon = async (e) => {
     e.preventDefault()
     setPending(true)
+
     try {
       await couponApi.editCoupon(id, {
         name,

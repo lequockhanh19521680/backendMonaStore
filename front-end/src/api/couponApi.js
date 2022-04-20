@@ -5,8 +5,12 @@ const couponApi = {
         const url = "/coupon"
         return axiosClient.get(url, { params })
     },
-    getCoupon: (code) => {
-        const url = `/coupon/${code}`
+    getCouponById: (id) => {
+        const url = `/coupon/${id}`
+        return axiosClient.get(url)
+    },
+    getCouponByCode: (code) => {
+        const url = `/coupon/code/${code}`
         return axiosClient.get(url)
     },
     deleteCoupon: (id) => {
@@ -15,11 +19,11 @@ const couponApi = {
     },
     editCoupon: (id, body) => {
         const url = `/coupon/${id}`
-        return axiosClient.patch(url, {...body})
+        return axiosClient.patch(url, { ...body })
     },
     postCoupon: (body) => {
         const url = '/coupon'
-        return axiosClient.post(url, {...body})
+        return axiosClient.post(url, { ...body })
     }
 }
 
