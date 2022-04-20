@@ -27,7 +27,7 @@ export default function EditCoupon() {
     setAmount(coupon?.data?.[0]?.amount)
     setCode(coupon?.data?.[0]?.code)
     setValue(coupon?.data?.[0]?.value)
-    setEndDate(coupon?.data?.endDate)
+    setEndDate(coupon?.data?.[0]?.endDate)
 
   }, [coupon])
 
