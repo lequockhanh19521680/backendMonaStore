@@ -132,7 +132,7 @@ export default function Product() {
             </div>
             <hr className="bg-gray-300 my-5 h-[1px]" />
 
-            <div className="">
+            {/* <div className="">
               <p className="text-lg px-3">Giá</p>
               <div className="px-5">
                 {
@@ -146,8 +146,8 @@ export default function Product() {
                     />
                   ))}
               </div>
-            </div>
-            <hr className="bg-gray-300 my-5 h-[1px]" />
+            </div> */}
+            {/* <hr className="bg-gray-300 my-5 h-[1px]" /> */}
             {productStorage && (
               <>
                 <h1 className="text-xl uppercase text-black font-semibold mb-5 opacity-80">Quan tâm</h1>
