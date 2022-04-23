@@ -3,34 +3,45 @@ import { Link } from 'react-router-dom';
 import Tooltip from '../../components/Tooltip/Tooltip';
 import { AlertCircle } from 'react-feather'
 import userApi from '../../api/userApi'
-import { setUserLogin } from '../../store/user/index'
-import { useUserLogin } from './../../store/user/hook';
 import { showToastSuccess, showToastError } from './../../components/CustomToast/CustomToast';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { USER_LOGIN } from '../../utils/storage'
+import useDebounce from '../../hooks/useDebounce';
+
 export default function Login() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const [isValidEmail, setIsValidEmail] = useState(true)
-  const [isValidPass, setIsValidPass] = useState(true)
-  const [user, setUser] = useState(null)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const validateEmail = () => {
-    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (email?.match(mailformat)) {
-      setIsValidEmail(true)
-      console.log(isValidEmail)
-    }
-    else {
-      setIsValidEmail(false)
-    }
-  }
+  const [emailValidate, setEmailValidate] = useState()
 
+  const navigate = useNavigate()
+
+  const emailDebounce = useDebounce(email, 1000)
+
+  useEffect(() => {
+    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if(emailDebounce) {
+      if (emailDebounce?.match(mailformat)) {
+        setIsValidEmail(true)
+      }
+      else {
+        setEmailValidate("Email không hợp lệ")
+        setIsValidEmail(false)
+      }
+    }
+  }, [emailDebounce])
 
   const Login = async (e) => {
     e.preventDefault()
+    if (!email) {
+      showToastError("Email không được để trống")
+      return;
+    }
+    if (!password) {
+      showToastError("Mật khẩu không được để trống")
+      return;
+    }
     try {
       await userApi.login({email, password}).then((response) => {
         USER_LOGIN.set(JSON.stringify(response?.data?.user))
@@ -40,10 +51,10 @@ export default function Login() {
         } else {
           navigate("/")
         }
-      }).catch(error => console.log(error))
+      })
     } catch (error) {
       console.log(error)
-      showToastError("Đăng nhập thất bại")
+      showToastError("Tài khoản hoặc mật khẩu không chính xác")
     }
   }
 
@@ -60,13 +71,12 @@ export default function Login() {
                 placeholder="Email"
                 onChange={(e) => {
                   setEmail(e.target.value)
-                  validateEmail()
                 }}
               />
               <Tooltip
                 className="absolute top-1/2 transform -translate-y-1/2 -right-10 text-red-500"
                 classNameTooltip="left-full bottom-1/2 transform translate-y-1/2 translate-x-2"
-                tooltip={<p>abcbcbd</p>}
+                tooltip={<p>{emailValidate}</p>}
                 isShow={!isValidEmail}
               >
                 <AlertCircle />
@@ -80,16 +90,8 @@ export default function Login() {
                 placeholder="Password"
                 onChange={(e) => {
                   setPassword(e.target.value)
-                  validateEmail()
                 }}
               />
-              <Tooltip
-                className="absolute top-1/2 transform -translate-y-1/2 -right-10 text-red-500"
-                classNameTooltip="left-full bottom-1/2 transform translate-y-1/2 translate-x-2"
-                tooltip={<p>abcbcbd</p>}
-              >
-                <AlertCircle />
-              </Tooltip>
             </div>
             <div className="text-center ">
               <Link to="/" className="underline text-white ">Quên mật khẩu?</Link>

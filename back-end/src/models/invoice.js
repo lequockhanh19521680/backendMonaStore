@@ -18,8 +18,6 @@ const invoiceSchema = new mongoose.Schema({
                 }
             ],
             default:[]
-              
-
         },
     phone:{
         type:String,

@@ -12,7 +12,7 @@ export default function AdminEditProduct() {
   useFetchAllProductType()
   useFetchProduct()
   const product = useProduct()
-  console.log(product)
+
   const productTypes = useAllProductType()
   const { id } = useParams()
   const [nameProduct, setNameProduct] = useState()
@@ -22,6 +22,7 @@ export default function AdminEditProduct() {
   const [metal, setMetal] = useState()
   const [size, setSize] = useState()
   const [typeProductId, setTypeProductId] = useState()
+  const [nameType, setNameType] = useState()
   const [pending, setPending] = useState(false)
 
   useEffect(() => {
@@ -33,9 +34,13 @@ export default function AdminEditProduct() {
       setMetal(product?.data?.metal)
       setSize(product?.data?.size)
       setTypeProductId(product?.data?.typeProductId)
+      productTypes?.data.map((type) => {
+        if (type?._id === product?.data?.typeId) {
+          setNameType(type?.nameType)
+        }
+      })
     }
   }, [product])
-
 
   const handleEditProduct = async (e) => {
     e.preventDefault()
@@ -57,7 +62,6 @@ export default function AdminEditProduct() {
       showToastError("Cập nhật thất bại")
     }
   }
-
 
   return (
     <AdminContainer>
@@ -96,6 +100,7 @@ export default function AdminEditProduct() {
           label="nameType"
           value="typeId"
           onSelect={setTypeProductId}
+          titleDefault={nameType}
         />
 
         <Input

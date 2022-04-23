@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import classnames from 'classnames'
-export default function Dropdown({ reset, title, listDropdown, className, bgDropdown, classNameButton, label, value, onSelect, rounded="lg" }) {
+export default function Dropdown({ titleDefault, reset, title, listDropdown, className, bgDropdown, classNameButton, label, value, onSelect, rounded="lg" }) {
 
-    const [titleState, setTitleState] = useState(title)
+    const [titleState, setTitleState] = useState(titleDefault || title)
     const [isShow, setIsShow] = useState(false)
     useEffect(() => {
         if (reset) {
             setTitleState(title)
         }
     }, [reset])
+
+
+    useEffect(() => {
+        setTitleState(titleDefault || title)
+    }, [titleDefault])
+
     return (
         <div className={classnames("w-full text-md relative", className)}>
             <button
