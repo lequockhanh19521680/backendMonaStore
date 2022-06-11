@@ -12,6 +12,7 @@ import { addToCart } from './../../utils/addToCart';
 import { useDispatch } from 'react-redux'
 import { fetchUser } from '../../store/user'
 import { setCart } from '../../store/product'
+import { showToastError } from '../../components/CustomToast/CustomToast'
 export default function ProductDetail() {
 
   useFetchProduct()
@@ -90,8 +91,12 @@ export default function ProductDetail() {
             <div className="flex items-center w-full mt-5 pb-10 border-b border-gray-300">
               <button
                 onClick={async () => {
-                  await addToCart(userLogin?._id, id)
-                  await dispatch(fetchUser(userLogin?._id))
+                  if(userLogin?._id) {
+                    await addToCart(userLogin?._id, id)
+                    await dispatch(fetchUser(userLogin?._id))
+                  } else {
+                    showToastError("Bạn cần đăng nhập vào hệ thống")
+                  }
                 }}
                 className="bg-black text-white font-medium text-lg py-4 px-5 hover:opacity-80 w-full uppercase">
                 Thêm vào giỏ hàng
