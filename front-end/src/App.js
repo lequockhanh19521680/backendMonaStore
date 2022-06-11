@@ -31,7 +31,7 @@ import DonHang from './views/DonHang/DonHang'
 
 const UserLayout = () => {
   return (
-    <div className="font-baskerville flex flex-col min-h-screen">
+    <div className="font-baskerville flex flex-col min-h-screen overflow-hidden">
       <Header />
       <div className="flex-1">
         <Outlet />

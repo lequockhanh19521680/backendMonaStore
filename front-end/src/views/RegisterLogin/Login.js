@@ -83,18 +83,15 @@ export default function Login() {
               </Tooltip>
             </div>
 
-            <div className="relative  mb-8">
+            <div className="relative">
               <input
-                className="w-full border border-gray-300 px-3 py-3 mb-5"
+                className="w-full border border-gray-300 px-3 py-3"
                 type="password"
                 placeholder="Password"
                 onChange={(e) => {
                   setPassword(e.target.value)
                 }}
               />
-            </div>
-            <div className="text-center ">
-              <Link to="/" className="underline text-white ">Quên mật khẩu?</Link>
             </div>
             <button
               onClick={(e) => { Login(e) }}

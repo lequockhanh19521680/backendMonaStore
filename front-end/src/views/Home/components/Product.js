@@ -51,14 +51,14 @@ export default function Product() {
                     </div>
                     <div className="sm:w-1/4 w-full h-full text-center sm:mr-5 relative group">
                         <Link to="/">
-                            <img src="/images/home/product3.png" alt="product" className="w-full"  />
-                            <p className="text-white-1 text-md font-medium mb-3">Dây chuyền trái tim đại dương</p>
+                            <img src="https://chiembaomothay.com/wp-content/uploads/2019/05/f171670e25d3483b65a2a654d6dfb0eb.jpg" alt="product" className="w-full"  />
+                            <p className="text-white-1 text-md font-medium mb-3">Dây chuyền đính kim cương</p>
                             <p className="text-white-1 text-md font-medium mb-3">
                                 <del className="opacity-50">
-                                    5,000,000   <span className="underline">đ</span>
+                                    500,000,000   <span className="underline">đ</span>
                                 </del>
                                 <span className="text-white-1 ml-2">
-                                    3,500,000 <span className="underline">đ</span>
+                                    350,000,000 <span className="underline">đ</span>
                                 </span>
                             </p>
                         </Link>
@@ -66,7 +66,7 @@ export default function Product() {
                     </div>
                     <div className="sm:w-1/4 w-full h-full text-center sm:mr-5 relative group">
                         <Link to="/">
-                            <img src="/images/home/product2.png" alt="product" className="w-full" />
+                            <img src="https://lavenderstudio.com.vn/wp-content/uploads/2019/07/sap-xep-bo-cuc-chup-anh-trang-suc-dep-2-1024x682.png" alt="product" className="w-full" />
                             <p className="text-white-1 text-md font-medium mb-3">Vòng cổ tím huyền bí</p>
                             <p className="text-white-1 text-md font-medium mb-3">
                                 <del className="opacity-50">

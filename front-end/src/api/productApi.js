@@ -45,8 +45,6 @@ const productApi = {
         const url = `/product/type/${id}`
         return axiosClient.get(url)
     }
-
-    
 }
 
 export default productApi

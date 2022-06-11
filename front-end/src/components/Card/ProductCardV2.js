@@ -11,7 +11,7 @@ export default function ProductCardV2({ product }) {
     const dispatch = useDispatch()
     const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
     const user = useUser()
-    console.log(user)
+
     return (
         <div className="flex flex-col bg-white relative group">
             <Link to={`/san-pham/${product?._id}`}>
@@ -38,7 +38,7 @@ export default function ProductCardV2({ product }) {
                     await addToCart(userLogin?._id, product?._id)
                     await dispatch(fetchUser(userLogin?._id))
                 }}
-                isInCart = {user?.data?.cart.includes(product?._id)}
+                isInCart = {user?.data?.cart?.includes(product?._id)}
             />
         </div>
     )

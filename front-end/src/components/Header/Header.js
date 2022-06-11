@@ -66,18 +66,6 @@ export default function Header() {
       displayName: 'Danh mục',
       link: 'danh-muc'
     },
-    {
-      displayName: 'Đơn hàng',
-      link: '/don-hang'
-    },
-    {
-      displayName: 'Giới thiệu',
-      link: '/gioi-thieu'
-    },
-    {
-      displayName: 'Tin tức',
-      link: '/tin-tuc'
-    },
   ]
 
 

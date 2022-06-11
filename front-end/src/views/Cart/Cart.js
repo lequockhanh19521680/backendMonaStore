@@ -58,7 +58,7 @@ export default function Cart() {
     return (
         <div className="w-full">
             {
-                cart.length ? (
+                cart?.length ? (
                     <div className="items-start max-w-screen-3xl mx-auto w-full flex">
                         <div className="my-5 w-3/5 px-5 flex-1">
                             <table className="w-full">
