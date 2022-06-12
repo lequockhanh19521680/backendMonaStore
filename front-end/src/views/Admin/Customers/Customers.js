@@ -4,18 +4,18 @@ import Input from '../../../components/Input/Input'
 import Table from '../../../components/Table/Table'
 import ActionGroup from '../../../components/ActionGroup/ActionGroup';
 import userApi from '../../../api/userApi';
-import { useFetchUsers, useUsers } from '../../../store/user/hook' 
+import { useFetchAllCustomers, useAllCustomers } from '../../../store/user/hook' 
 import { fetchAllCustomers } from '../../../store/user';
 import { useDispatch } from 'react-redux';
 import { formatDDMMYYYYHHmm } from '../../../utils/formatDatetime'
 import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/search/hook'
 import { updateSearchData } from '../../../store/search/index'
 export default function Customers() {
-    useFetchUsers({role: 'Customer'})
+    useFetchAllCustomers()
     useUpdateSearch()
     useUpdateQuery()
     const searchData = useSearchData()
-    const customers = useUsers()
+    const customers = useAllCustomers()
     const dispatch = useDispatch()
     const [textSearch, setTextSearch] = useState()
 
@@ -28,9 +28,9 @@ export default function Customers() {
     }
 
 
-    const updateCustomers = () => {
+    const updateCustomers = async () => {
         try {
-            dispatch(fetchAllCustomers())
+            await dispatch(fetchAllCustomers())
         } catch (error) {
             console.log(error)
         }

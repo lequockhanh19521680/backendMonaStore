@@ -34,7 +34,7 @@ const userApi = {
         return axiosClient.get(url, {params})
     },
     getAllCustomers: () => {
-        const url = '/user/customers'
+        const url = '/user/getall/customers'
         return axiosClient.get(url)
     },
     addCart: (id, productId) => {

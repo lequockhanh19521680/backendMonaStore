@@ -12,20 +12,31 @@ export default function Buy() {
   const totalPrice = useTotalPrice()
   const cart = useCart()
 
-  const [disabled, setdisabled] = useState()
+  const [disabled, setDisabled] = useState()
   const dispatch = useDispatch()
+  const [address, setAddress] = useState()
+  const [phone, setPhone] = useState()
+  const [paymentMethod, setPaymentMethod] = useState()
+  const userLogin = JSON.parse(localStorage?.getItem('USER_LOGIN'))
+  
   const handleOrder = async () => {
+    setDisabled(true)
     try {
-
       await invoiceApi.postInvoice({
-        
+        userId: userLogin?._id,
+        address,
+        cost: totalPrice,
+        paymemtMethod: paymentMethod
       })
       showToastSuccess("Đặt hàng thành công")
+      setDisabled(false)
     } catch (err) {
       console.log(err)
+      setDisabled(false)
       showToastError("Đặt hàng thất bại")
     }
   }
+
 
 
   return (
@@ -64,7 +75,7 @@ export default function Buy() {
               type="tel"
               pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
               placeholder="Địa chỉ"
-
+              onChange={(e) => setAddress(e.target.value)}
             />
 
             <Input
@@ -75,23 +86,24 @@ export default function Buy() {
               type="phone"
               classNameContainer="mt-5"
               placeholder="Số điện thoại"
-
+              onChange={e => setPhone(e.target.value)}
             />
             <ul>
               <li className="py-2 border-b border-gray-300">
-                <input id="payment_method_cod" type="radio" name="payment_method" checked="checked" value="cod" />
-                <label className="ml-2 text-black font-medium text-sm-md" for="payment_method_cod">Trả tiền khi nhận hàng</label>
+                <input id="payment_method_cod" type="radio" name="payment_method" checked="checked" value="COD" onChange={e => setPaymentMethod(e.target.value)}/>
+                <label className="ml-2 text-black font-medium text-sm-md" htmlFor="payment_method_cod">Trả tiền khi nhận hàng</label>
                 <p className="mt-2 text-sm-md">Trả tiền mặt khi giao hàng</p>
 
               </li>
               <li className="py-2 ">
-                <input id="payment_method_card" type="radio" name="payment_method" value="card" />
-                <label className="ml-2 text-black font-medium text-sm-md" for="payment_method_card">Chuyển khoản ngân hàng</label>
+                <input id="payment_method_card" type="radio" name="payment_method" value="CARD" onChange={e => setPaymentMethod(e.target.value)} />
+                <label className="ml-2 text-black font-medium text-sm-md" htmlFor="payment_method_card">Chuyển khoản ngân hàng</label>
                 <p className="mt-2 text-sm-md">Thực hiện thanh toán vào ngay tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.</p>
               </li>
             </ul>
 
             <button
+              onClick={handleOrder}
               disabled={disabled}
               className="mt-4 px-8 py-2 font-medium uppercase text-white bg-[#d26e4b] hover:bg-[#a8583c]">
               Đặt hàng
