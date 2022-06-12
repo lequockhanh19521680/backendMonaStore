@@ -137,7 +137,7 @@ class InvoiceController {
             const temp = await invoices.save()
             res.json(temp)
         } catch (err) {
-            res.send('Error' + err)
+            throw new Error(error)
         }
     }
 

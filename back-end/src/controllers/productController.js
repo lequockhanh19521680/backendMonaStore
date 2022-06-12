@@ -4,7 +4,7 @@ const typeProductSchema = require('../models/typeProducts')
 
 class ProductController {
 
-    async getAllProductType(req,res,next){
+    async getAllProductType(req, res, next) {
         let query = {}
 
         if (req.query.textSearch) {
@@ -13,28 +13,28 @@ class ProductController {
             }
         }
 
-        try{
+        try {
             const findProduct = await typeProductSchema.find(query).select()
-        res.send(findProduct)
-        }catch(err){
+            res.send(findProduct)
+        } catch (err) {
             throw new Error(err)
         }
 
     }
-    
 
 
-    async getProductTypeById(req,res,next){
-        try{
-        const _id = req.params.id;
-        const findProduct = await typeProductSchema.find({"_id": _id })
-        res.send(findProduct)
-        }catch(err){
+
+    async getProductTypeById(req, res, next) {
+        try {
+            const _id = req.params.id;
+            const findProduct = await typeProductSchema.find({ "_id": _id })
+            res.send(findProduct)
+        } catch (err) {
             throw new Error(err)
         }
     }
 
-    async getProductFromType(req,res){
+    async getProductFromType(req, res) {
         try {
             const findProduct = await productSchema.find(req.query)
             res.send(findProduct)
@@ -46,13 +46,12 @@ class ProductController {
 
     }
 
-    async findProductFromId(req,res){
+    async findProductFromId(req, res) {
         const _id = req.params.id
-        try{
-        const product = await productSchema.findById(_id)
-        res.send(product)
-        }catch(err)
-        {
+        try {
+            const product = await productSchema.findById(_id)
+            res.send(product)
+        } catch (err) {
             throw new Error(err)
         }
     }
@@ -84,6 +83,22 @@ class ProductController {
             querySort.push(order)
         }
 
+        if (req.query.price) {
+            const price = req.query.price.split(",")
+            query.$and = [
+                {
+                    price: {
+                        $gte: Number(price[0]) || 1
+                    }
+                },
+                {
+                    price: {
+                        $lte: Number(price[1]) || 99
+                    }
+                }
+            ]
+        }
+
         try {
             const product = await productSchema.find(query).populate('typeId').sort([querySort])
             res.send(product)
@@ -93,13 +108,17 @@ class ProductController {
         }
     }
 
-    async countTypeProductSold(req,res){
+    async countTypeProductSold(req, res) {
         try {
             const findType = await productSchema.aggregate([
-                {$match: {status: "SOLD"}},
-                {$group:{_id: "$typeId",
-                count:{$sum: 1}}},
-           
+                { $match: { status: "SOLD" } },
+                {
+                    $group: {
+                        _id: "$typeId",
+                        count: { $sum: 1 }
+                    }
+                },
+
             ])
             res.send(findType)
         } catch (error) {
@@ -150,34 +169,33 @@ class ProductController {
         }
     }
     */
-    async sortProduct(req,res){
+    async sortProduct(req, res) {
         const name = req.query.name
         const desc = req.query.desc
-        try{
+        try {
             const sortObject = {}
             sortObject[name] = desc
-        
+
 
             const products = await productSchema.find().sort(sortObject)
-          
+
             console.log(sortObject)
             res.send(products)
         }
-        catch(err){
+        catch (err) {
             throw new Error(err)
         }
     }
 
-    async addTypeProduct(req,res){
+    async addTypeProduct(req, res) {
         const products = await new typeProductSchema({
             nameType: req.body.nameType,
             note: req.body.note
         })
-        try{
+        try {
             const temp = await products.save()
             res.send(temp)
-        }catch(err)
-        {
+        } catch (err) {
             throw new Error(err)
         }
     }
@@ -202,50 +220,46 @@ class ProductController {
         }
     }
 
-    async setProduct(req,res){
-        try{
+    async setProduct(req, res) {
+        try {
             const _id = req.params.id;
-            const updateField = await productSchema.findByIdAndUpdate(_id,req.body)
+            const updateField = await productSchema.findByIdAndUpdate(_id, req.body)
             res.send(updateField)
         }
-        catch(err)
-        {
+        catch (err) {
             res.send('error' + err)
         }
     }
-    
-    async setTypeProduct(req,res){
-        try{
+
+    async setTypeProduct(req, res) {
+        try {
             const _id = req.params.id;
-            const newProductType = await typeProductSchema.findByIdAndUpdate({_id}, req.body)
+            const newProductType = await typeProductSchema.findByIdAndUpdate({ _id }, req.body)
             res.send(newProductType)
         }
-        catch(err)
-        {
+        catch (err) {
             res.send('error' + err)
         }
     }
-    
 
 
-    async deleteTypeProductById(req,res){
+
+    async deleteTypeProductById(req, res) {
         const id = req.params.id
-        try{
-        const product = await typeProductSchema.deleteOne({_id: id})
-        res.send(product)
-        }catch(err)
-        {
+        try {
+            const product = await typeProductSchema.deleteOne({ _id: id })
+            res.send(product)
+        } catch (err) {
             throw new Error(err)
         }
     }
 
-    async deleteProductById(req,res){
+    async deleteProductById(req, res) {
         const _id = req.params.id
-        try{
-        const product = await productSchema.findByIdAndDelete(_id)
-        res.send(product)
-        }catch(err)
-        {
+        try {
+            const product = await productSchema.findByIdAndDelete(_id)
+            res.send(product)
+        } catch (err) {
             throw new Error(err)
         }
     }

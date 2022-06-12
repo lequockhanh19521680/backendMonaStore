@@ -20,5 +20,5 @@ router.delete('/:id',userController.deleteUserFromId)
 router.post('/cart/:id',userController.addCart)
 router.delete('/cart/:id',userController.deleteCart)
 
-router.get('/customers', userController.getAllCustomers)
+router.get('/getall/customers', userController.getAllCustomers)
 module.exports = router
