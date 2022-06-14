@@ -24,6 +24,7 @@
     "react-datepicker": "^4.7.0",
     "react-day-picker": "^8.0.3",
     "react-dom": "^17.0.2",
+    "react-facebook-login": "^4.1.1",
     "react-feather": "^2.0.9",
     "react-icons": "^4.3.1",
     "react-multi-carousel": "^2.8.0",

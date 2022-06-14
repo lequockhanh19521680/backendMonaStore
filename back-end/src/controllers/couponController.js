@@ -54,6 +54,10 @@ class CouponController{
     
     */
     async addCoupon(req,res){
+        try{
+        if(!req.body.code){
+            res.send("Bạn cần nhập code")
+        }else{
         const coupons = await new couponSchema({
             name: req.body.name,
             value: req.body.value,
@@ -61,10 +65,12 @@ class CouponController{
             code: req.body.code,
             endDate:req.body.endDate,
         })
-        try {
+     
             const temp = await coupons.save()
             res.send(temp)
-        } catch (err) {
+            }
+        }
+        catch (err) {
             throw new Error(err)
         }
     }

@@ -188,19 +188,32 @@ class ProductController {
     }
 
     async addTypeProduct(req, res) {
+        const nameType1 = req.body.nameType
+        const note1 = req.body.note
+        try{
+        if(!nameType1){
+            res.send("Bạn cần nhập nameType")
+        }
+        else{
         const products = await new typeProductSchema({
-            nameType: req.body.nameType,
-            note: req.body.note
+            nameType: nameType1,
+            note: note1
         })
-        try {
             const temp = await products.save()
             res.send(temp)
+        }
         } catch (err) {
             throw new Error(err)
         }
     }
 
+
     async addProduct(req, res) {
+        try{
+        if(!req.body.typeId && !req.body.nameProduct){
+            res.send("Bạn cần nhập đầy đủ thông tin")
+        }
+        else{
         const products = await new productSchema({
             nameProduct: req.body.nameProduct,
             typeId: req.body.typeId,
@@ -212,9 +225,10 @@ class ProductController {
             size: req.body.size,
             status: req.body.status
         })
-        try {
+     
             const temp = await products.save()
             res.json(temp)
+        }
         } catch (err) {
             res.send('Error' + err)
         }
