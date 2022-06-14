@@ -37,7 +37,7 @@ export default function Table({ data, columnsTable, bgNone=false }) {
                         prepareRow(row)
                         return (
                             <tr {...row.getRowProps()}
-                                key={index}
+                                key={row?.original?._id || index}
                                 className="text-md text-left overflow-hidden"
                             >
                                 {
