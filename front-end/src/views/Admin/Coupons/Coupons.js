@@ -15,6 +15,7 @@ import { useUpdateQuery, useSearchData, useUpdateSearch } from '../../../store/s
 import { updateSearchData } from '../../../store/search/index'
 import { useNavigate } from 'react-router-dom'
 import Dropdown from '../../../components/Dropdown/Dropdown'
+import { showToastError, showToastSuccess } from '../../../components/CustomToast/CustomToast';
 
 export default function Coupons() {
 
@@ -57,8 +58,10 @@ export default function Coupons() {
         try {
             await couponApi.deleteCoupon(id)
             updateListCoupon()
+            showToastSuccess("Xoá mã giảm giá thành công")
         } catch (err) {
             console.log(err)
+            showToastError("Xóa mã giảm giá thất bại")
         }
     }
 

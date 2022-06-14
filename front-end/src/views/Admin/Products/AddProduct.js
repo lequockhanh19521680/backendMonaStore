@@ -14,6 +14,7 @@ export default function AdminAddProduct() {
   const [price, setPrice] = useState()
   const [sale, setSale] = useState()
   const [description, setDescription] = useState()
+  const [image, setImage] = useState()
   const [metal, setMetal] = useState()
   const [size, setSize] = useState()
   const [typeProductId, setTypeProductId] = useState()
@@ -26,6 +27,7 @@ export default function AdminAddProduct() {
     setDescription('')
     setMetal('')
     setSize('')
+    setImage('')
     setTypeProductId('')
   }
 
@@ -36,6 +38,7 @@ export default function AdminAddProduct() {
     try {
       await productApi.postProduct({
         nameProduct,
+        image,
         typeId: typeProductId,
         description,
         price,
@@ -61,7 +64,7 @@ export default function AdminAddProduct() {
           </div>
 
           <textarea
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setImage(e.target.value)}
             placeholder="Image Link"
             id="product-image"
             name="product-image"
